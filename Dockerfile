@@ -10,14 +10,15 @@ FROM node:20.11-alpine as builder
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
-
-# Устанавливаем pnpm также в builder
 RUN npm install -g pnpm && pnpm run build:production
 
 # Stage 3: Setup the production environment
 FROM node:20.11-alpine as runner
 WORKDIR /app
 ENV NODE_ENV production
+
+# Устанавливаем pnpm в финальном этапе
+RUN npm install -g pnpm
 
 # Если вы используете файл next.config.js, разкомментируйте следующую строку
 COPY --from=builder /app/next.config.mjs ./
