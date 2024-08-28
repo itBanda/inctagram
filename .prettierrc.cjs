@@ -1,5 +1,6 @@
 module.exports = {
   ...require("@it-incubator/prettier-config"),
-  jsxSingleQuote: true
+  jsxSingleQuote: true,
+  plugins: ["prettier-plugin-tailwindcss"]
   //override settings here
 };
