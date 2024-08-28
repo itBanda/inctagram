@@ -12,7 +12,9 @@ export default function Home() {
         <meta content='width=device-width, initial-scale=1' name='viewport' />
         <link href='/favicon.ico' rel='icon' />
       </Head>
-      <h1 className='bg-slate-500 p-4 text-center font-bold text-2xl'>Hello bandagram!</h1>
+      <h1 className='mx-10 bg-slate-500 p-4 px-4 text-center text-2xl font-bold'>
+        Hello bandagram!
+      </h1>
     </>
   )
 }
