@@ -1,4 +1,4 @@
-const { palette } = require('ui-kit')
+const { palette } = require('uikit-inctagram')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
