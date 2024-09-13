@@ -5,6 +5,7 @@ import { ReactElement, ReactNode } from 'react'
 import { NextPage } from 'next'
 
 import '@/styles/globals.css'
+import 'ui-kit/style.css'
 
 export type NextPageWithLayout<P = {}, IP = P> = {
   getLayout?: (page: ReactElement) => ReactNode
