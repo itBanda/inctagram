@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import Container from '@/components/ui/container/Container'
 import { getAuthLayout } from '@/components/ui/layouts/AuthLayout'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -39,31 +38,35 @@ const pageData: PageDataType = {
   },
 }
 
+const formatTextToHtml = (text: string) => text.replace(/\n+/g, '</p><p>')
+
 const PrivacyPage = () => {
   const router = useRouter()
   const { slug } = router.query
   const [data, setData] = useState<{ text: string; title: string }>({ text: '', title: '' })
 
   useEffect(() => {
-    const slugString = Array.isArray(slug) ? slug[0] : slug
+    const slugString = Array.isArray(slug) ? slug[0] : (slug ?? '')
 
-    if (slugString && slugString in pageData) {
-      setData(pageData[slugString as PageDataKey])
-    } else {
-      setData({ text: 'Content not available', title: 'Page Not Found' })
-    }
+    setData(
+      pageData[slugString as PageDataKey] || {
+        text: 'Content not available',
+        title: 'Page Not Found',
+      }
+    )
   }, [slug])
 
   return (
-    <div className='mt-[24px]'>
-      <Link className='text-white' href='/sign-up'>
-        ---- Back to Sign Up
+    <div className='mx-auto max-w-[1232px] px-4 py-6 text-center text-white sm:px-6 lg:px-8'>
+      <Link className='flex items-center gap-3 text-white' href='/sign-up'>
+        <span>---</span>
+        <span>Back to Sign Up</span>
       </Link>
-      <Container className='text-center text-white'>
-        <h1>{data.title}</h1>
-        <p>{data.text}</p>
-      </Container>
-      ;
+      <h1 className='py-6 text-xl font-bold'>{data.title}</h1>
+      <div
+        className='mx-auto max-w-[958px] text-sm leading-6'
+        dangerouslySetInnerHTML={{ __html: formatTextToHtml(data.text) }}
+      ></div>
     </div>
   )
 }
