@@ -4,12 +4,12 @@ import Link from 'next/link'
 
 export const RootLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className='min-h-screen bg-gray-800'>
-      <header className='flex items-center border-b border-gray-500 px-16 py-3'>
-        <Link className='text-2xl font-semibold text-white' href='/'>
+    <div className='bg-dark-700'>
+      <header className='flex items-center border-b border-gray-500 px-16 py-3 text-light-100'>
+        <Link className='text-2xl font-semibold' href='/'>
           Inctagram
         </Link>
-        <nav className='flex-1 text-xl text-gray-300'>
+        <nav className='flex-1 text-xl text-light-100'>
           <ul className='flex gap-3'>
             <li className='ml-auto'>
               <Link href='/profile'>Profile</Link>
@@ -23,7 +23,7 @@ export const RootLayout = ({ children }: PropsWithChildren) => {
           </ul>
         </nav>
       </header>
-      <main>{children}</main>
+      <main className='h-[calc(100dvh_-_61px)] overflow-y-auto'>{children}</main>
     </div>
   )
 }

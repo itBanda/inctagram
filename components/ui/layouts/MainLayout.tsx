@@ -4,12 +4,12 @@ import Link from 'next/link'
 
 export const MainLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className='min-h-screen bg-gray-800'>
-      <header className='flex flex-1 items-center border-b border-gray-500 px-16 py-3'>
-        <Link className='text-2xl font-semibold text-white' href='/'>
+    <div className='bg-dark-700'>
+      <header className='flex flex-1 items-center border-b border-gray-500 px-16 py-3 text-light-100'>
+        <Link className='text-2xl font-semibold' href='/'>
           Inctagram
         </Link>
-        <nav className='flex-1 text-xl text-gray-300'>
+        <nav className='flex-1 text-xl'>
           <ul className='flex gap-3'>
             <li className='ml-auto'>
               <Link href='/profile'>Profile</Link>
@@ -23,9 +23,9 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
           </ul>
         </nav>
       </header>
-      <div className='flex h-[calc(100vh_-_57px)]'>
-        <aside className='w-[220px] border-r border-gray-500'>
-          <nav className='text-center text-white'>
+      <div className='flex h-header'>
+        <aside className='w-[220px] overflow-auto border-r border-gray-500'>
+          <nav className='text-center text-light-100'>
             <ul>
               <li>
                 <Link href='#'>Home</Link>
@@ -43,7 +43,7 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
           </nav>
         </aside>
 
-        <main className='w-full'>{children}</main>
+        <main className='w-full overflow-auto'>{children}</main>
       </div>
     </div>
   )
