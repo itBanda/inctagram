@@ -6,6 +6,7 @@ import { Button, Input, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
 import { useLoginMutation } from '../../services/auth/authSlice'
+import { isApiError, isFetchBaseQueryError } from '../../services/helpers/typeguards'
 
 const SignInFormSchema = z.object({
   email: z.string().email(),
@@ -27,8 +28,18 @@ export const SignInForm = () => {
   const onSubmit: SubmitHandler<FormFields> = async values => {
     try {
       const response = await login(values).unwrap()
-    } catch (error: unknown) {
-      console.log(error)
+    } catch (err) {
+      if (isFetchBaseQueryError(err)) {
+        if (isApiError(err.data)) {
+          if (typeof err.data.messages === 'string') {
+            console.log(err.data.messages)
+          } else {
+            err.data.messages.forEach(message => {
+              console.log(`${message.field}: ${message.message}`)
+            })
+          }
+        }
+      }
     }
   }
 
