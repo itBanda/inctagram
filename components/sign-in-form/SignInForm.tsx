@@ -5,8 +5,7 @@ import Link from 'next/link'
 import { Button, Input, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
-import { useLoginMutation } from '../../services/auth/authSlice'
-import { isApiError, isFetchBaseQueryError } from '../../services/helpers/typeguards'
+import { authApi, isApiError, isFetchBaseQueryError } from '../../services/'
 
 const SignInFormSchema = z.object({
   email: z.string().email(),
@@ -16,7 +15,7 @@ const SignInFormSchema = z.object({
 type FormFields = z.infer<typeof SignInFormSchema>
 
 export const SignInForm = () => {
-  const [login, { error, isError, isLoading }] = useLoginMutation()
+  const [login, { error, isError, isLoading }] = authApi.useLoginMutation()
   const { formState, handleSubmit, register } = useForm<FormFields>({
     defaultValues: {
       email: '',
