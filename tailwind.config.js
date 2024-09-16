@@ -7,6 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors: palette,
+      height: {
+        header: 'calc(100dvh - 61px)',
+      },
     },
   },
 }
