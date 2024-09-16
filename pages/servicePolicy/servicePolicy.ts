@@ -1,10 +1,4 @@
-import { useEffect, useState } from 'react'
-
-import { getAuthLayout } from '@/components/ui/layouts/AuthLayout'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-
-type PageDataKey = 'privacy' | 'terms'
+export type PageDataKey = 'privacyPolicy' | 'termsOfService'
 
 type PageDataType = {
   [key in PageDataKey]: {
@@ -13,8 +7,8 @@ type PageDataType = {
   }
 }
 
-const pageData: PageDataType = {
-  privacy: {
+export const ServicePolicyData: PageDataType = {
+  privacyPolicy: {
     text:
       'Privacy Policy Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fames ac turpis egestas integer eget aliquet nibh. Amet consectetur adipiscing elit ut aliquam purus sit amet luctus. Tortor vitae purus faucibus ornare suspendisse sed nisi. Dolor sit amet consectetur adipiscing. Massa enim nec dui nunc mattis enim ut tellus. Scelerisque eleifend donec pretium vulputate sapien nec sagittis. Feugiat nisl pretium fusce id velit ut tortor pretium viverra. Tortor aliquam nulla facilisi cras. Elit pellentesque habitant morbi tristique senectus et netus. Nulla facilisi nullam vehicula ipsum a arcu cursus. Ut lectus arcu bibendum at varius vel pharetra. Etiam erat velit scelerisque in dictum non consectetur. Quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Id diam maecenas ultricies mi eget mauris pharetra. Tincidunt lobortis feugiat vivamus at augue. Non odio euismod lacinia at. Aliquet eget sit amet tellus. Auctor neque vitae tempus quam.\n' +
       'Tellus in hac habitasse platea dictumst vestibulum rhoncus est. Nisl pretium fusce id velit ut tortor pretium. Eget arcu dictum varius duis at consectetur. Est placerat in egestas erat imperdiet sed euismod nisi porta. Scelerisque felis imperdiet proin fermentum. Tellus in hac habitasse platea dictumst vestibulum rhoncus. Proin nibh nisl condimentum id venenatis a condimentum vitae. Massa tincidunt dui ut ornare lectus sit amet est placerat. Vel turpis nunc eget lorem dolor sed viverra ipsum. Enim ut tellus elementum sagittis. At consectetur lorem donec massa sapien faucibus et molestie. Enim sit amet venenatis urna cursus. Id velit ut tortor pretium viverra suspendisse potenti.\n' +
@@ -25,7 +19,7 @@ const pageData: PageDataType = {
       'Eu mi bibendum neque egestas congue quisque egestas diam in. Neque viverra justo nec ultrices dui sapien. Congue mauris rhoncus aenean vel elit. Vitae aliquet nec ullamcorper sit. Tempus imperdiet nulla malesuada pellentesque. Sed lectus vestibulum mattis ullamcorper velit. Commodo odio aenean sed adipiscing diam. Viverra nam libero justo laoreet. Id neque aliquam vestibulum morbi blandit cursus. Vel facilisis volutpat est velit egestas dui id ornare. Feugiat nibh sed pulvinar proin.',
     title: 'Privacy Policy',
   },
-  terms: {
+  termsOfService: {
     text:
       'Terms of Service Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fames ac turpis egestas integer eget aliquet nibh. Amet consectetur adipiscing elit ut aliquam purus sit amet luctus. Tortor vitae purus faucibus ornare suspendisse sed nisi. Dolor sit amet consectetur adipiscing. Massa enim nec dui nunc mattis enim ut tellus. Scelerisque eleifend donec pretium vulputate sapien nec sagittis. Feugiat nisl pretium fusce id velit ut tortor pretium viverra. Tortor aliquam nulla facilisi cras. Elit pellentesque habitant morbi tristique senectus et netus. Nulla facilisi nullam vehicula ipsum a arcu cursus. Ut lectus arcu bibendum at varius vel pharetra. Etiam erat velit scelerisque in dictum non consectetur. Quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus. Id diam maecenas ultricies mi eget mauris pharetra. Tincidunt lobortis feugiat vivamus at augue. Non odio euismod lacinia at. Aliquet eget sit amet tellus. Auctor neque vitae tempus quam.\n' +
       'Tellus in hac habitasse platea dictumst vestibulum rhoncus est. Nisl pretium fusce id velit ut tortor pretium. Eget arcu dictum varius duis at consectetur. Est placerat in egestas erat imperdiet sed euismod nisi porta. Scelerisque felis imperdiet proin fermentum. Tellus in hac habitasse platea dictumst vestibulum rhoncus. Proin nibh nisl condimentum id venenatis a condimentum vitae. Massa tincidunt dui ut ornare lectus sit amet est placerat. Vel turpis nunc eget lorem dolor sed viverra ipsum. Enim ut tellus elementum sagittis. At consectetur lorem donec massa sapien faucibus et molestie. Enim sit amet venenatis urna cursus. Id velit ut tortor pretium viverra suspendisse potenti.\n' +
@@ -37,39 +31,3 @@ const pageData: PageDataType = {
     title: 'Terms of Service',
   },
 }
-
-const formatTextToHtml = (text: string) => text.replace(/\n+/g, '</p><p>')
-
-const PrivacyPage = () => {
-  const router = useRouter()
-  const { slug } = router.query
-  const [data, setData] = useState<{ text: string; title: string }>({ text: '', title: '' })
-
-  useEffect(() => {
-    const slugString = Array.isArray(slug) ? slug[0] : (slug ?? '')
-
-    setData(
-      pageData[slugString as PageDataKey] || {
-        text: 'Content not available',
-        title: 'Page Not Found',
-      }
-    )
-  }, [slug])
-
-  return (
-    <div className='mx-auto max-w-[1232px] px-4 py-6 text-center text-white sm:px-6 lg:px-8'>
-      <Link className='flex items-center gap-3 text-white' href='/sign-up'>
-        <span>---</span>
-        <span>Back to Sign Up</span>
-      </Link>
-      <h1 className='py-6 text-xl font-bold'>{data.title}</h1>
-      <div
-        className='mx-auto max-w-[958px] text-sm leading-6'
-        dangerouslySetInnerHTML={{ __html: formatTextToHtml(data.text) }}
-      ></div>
-    </div>
-  )
-}
-
-export default PrivacyPage
-PrivacyPage.getLayout = getAuthLayout
