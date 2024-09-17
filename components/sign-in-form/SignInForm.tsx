@@ -2,10 +2,13 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Button, Input, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
+import { authActions } from '../../features'
 import { authApi, isApiError, isFetchBaseQueryError } from '../../services/'
+import { useAppDispatch } from '../../store'
 
 const SignInFormSchema = z.object({
   email: z.string().email(),
@@ -16,7 +19,9 @@ type FormFields = z.infer<typeof SignInFormSchema>
 
 export const SignInForm = () => {
   const [login, { error, isError, isLoading }] = authApi.useLoginMutation()
-  const { formState, handleSubmit, register } = useForm<FormFields>({
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+  const { formState, handleSubmit, register, setError } = useForm<FormFields>({
     defaultValues: {
       email: '',
       password: '',
@@ -24,14 +29,21 @@ export const SignInForm = () => {
     mode: 'onBlur',
     resolver: zodResolver(SignInFormSchema),
   })
+
   const onSubmit: SubmitHandler<FormFields> = async values => {
     try {
       const response = await login(values).unwrap()
+
+      dispatch(authActions.setToken({ accessToken: response.accessToken }))
+      router.push('/profile')
     } catch (err) {
       if (isFetchBaseQueryError(err)) {
         if (isApiError(err.data)) {
           if (typeof err.data.messages === 'string') {
             console.log(err.data.messages)
+            setError('password', {
+              message: 'The email or password are incorrect. Try again please',
+            })
           } else {
             err.data.messages.forEach(message => {
               console.log(`${message.field}: ${message.message}`)
@@ -64,7 +76,7 @@ export const SignInForm = () => {
           Forgot Password
         </Link>
       </Typography.TextSm>
-      <Button className='w-full' disabled={isLoading || !formState.isValid}>
+      <Button className='w-full' disabled={isLoading}>
         Sign In
       </Button>
     </form>
