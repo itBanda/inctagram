@@ -1,15 +1,20 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
-import { Action, ThunkAction, combineSlices, configureStore } from '@reduxjs/toolkit'
+import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
 
-import { authApi } from './auth/authSlice'
+import authReducer from '../features/auth'
+import { authApi } from '../services'
 
 const makeStore = () =>
   configureStore({
     devTools: true,
     middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authApi.middleware),
-    reducer: combineSlices(authApi),
+    // reducer: combineSlices(authApi),
+    reducer: {
+      auth: authReducer,
+      [authApi.reducerPath]: authApi.reducer,
+    },
   })
 
 export type AppStore = ReturnType<typeof makeStore>
