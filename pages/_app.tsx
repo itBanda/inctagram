@@ -8,7 +8,7 @@ import { NextPage } from 'next'
 import '@/styles/globals.css'
 import 'uikit-inctagram/style.css'
 
-import { wrapper } from '../services'
+import { wrapper } from '../store'
 
 export type NextPageWithLayout<P = {}, IP = P> = {
   getLayout?: (page: ReactElement) => ReactNode
