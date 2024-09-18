@@ -1,17 +1,20 @@
-import { ComponentType, useLayoutEffect } from 'react'
+import { useLayoutEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
+import { NextPageWithLayout } from '../pages/_app'
 import { useAppSelector } from '../store'
 
-const withAuth = <T extends object>(WrappedComponent: ComponentType<T>) => {
-  return function WithAuthComponent(props: T) {
+const withAuth = <T extends object>(WrappedComponent: NextPageWithLayout<T>) => {
+  const WithAuthComponent: NextPageWithLayout<T> = (props: T) => {
     const router = useRouter()
     const accessToken = useAppSelector(state => state.auth.accessToken)
 
     useLayoutEffect(() => {
       if (!accessToken) {
-        router.push('/sign-in')
+        if (typeof window !== 'undefined') {
+          router.push('/sign-in')
+        }
       }
     }, [accessToken, router])
 
@@ -21,6 +24,10 @@ const withAuth = <T extends object>(WrappedComponent: ComponentType<T>) => {
 
     return <WrappedComponent {...props} />
   }
+
+  WithAuthComponent.getLayout = WrappedComponent.getLayout
+
+  return WithAuthComponent
 }
 
 export default withAuth

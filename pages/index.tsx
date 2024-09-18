@@ -24,5 +24,4 @@ const HomeWithAuth = withAuth(Home)
 
 export default HomeWithAuth
 
-// @ts-ignore
 HomeWithAuth.getLayout = getAuthLayout
