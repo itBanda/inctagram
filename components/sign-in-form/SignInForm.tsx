@@ -34,7 +34,7 @@ export const SignInForm = () => {
     try {
       const response = await login(values).unwrap()
 
-      dispatch(authActions.setToken({ accessToken: response.accessToken }))
+      dispatch(authActions.login({ accessToken: response.accessToken }))
       router.push('/profile')
     } catch (err) {
       if (isFetchBaseQueryError(err)) {

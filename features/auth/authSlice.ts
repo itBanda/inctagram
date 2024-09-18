@@ -1,18 +1,20 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const authSlice = createSlice({
-  initialState: { accessToken: null as null | string },
+  initialState: { accessToken: null as null | string, isLoggedIn: false },
   name: 'auth',
   reducers: {
-    clearToken(state) {
-      state.accessToken = null
-    },
-    setToken(state, action: PayloadAction<{ accessToken: string }>) {
+    login(state, action: PayloadAction<{ accessToken: string }>) {
       state.accessToken = action.payload.accessToken
+      state.isLoggedIn = true
+    },
+    logout(state) {
+      state.accessToken = null
+      state.isLoggedIn = false
     },
   },
   selectors: {
-    selectAccessToken: state => state.accessToken,
+    selectIsLoggedIn: state => state.isLoggedIn,
   },
 })
 
