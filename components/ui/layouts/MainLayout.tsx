@@ -7,7 +7,7 @@ import { HeaderMenu } from '../../header-menu/HeaderMenu'
 
 export const MainLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className='min-h-screen bg-gray-800'>
+    <div className='min-h-screen bg-dark-700'>
       <Header
         className='text-light-100'
         logo={
@@ -18,9 +18,9 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
       >
         <HeaderMenu />
       </Header>
-      <div className='flex h-[calc(100vh_-_57px)]'>
-        <aside className='w-[220px] border-r border-gray-500'>
-          <nav className='text-center text-white'>
+      <div className='flex h-header'>
+        <aside className='w-[220px] overflow-auto border-r border-gray-500'>
+          <nav className='text-center text-light-100'>
             <ul>
               <li>
                 <Link href='#'>Home</Link>
@@ -38,7 +38,7 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
           </nav>
         </aside>
 
-        <main className='w-full'>{children}</main>
+        <main className='w-full overflow-auto'>{children}</main>
       </div>
     </div>
   )
