@@ -1,6 +1,6 @@
 import { AuthMessage } from '@/components/auth-message/AuthMessage'
-import congratulationsImg from '@/components/auth-message/assets/congratulations.svg'
 import { getAuthLayout } from '@/components/ui/layouts/AuthLayout'
+import congratulationsImg from '@/public/auth-img/congratulations.svg'
 
 const AuthEmailConfirmed = () => {
   return (
