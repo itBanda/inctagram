@@ -7,7 +7,7 @@ import { HeaderMenu } from '../../header-menu/HeaderMenu'
 
 export const AuthLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className='min-h-screen bg-dark-700'>
+    <div className='min-h-dvh bg-dark-700'>
       <Header
         className='text-light-100'
         logo={
