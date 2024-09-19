@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       colors: palette,
       height: {
-        header: 'calc(100dvh - 61px)',
+        header: 'calc(100dvh - 60px)',
       },
     },
   },

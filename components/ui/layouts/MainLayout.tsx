@@ -1,30 +1,25 @@
 import { PropsWithChildren, ReactElement } from 'react'
 
 import Link from 'next/link'
+import { Header, Typography } from 'uikit-inctagram'
+
+import { HeaderMenu } from '../../header-menu/HeaderMenu'
 
 export const MainLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className='bg-dark-700'>
-      <header className='flex flex-1 items-center border-b border-gray-500 px-16 py-3 text-light-100'>
-        <Link className='text-2xl font-semibold' href='/'>
-          Inctagram
-        </Link>
-        <nav className='flex-1 text-xl'>
-          <ul className='flex gap-3'>
-            <li className='ml-auto'>
-              <Link href='/profile'>Profile</Link>
-            </li>
-            <li className='ml-auto'>
-              <Link href='/sign-up'>Sign up</Link>
-            </li>
-            <li>
-              <Link href='/sign-in'>Sign in</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+    <div className='min-h-dvh bg-dark-700'>
+      <Header
+        className='text-light-100'
+        logo={
+          <Typography.TextSemiboldXl className='text-light-100'>
+            <Link href='/'>Inctagram</Link>
+          </Typography.TextSemiboldXl>
+        }
+      >
+        <HeaderMenu />
+      </Header>
       <div className='flex h-header'>
-        <aside className='w-[220px] overflow-auto border-r border-gray-500'>
+        <aside className='w-[220px] overflow-y-auto border-r border-dark-300'>
           <nav className='text-center text-light-100'>
             <ul>
               <li>
@@ -37,7 +32,7 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
                 <Link href='#'>My Profile</Link>
               </li>
               <li>
-                <Link href='#'>Mesenger</Link>
+                <Link href='#'>Messenger</Link>
               </li>
             </ul>
           </nav>
