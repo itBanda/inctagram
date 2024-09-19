@@ -68,28 +68,17 @@ const SignUp = () => {
               type='text'
               {...register('username')}
               className='text-light-900'
-              errorMessage={errors.username?.message}
             />
             {errors.username && <p className='text-red-500'>{errors.username.message}</p>}
           </div>
 
           <div className='mb-4'>
-            <Input
-              label='Email'
-              type='email'
-              {...register('email')}
-              className='text-light-900'
-              errorMessage={errors.email?.message}
-            />
+            <Input label='Email' type='email' {...register('email')} className='text-light-900' />
             {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
           </div>
 
           <div className='relative mb-4'>
-            <PasswordInput
-              {...register('password')}
-              className='text-light-900'
-              errorMessage={errors.password?.message}
-            />
+            <PasswordInput {...register('password')} className='text-light-900' />
             {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
           </div>
 
@@ -104,7 +93,7 @@ const SignUp = () => {
             )}
           </div>
 
-          <div className='mb-4 flex items-center'>
+          <div className='flex items-center'>
             <label className='flex items-center'>
               <Checkbox {...register('terms')} />
               <p className='text-light-500'>
@@ -114,9 +103,9 @@ const SignUp = () => {
                   Privacy Policy
                 </Typography.LinkBase>
               </p>
-              {errors.terms && <p className='text-red-500'>{errors.terms.message}</p>}
             </label>
           </div>
+          {errors.terms && <p className='mb-4 ml-3 text-red-500'>{errors.terms.message}</p>}
 
           <button className='w-full rounded bg-blue-500 py-2 text-white' type='submit'>
             Sign Up
