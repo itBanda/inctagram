@@ -1,9 +1,12 @@
 import { getMainLayout } from '../../components/ui/layouts/MainLayout'
+import withAuth from '../../hocs/withAuth'
 
 const Profile = () => {
   return <div className='text-center text-white'>Profile</div>
 }
 
-export default Profile
+const ProfileWithAuth = withAuth(Profile)
 
-Profile.getLayout = getMainLayout
+export default ProfileWithAuth
+
+ProfileWithAuth.getLayout = getMainLayout
