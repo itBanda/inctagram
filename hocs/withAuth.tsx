@@ -2,23 +2,24 @@ import { useLayoutEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
+import { authSelectors } from '../features'
 import { NextPageWithLayout } from '../pages/_app'
 import { useAppSelector } from '../store'
 
 const withAuth = <T extends object>(WrappedComponent: NextPageWithLayout<T>) => {
   const WithAuthComponent: NextPageWithLayout<T> = (props: T) => {
     const router = useRouter()
-    const accessToken = useAppSelector(state => state.auth.accessToken)
+    const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
 
     useLayoutEffect(() => {
-      if (!accessToken) {
+      if (!isLoggedIn) {
         if (typeof window !== 'undefined') {
           router.push('/sign-in')
         }
       }
-    }, [accessToken, router])
+    }, [isLoggedIn, router])
 
-    if (!accessToken) {
+    if (!isLoggedIn) {
       return null
     }
 
