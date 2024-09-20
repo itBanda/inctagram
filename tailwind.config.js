@@ -1,5 +1,7 @@
+const { palette } = require('uikit-inctagram')
+
 /** @type {import('tailwindcss').Config} */
-const { Typography, palette } = require('ui-kit')
+// const { palette } = require('uikit-inctagram')
 
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx,mdx}'],
@@ -7,7 +9,9 @@ module.exports = {
   theme: {
     extend: {
       colors: palette,
-      typography: Typography,
+      height: {
+        header: 'calc(100dvh - 60px)',
+      },
     },
   },
 }

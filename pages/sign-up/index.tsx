@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import { getAuthLayout } from '@/components/ui/layouts/AuthLayout'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Card, Checkbox, Icon, Input, PasswordInput, Typography } from 'ui-kit'
+import { Card, Checkbox, Icon, Input, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
 type SignUpFormData = {
