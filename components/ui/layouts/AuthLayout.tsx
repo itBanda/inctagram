@@ -18,7 +18,7 @@ export const AuthLayout = ({ children }: PropsWithChildren) => {
       >
         <HeaderMenu />
       </Header>
-      <main className='h-header overflow-y-auto'>{children}</main>
+      <main className='custom-scrollbar h-header overflow-y-auto scrollbar-thin'>{children}</main>
     </div>
   )
 }
