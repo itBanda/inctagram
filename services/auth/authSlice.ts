@@ -1,7 +1,7 @@
 import { BaseQueryApi, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { AppState } from '../../store'
-import { SignInRequest, SignInResponse } from './types'
+import { SignInRequest, SignInResponse, SignUpRequest } from './types'
 
 const authHeaders = (headers: Headers, { getState }: Pick<BaseQueryApi, 'getState'>) => {
   const accessToken = (getState() as AppState).auth.accessToken
@@ -21,6 +21,9 @@ export const authApi = createApi({
   endpoints: builder => ({
     login: builder.mutation<SignInResponse, SignInRequest>({
       query: body => ({ body, method: 'POST', url: 'auth/login' }),
+    }),
+    signUp: builder.mutation<SignUpRequest>({
+      query: body => ({ body, method: 'POST', url: 'auth/registration' }),
     }),
   }),
   reducerPath: 'api/auth',

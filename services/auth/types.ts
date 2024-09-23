@@ -6,3 +6,9 @@ export type SignInRequest = {
 export type SignInResponse = {
   accessToken: string
 }
+
+export type SignUpRequest = {
+  email: string
+  password: string
+  userName: string
+}
