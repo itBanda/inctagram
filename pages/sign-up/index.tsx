@@ -129,17 +129,14 @@ const SignUp = () => {
           <div className='flex items-center'>
             <label className='flex items-center'>
               <Checkbox {...register('terms')} />
-              <Typography.TextSm className='text-light-500'>
+              <Typography.TextXs className='text-light-500'>
                 I agree to the{' '}
-                <Typography.LinkBase href='/terms-of-service'>
-                  {' '}
-                  Terms of Service
-                </Typography.LinkBase>{' '}
+                <Typography.LinkSm href='/terms-of-service'> Terms of Service</Typography.LinkSm>{' '}
                 and{' '}
-                <Typography.LinkBase className='text-accent-500 underline' href='/privacy-policy'>
+                <Typography.LinkSm className='text-accent-500 underline' href='/privacy-policy'>
                   Privacy Policy
-                </Typography.LinkBase>
-              </Typography.TextSm>
+                </Typography.LinkSm>
+              </Typography.TextXs>
             </label>
           </div>
           {errors.terms && <p className='mb-4 ml-3 text-red-500'>{errors.terms.message}</p>}
