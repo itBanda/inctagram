@@ -1,26 +1,26 @@
-import { useLayoutEffect } from 'react'
+import { useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { authSelectors } from '../features'
+import { Spinner } from '../components/ui/loading-wrapper/Spinner'
+import { appSelectors, authSelectors } from '../features'
 import { NextPageWithLayout } from '../pages/_app'
 import { useAppSelector } from '../store'
 
 const withAuth = <T extends object>(WrappedComponent: NextPageWithLayout<T>) => {
   const WithAuthComponent: NextPageWithLayout<T> = (props: T) => {
     const router = useRouter()
+    const isAppLoading = useAppSelector(appSelectors.selectIsAppLoading)
     const isLoggedIn = useAppSelector(authSelectors.selectIsLoggedIn)
 
-    useLayoutEffect(() => {
+    useEffect(() => {
       if (!isLoggedIn) {
-        if (typeof window !== 'undefined') {
-          router.push('/sign-in')
-        }
+        router.push('/sign-in')
       }
     }, [isLoggedIn, router])
 
-    if (!isLoggedIn) {
-      return null
+    if (isAppLoading) {
+      return <Spinner />
     }
 
     return <WrappedComponent {...props} />

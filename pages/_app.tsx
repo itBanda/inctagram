@@ -8,6 +8,7 @@ import { NextPage } from 'next'
 import '@/styles/globals.css'
 import 'uikit-inctagram/style.css'
 
+import { LoadingWrapper } from '../components/ui/loading-wrapper/LoadingWrapper'
 import { wrapper } from '../store'
 
 export type NextPageWithLayout<P = {}, IP = P> = {
@@ -24,5 +25,9 @@ export default function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? (page => page)
 
-  return <Provider store={store}>{getLayout(<Component {...props.pageProps} />)}</Provider>
+  return (
+    <Provider store={store}>
+      <LoadingWrapper>{getLayout(<Component {...props.pageProps} />)}</LoadingWrapper>
+    </Provider>
+  )
 }
