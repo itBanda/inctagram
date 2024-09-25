@@ -1,8 +1,8 @@
+import { getMainLayout } from '@/components/ui/layouts/MainLayout'
+import withAuth from '@/hocs/withAuth'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
-
-import { getAuthLayout } from '../components/ui/layouts/AuthLayout'
-import withAuth from '../hocs/withAuth'
+import { Typography } from 'uikit-inctagram'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,7 +15,9 @@ function Home() {
         <meta content='width=device-width, initial-scale=1' name='viewport' />
         <link href='/favicon.ico' rel='icon' />
       </Head>
-      <h1 className='bg-slate-500 p-4 px-4 text-center text-2xl font-bold'>Hello bandagram!</h1>
+      <Typography.TextSemiboldXl className='text-center text-light-100'>
+        Bandagram
+      </Typography.TextSemiboldXl>
     </>
   )
 }
@@ -24,4 +26,4 @@ const HomeWithAuth = withAuth(Home)
 
 export default HomeWithAuth
 
-HomeWithAuth.getLayout = getAuthLayout
+HomeWithAuth.getLayout = getMainLayout

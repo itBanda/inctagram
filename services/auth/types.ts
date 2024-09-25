@@ -6,3 +6,5 @@ export type SignInRequest = {
 export type SignInResponse = {
   accessToken: string
 }
+
+export type UpdateTokensResponse = SignInResponse
