@@ -3,13 +3,11 @@ import type { AppProps } from 'next/app'
 import { ReactElement, ReactNode } from 'react'
 import { Provider } from 'react-redux'
 
+import { wrapper } from '@/store'
 import { NextPage } from 'next'
 
 import '@/styles/globals.css'
 import 'uikit-inctagram/style.css'
-
-import { LoadingWrapper } from '../components/ui/loading-wrapper/LoadingWrapper'
-import { wrapper } from '../store'
 
 export type NextPageWithLayout<P = {}, IP = P> = {
   getLayout?: (page: ReactElement) => ReactNode
@@ -25,9 +23,5 @@ export default function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? (page => page)
 
-  return (
-    <Provider store={store}>
-      <LoadingWrapper>{getLayout(<Component {...props.pageProps} />)}</LoadingWrapper>
-    </Provider>
-  )
+  return <Provider store={store}>{getLayout(<Component {...props.pageProps} />)}</Provider>
 }

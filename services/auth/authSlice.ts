@@ -1,26 +1,19 @@
-import { BaseQueryApi, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { AppState } from '../../store'
-import { SignInRequest, SignInResponse } from './types'
-
-const authHeaders = (headers: Headers, { getState }: Pick<BaseQueryApi, 'getState'>) => {
-  const accessToken = (getState() as AppState).auth.accessToken
-
-  if (accessToken) {
-    headers.set('Authorization', `Bearer ${accessToken}`)
-  }
-}
-
-const baseQuery = () => fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_URL })
+import { baseQueryWithReauth } from './baseQuery'
+import { SignInRequest, SignInResponse, UpdateTokensResponse } from './types'
 
 export const authApi = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL,
-    prepareHeaders: authHeaders,
-  }),
+  baseQuery: baseQueryWithReauth,
   endpoints: builder => ({
+    authMe: builder.query<any, void>({
+      query: () => ({ url: 'auth/me' }),
+    }),
     login: builder.mutation<SignInResponse, SignInRequest>({
       query: body => ({ body, method: 'POST', url: 'auth/login' }),
+    }),
+    updateTokens: builder.mutation<UpdateTokensResponse, void>({
+      query: () => ({ method: 'POST', url: 'auth/update-tokens' }),
     }),
   }),
   reducerPath: 'api/auth',
