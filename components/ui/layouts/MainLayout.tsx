@@ -1,9 +1,8 @@
 import { PropsWithChildren, ReactElement } from 'react'
 
+import { MainHeaderMenu } from '@/components/header-menu'
 import Link from 'next/link'
 import { Header, Typography } from 'uikit-inctagram'
-
-import { HeaderMenu } from '../../header-menu/HeaderMenu'
 
 export const MainLayout = ({ children }: PropsWithChildren) => {
   return (
@@ -12,11 +11,11 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
         className='text-light-100'
         logo={
           <Typography.TextSemiboldXl className='text-light-100'>
-            <Link href='/profile'>Inctagram</Link>
+            <Link href='/'>Inctagram</Link>
           </Typography.TextSemiboldXl>
         }
       >
-        <HeaderMenu />
+        <MainHeaderMenu />
       </Header>
       <div className='flex h-header'>
         <aside className='custom-scrollbar w-[220px] overflow-y-auto border-r border-dark-300 scrollbar-thin'>

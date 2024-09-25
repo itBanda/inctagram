@@ -1,1 +1,2 @@
-export { HeaderMenu } from './HeaderMenu'
+export { AuthHeaderMenu } from './AuthHeaderMenu'
+export { MainHeaderMenu } from './MainHeaderMenu'
