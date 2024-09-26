@@ -5,6 +5,7 @@ export default function Document() {
     <Html className='scrollbar-none' lang='en'>
       <Head />
       <body>
+        <div id='modal-container'></div>
         <Main />
         <NextScript />
       </body>

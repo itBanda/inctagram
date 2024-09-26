@@ -2,6 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 
 import { baseQueryWithReauth } from './baseQuery'
 import {
+  AuthMeResponse,
   ConfirmRegistrationRequest,
   ResendConfirmationCodeRequest,
   SignInRequest,
@@ -12,7 +13,7 @@ import {
 export const authApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: builder => ({
-    authMe: builder.query<any, void>({
+    authMe: builder.query<AuthMeResponse, void>({
       query: () => ({ url: 'auth/me' }),
     }),
     confirmRegistration: builder.mutation<{}, ConfirmRegistrationRequest>({
