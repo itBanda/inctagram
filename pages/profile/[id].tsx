@@ -1,11 +1,16 @@
 import { getMainLayout } from '@/components/ui/layouts/MainLayout'
 import withAuth from '@/hocs/withAuth'
-import { useRouter } from 'next/router'
+import { authApi } from '@/services'
 
 const Profile = () => {
-  const router = useRouter()
+  const { data } = authApi.useAuthMeQuery()
 
-  return <div className='text-center text-white'>Profile {router.query.id}</div>
+  return (
+    <div className='text-center text-white'>
+      <h2>Username: {data?.userName}</h2>
+      <h2>Email: {data?.email}</h2>
+    </div>
+  )
 }
 
 const ProfileWithAuth = withAuth(Profile)
