@@ -12,3 +12,8 @@ export type UpdateTokensResponse = SignInResponse
 export type ConfirmRegistrationRequest = {
   confirmationCode: string
 }
+
+export type ResendConfirmationCodeRequest = {
+  baseUrl: string
+  email: string
+}
