@@ -7,7 +7,9 @@ import emailVerificationImg from '@/public/auth-img/emailVerification.svg'
 import { authApi } from '@/services'
 import { useAppSelector } from '@/store'
 import { appSelectors } from '@/store/appSlice'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { Button } from 'uikit-inctagram'
 
 const RegistrationConfirmation = () => {
   const [confirmRegistration, { isError, isLoading }] = authApi.useConfirmRegistrationMutation()
@@ -28,8 +30,7 @@ const RegistrationConfirmation = () => {
   if (isError) {
     return (
       <AuthMessage
-        buttonText='Resend verification link'
-        href='/sign-up'
+        action={<Button className='mb-[72px] mt-14 min-w-44'>Resend verification link</Button>}
         imageSrc={emailVerificationImg}
         message='Looks like the verification link has expired. Not to worry, we can send the link again'
         title='Email verification link expired'
@@ -40,8 +41,11 @@ const RegistrationConfirmation = () => {
   return (
     <>
       <AuthMessage
-        buttonText='Sign In'
-        href='/sign-in'
+        action={
+          <Button asChild className='mb-[72px] mt-14 min-w-44'>
+            <Link href='/sign-in'>Sign In</Link>
+          </Button>
+        }
         imageSrc={congratulationsImg}
         message='Your email has been confirmed'
         title='Congratulations'
