@@ -8,3 +8,7 @@ export type SignInResponse = {
 }
 
 export type UpdateTokensResponse = SignInResponse
+
+export type ConfirmRegistrationRequest = {
+  confirmationCode: string
+}
