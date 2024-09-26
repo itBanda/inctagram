@@ -1,4 +1,4 @@
-import { getMainLayout } from '@/components/ui/layouts/MainLayout'
+import { getMainLayout } from '@/components'
 import withAuth from '@/hocs/withAuth'
 import { useRouter } from 'next/router'
 
