@@ -1,4 +1,4 @@
-import { getAuthLayout } from '../../components/ui/layouts/AuthLayout'
+import { getAuthLayout } from '@/components'
 
 const SignUp = () => {
   return <div className='text-center text-white'>SignUp</div>

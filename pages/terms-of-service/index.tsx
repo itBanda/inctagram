@@ -1,4 +1,4 @@
-import { getAuthLayout } from '@/components/ui/layouts/AuthLayout'
+import { getAuthLayout } from '@/components'
 import Link from 'next/link'
 import { Icon } from 'uikit-inctagram'
 
