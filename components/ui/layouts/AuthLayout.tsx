@@ -1,9 +1,8 @@
 import { PropsWithChildren, ReactElement } from 'react'
 
+import { AuthHeaderMenu } from '@/components/header-menu'
 import Link from 'next/link'
 import { Header, Typography } from 'uikit-inctagram'
-
-import { HeaderMenu } from '../../header-menu/HeaderMenu'
 
 export const AuthLayout = ({ children }: PropsWithChildren) => {
   return (
@@ -12,13 +11,13 @@ export const AuthLayout = ({ children }: PropsWithChildren) => {
         className='text-light-100'
         logo={
           <Typography.TextSemiboldXl className='text-light-100'>
-            <Link href='/'>Inctagram</Link>
+            <Link href='/sign-in'>Inctagram</Link>
           </Typography.TextSemiboldXl>
         }
       >
-        <HeaderMenu />
+        <AuthHeaderMenu />
       </Header>
-      <main className='h-header overflow-y-auto'>{children}</main>
+      <main className='custom-scrollbar h-header overflow-y-auto scrollbar-thin'>{children}</main>
     </div>
   )
 }

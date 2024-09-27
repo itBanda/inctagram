@@ -8,13 +8,13 @@ import Link from 'next/link'
 import { Button, Card, Checkbox, Icon, Input, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
-type SignUpFormData = {
-  email: string
-  password: string
-  passwordConfirmation: string
-  terms: boolean
-  userName: string
-}
+// type SignUpFormData = {
+//   email: string
+//   password: string
+//   passwordConfirmation: string
+//   terms: boolean
+//   userName: string
+// }
 
 const SignUpScheme = z
   .object({
@@ -52,13 +52,13 @@ const SignUp = () => {
     formState: { errors, isDirty, isValid },
     handleSubmit,
     register,
-  } = useForm<SignUpFormData>({
+  } = useForm<FormFields>({
     defaultValues: {
       email: '',
       password: '',
       passwordConfirmation: '',
-      terms: false,
-      username: '',
+      terms: undefined,
+      userName: '',
     },
     mode: 'onBlur',
     resolver: zodResolver(SignUpScheme),
@@ -156,7 +156,7 @@ const SignUp = () => {
             <Typography.TextBase className='text-white'>
               Do you have an account?
             </Typography.TextBase>
-            <Button disabled={isLoading} variant='text'>
+            <Button variant='text'>
               <Link href='/sign-in'>Sign In</Link>
             </Button>
           </div>

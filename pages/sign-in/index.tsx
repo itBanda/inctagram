@@ -1,8 +1,6 @@
+import { SignInForm, getAuthLayout } from '@/components'
 import Link from 'next/link'
 import { Button, Card, Icon, Typography } from 'uikit-inctagram'
-
-import { SignInForm } from '../../components'
-import { getAuthLayout } from '../../components/ui/layouts/AuthLayout'
 
 const SignIn = () => {
   return (
