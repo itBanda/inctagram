@@ -22,7 +22,7 @@ const withAuth = <T extends object>(WrappedComponent: NextPageWithLayout<T>) => 
       }
     }, [isLoggedIn, router, isAuthMeLoading])
 
-    if (isAuthMeLoading) {
+    if (isAuthMeLoading || !isLoggedIn) {
       return <Spinner />
     }
 

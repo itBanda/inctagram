@@ -1,12 +1,10 @@
-import { useLayoutEffect } from 'react'
+import { useEffect } from 'react'
 
 import { Spinner, getAuthLayout } from '@/components'
 import { AuthMessage } from '@/components/auth-message/AuthMessage'
 import congratulationsImg from '@/public/auth-img/congratulations.svg'
 import emailVerificationImg from '@/public/auth-img/emailVerification.svg'
 import { authApi } from '@/services'
-import { useAppSelector } from '@/store'
-import { appSelectors } from '@/store/appSlice'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Button } from 'uikit-inctagram'
@@ -14,9 +12,9 @@ import { Button } from 'uikit-inctagram'
 const RegistrationConfirmation = () => {
   const [confirmRegistration, { isError, isLoading: isConfirmRegistrationLoading }] =
     authApi.useConfirmRegistrationMutation()
-  const [resendCode, { error: resendCodeError, isLoading: isResendCodeLoading }] =
+  const [resendCode, { isLoading: isResendCodeLoading }] =
     authApi.useResendConfirmationCodeMutation()
-  const isAppInitialized = useAppSelector(appSelectors.selectIsAppInitialized)
+
   const router = useRouter()
   const confirmationCode = router.query.code as string
   const email = router.query.email as string
@@ -27,13 +25,13 @@ const RegistrationConfirmation = () => {
     resendCode({ baseUrl, email })
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (confirmationCode) {
       confirmRegistration({ confirmationCode })
     }
   }, [confirmRegistration, confirmationCode])
 
-  if (isConfirmRegistrationLoading || !isAppInitialized) {
+  if (isConfirmRegistrationLoading || !confirmationCode) {
     return <Spinner />
   }
 
