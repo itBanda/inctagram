@@ -10,11 +10,19 @@ export const MainHeaderMenu = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const dispatch = useAppDispatch()
   const { data } = authApi.useAuthMeQuery()
+  const [logout, { isLoading: isLogoutLoading }] = authApi.useLogoutMutation()
 
   const handleOpenModal = () => setIsModalOpen(true)
   const handleCloseModal = () => setIsModalOpen(false)
   const handleLogout = () => {
-    dispatch(authActions.logout())
+    logout()
+      .unwrap()
+      .then(() => {
+        dispatch(authActions.logout())
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   return (
@@ -25,6 +33,7 @@ export const MainHeaderMenu = () => {
             Are you really want to log out of your account {data?.email}?
           </Typography.TextBase>
         }
+        isLoading={isLogoutLoading}
         isOpened={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleLogout}
