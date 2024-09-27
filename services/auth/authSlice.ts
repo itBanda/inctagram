@@ -26,7 +26,7 @@ export const authApi = createApi({
     resendConfirmationCode: builder.mutation<{}, ResendConfirmationCodeRequest>({
       query: body => ({ body, method: 'POST', url: 'auth/registration-email-resending' }),
     }),
-    signUp: builder.mutation<SignUpRequest, void>({
+    signUp: builder.mutation<{}, SignUpRequest>({
       query: body => ({ body, method: 'POST', url: 'auth/registration' }),
     }),
     updateTokens: builder.mutation<UpdateTokensResponse, void>({
