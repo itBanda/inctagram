@@ -23,6 +23,7 @@ const SignUpScheme = z
       .string()
       .trim()
       .min(6, 'Minimum number of characters 6')
+      .max(20, 'Maximum number of characters 20')
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])/,
         'Password must contain a-z, A-Z, !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
@@ -34,7 +35,7 @@ const SignUpScheme = z
     userName: z
       .string()
       .trim()
-      .regex(/^[A-Za-z0-9-_]+$/, 'Username can contain only A-Z, a-z, - or _')
+      .regex(/^[A-Za-z0-9_-]+$/, 'Username can contain only A-Z, a-z, 0-9, _ or -')
       .min(6, 'Minimum number of characters 6')
       .max(30, 'Maximum number of characters 30'),
   })
@@ -46,9 +47,9 @@ const SignUpScheme = z
 type FormFields = z.infer<typeof SignUpScheme>
 
 const SignUp = () => {
-  const [signUp, { error, isError, isLoading }] = authApi.useSignUpMutation()
+  const [signUp, isLoading] = authApi.useSignUpMutation()
   const {
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
     handleSubmit,
     register,
   } = useForm<SignUpFormData>({
@@ -56,6 +57,7 @@ const SignUp = () => {
       email: '',
       password: '',
       passwordConfirmation: '',
+      terms: false,
       username: '',
     },
     mode: 'onBlur',
@@ -66,8 +68,9 @@ const SignUp = () => {
     try {
       const response = await signUp(data).unwrap()
 
-      //email sent page
       console.log('Registration successful:', response)
+      alert(`We have sent a link to confirm your email to ${data.email}`)
+      // reset()
     } catch (err) {
       console.error('Registration failed:', err)
     }
@@ -139,9 +142,13 @@ const SignUp = () => {
               </Typography.TextXs>
             </label>
           </div>
-          {errors.terms && <p className='mb-4 ml-3 text-red-500'>{errors.terms.message}</p>}
+          {errors.terms && (
+            <Typography.TextXs className='mb-4 ml-3 text-red-700'>
+              {errors.terms.message}
+            </Typography.TextXs>
+          )}
 
-          <Button className='w-full' disabled={isLoading}>
+          <Button className='w-full cursor-pointer' disabled={!isValid || !isDirty}>
             Sign Up
           </Button>
 
@@ -149,7 +156,7 @@ const SignUp = () => {
             <Typography.TextBase className='text-white'>
               Do you have an account?
             </Typography.TextBase>
-            <Button variant='text'>
+            <Button disabled={isLoading} variant='text'>
               <Link href='/sign-in'>Sign In</Link>
             </Button>
           </div>
