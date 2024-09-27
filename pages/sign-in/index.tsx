@@ -1,4 +1,5 @@
 import { SignInForm, getAuthLayout } from '@/components'
+import { gitHubLogin } from '@/features'
 import Link from 'next/link'
 import { Button, Card, Icon, Typography } from 'uikit-inctagram'
 
@@ -10,7 +11,7 @@ const SignIn = () => {
           <Typography.H1 className='text-center'>Sign In</Typography.H1>
           <div className='flex justify-center gap-16'>
             <Icon height={36} icon='google' width={36} />
-            <Icon height={36} icon='github' width={36} />
+            <Icon height={36} icon='github' onClick={gitHubLogin} width={36} />
           </div>
         </header>
         <SignInForm />
