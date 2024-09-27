@@ -5,14 +5,11 @@ import { authApi } from '@/services'
 import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
 
-import appReducer from './appSlice'
-
 const makeStore = () =>
   configureStore({
     devTools: true,
     middleware: getDefaultMiddleware => getDefaultMiddleware().concat(authApi.middleware),
     reducer: {
-      app: appReducer,
       auth: authReducer,
       [authApi.reducerPath]: authApi.reducer,
     },

@@ -1,10 +1,9 @@
 import type { AppProps } from 'next/app'
 
-import { PropsWithChildren, ReactElement, ReactNode, useEffect } from 'react'
+import { ReactElement, ReactNode } from 'react'
 import { Provider } from 'react-redux'
 
-import { useAppDispatch, useAppSelector, wrapper } from '@/store'
-import { appActions, appSelectors } from '@/store/appSlice'
+import { wrapper } from '@/store'
 import { NextPage } from 'next'
 
 import '@/styles/globals.css'
@@ -24,20 +23,5 @@ export default function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? (page => page)
 
-  return (
-    <Provider store={store}>
-      <App>{getLayout(<Component {...props.pageProps} />)}</App>
-    </Provider>
-  )
-}
-
-const App = ({ children }: PropsWithChildren) => {
-  const isAppInitialized = useAppSelector(appSelectors.selectIsAppInitialized)
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(appActions.init())
-  }, [dispatch])
-
-  return children
+  return <Provider store={store}>{getLayout(<Component {...props.pageProps} />)}</Provider>
 }
