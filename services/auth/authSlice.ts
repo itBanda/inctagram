@@ -23,6 +23,12 @@ export const authApi = createApi({
     login: builder.mutation<SignInResponse, SignInRequest>({
       query: body => ({ body, method: 'POST', url: 'auth/login' }),
     }),
+    logout: builder.mutation<{}, void>({
+      query: () => ({
+        method: 'POST',
+        url: 'auth/logout',
+      }),
+    }),
     resendConfirmationCode: builder.mutation<{}, ResendConfirmationCodeRequest>({
       query: body => ({ body, method: 'POST', url: 'auth/registration-email-resending' }),
     }),
