@@ -7,9 +7,10 @@ import { Button, Card, Icon, Typography } from 'uikit-inctagram'
 
 const SignUp = () => {
   return (
-    <div className='flex min-h-screen flex-col items-center justify-center bg-dark-900'>
-      <Card className='max-w-[378px] text-light-900'>
-        <Typography.H1 className='mb-4 text-center text-light-100'>Sign Up</Typography.H1>
+    // <section className='flex min-h-screen flex-col items-center justify-center bg-dark-900'>
+    <section className='flex justify-center px-4 py-9'>
+      <Card className='max-w-[378px]'>
+        <Typography.H1 className='mb-3 text-center text-light-100'>Sign Up</Typography.H1>
 
         <div className='mb-4 flex justify-center gap-8 space-x-4'>
           <Icon height={36} icon='google' width={36} />
@@ -23,7 +24,7 @@ const SignUp = () => {
           </Button>
         </div>
       </Card>
-    </div>
+    </section>
   )
 }
 

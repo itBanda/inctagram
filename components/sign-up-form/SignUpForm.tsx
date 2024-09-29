@@ -38,7 +38,7 @@ const SignUpScheme = z
 type FormFields = z.infer<typeof SignUpScheme>
 
 export const SignUpForm = () => {
-  const [signUp, isLoading] = authApi.useSignUpMutation()
+  const [signUp, { data, isLoading }] = authApi.useSignUpMutation()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [body, setBody] = useState('')
 
@@ -57,7 +57,7 @@ export const SignUpForm = () => {
       terms: undefined,
       userName: '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
     resolver: zodResolver(SignUpScheme),
   })
 
@@ -91,7 +91,6 @@ export const SignUpForm = () => {
           placeholder='Exapmle-123'
           type='text'
           {...register('userName')}
-          className='text-light-900'
         />
       </div>
 
@@ -102,7 +101,6 @@ export const SignUpForm = () => {
           placeholder='example@example.com'
           type='email'
           {...register('email')}
-          className='text-light-900'
         />
       </div>
 
@@ -112,30 +110,28 @@ export const SignUpForm = () => {
           label='Password'
           placeholder='******'
           {...register('password')}
-          className='text-light-900'
         />
       </div>
 
       <div className='relative mb-4'>
         <PasswordInput
           errorText={errors.passwordConfirmation?.message}
-          label='PasswordConfirmation'
+          label='Password Confirmation'
           placeholder='********'
           {...register('passwordConfirmation')}
-          className='text-light-900'
         />
       </div>
 
       <div className='flex items-center'>
         <label className='flex items-center'>
           <Checkbox checked={watch('terms')} {...register('terms')} />
-          <Typography.TextXs className='text-light-500'>
+          <span className='text-xs font-normal text-light-500'>
             I agree to the{' '}
             <Typography.LinkSm href='/terms-of-service'> Terms of Service</Typography.LinkSm> and{' '}
             <Typography.LinkSm className='text-accent-500 underline' href='/privacy-policy'>
               Privacy Policy
             </Typography.LinkSm>
-          </Typography.TextXs>
+          </span>
         </label>
       </div>
       {errors.terms && (
@@ -144,17 +140,15 @@ export const SignUpForm = () => {
         </Typography.TextXs>
       )}
 
-      <Button className='w-full cursor-pointer' disabled={!isValid || !isDirty || !isLoading}>
+      <Button className='w-full cursor-pointer' disabled={!isValid || !isDirty || isLoading}>
         Sign Up
       </Button>
-      {isModalOpen && (
-        <EmailSentModal
-          body={body}
-          isOpened
-          onClose={() => setIsModalOpen(false)}
-          title='Email sent'
-        />
-      )}
+      <EmailSentModal
+        body={body}
+        isOpened={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title='Email sent'
+      />
     </form>
   )
 }
