@@ -19,6 +19,9 @@ export const authApi = createApi({
     confirmRegistration: builder.mutation<{}, ConfirmRegistrationRequest>({
       query: body => ({ body, method: 'POST', url: 'auth/registration-confirmation' }),
     }),
+    google: builder.mutation<any, Google>({
+      query: body => ({ body, method: 'POST', url: 'auth/google/login' }),
+    }),
     login: builder.mutation<SignInResponse, SignInRequest>({
       query: body => ({ body, method: 'POST', url: 'auth/login' }),
     }),
@@ -31,3 +34,8 @@ export const authApi = createApi({
   }),
   reducerPath: 'api/auth',
 })
+
+type Google = {
+  code: string
+  scope?: string
+}

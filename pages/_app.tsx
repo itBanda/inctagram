@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 
 import { useAppDispatch, useAppSelector, wrapper } from '@/store'
 import { appActions, appSelectors } from '@/store/appSlice'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import { NextPage } from 'next'
 
 import '@/styles/globals.css'
@@ -25,9 +26,11 @@ export default function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page)
 
   return (
-    <Provider store={store}>
-      <App>{getLayout(<Component {...props.pageProps} />)}</App>
-    </Provider>
+    <GoogleOAuthProvider clientId='135295053738-s4rjv66sgldc1jvcrs6ambg34rn7rect.apps.googleusercontent.com'>
+      <Provider store={store}>
+        <App>{getLayout(<Component {...props.pageProps} />)}</App>
+      </Provider>
+    </GoogleOAuthProvider>
   )
 }
 

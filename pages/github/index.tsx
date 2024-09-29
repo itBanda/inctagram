@@ -10,6 +10,7 @@ const GitHubAuth = () => {
   const dispatch = useAppDispatch()
   const { accessToken, email } = router.query
 
+  // access token заревертить, если нет токена, то ретернуть.......
   useEffect(() => {
     if (accessToken) {
       const getUserIdFromToken = (token: string) => {
