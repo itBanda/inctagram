@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { getAuthLayout } from '@/components'
 import { SignUpForm } from '@/components/sign-up-form'
 import Link from 'next/link'
