@@ -4,7 +4,8 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { EmailSentModal } from '@/components'
 import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Checkbox, Input, PasswordInput, Typography } from 'uikit-inctagram'
+import Link from 'next/link'
+import { Button, Checkbox, Input, PasswordInput } from 'uikit-inctagram'
 import { z } from 'zod'
 
 const SignUpScheme = z
@@ -31,13 +32,8 @@ const SignUpScheme = z
     message: 'Passwords must match',
     path: ['passwordConfirmation'],
   })
-const TermsSchema = z.object({
-  terms: z.literal(true, {
-    errorMap: () => ({ message: 'You must accept the terms' }),
-  }),
-})
 
-type FormFields = z.infer<typeof SignUpScheme>
+type FormFields = { terms: boolean } & z.infer<typeof SignUpScheme>
 
 export const SignUpForm = () => {
   const [signUp, { isLoading }] = authApi.useSignUpMutation()
@@ -56,7 +52,7 @@ export const SignUpForm = () => {
       email: '',
       password: '',
       passwordConfirmation: '',
-      terms: undefined,
+      terms: false,
       userName: '',
     },
     mode: 'onChange',
@@ -136,10 +132,14 @@ export const SignUpForm = () => {
           />
           <span className='text-xs font-normal text-light-500'>
             I agree to the{' '}
-            <Typography.LinkSm href='/terms-of-service'> Terms of Service</Typography.LinkSm> and{' '}
-            <Typography.LinkSm className='text-accent-500 underline' href='/privacy-policy'>
+            <Link className='text-accent-500 underline' href='/terms-of-service'>
+              {' '}
+              Terms of Service
+            </Link>{' '}
+            and{' '}
+            <Link className='text-accent-500 underline' href='/privacy-policy'>
               Privacy Policy
-            </Typography.LinkSm>
+            </Link>
           </span>
         </label>
       </div>
