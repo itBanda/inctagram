@@ -20,9 +20,6 @@ const SignUpScheme = z
         'Password must contain a-z, A-Z, !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
       ),
     passwordConfirmation: z.string().trim(),
-    terms: z.literal(true, {
-      errorMap: () => ({ message: 'You must accept the terms' }),
-    }),
     userName: z
       .string()
       .trim()
@@ -34,11 +31,16 @@ const SignUpScheme = z
     message: 'Passwords must match',
     path: ['passwordConfirmation'],
   })
+const TermsSchema = z.object({
+  terms: z.literal(true, {
+    errorMap: () => ({ message: 'You must accept the terms' }),
+  }),
+})
 
 type FormFields = z.infer<typeof SignUpScheme>
 
 export const SignUpForm = () => {
-  const [signUp, { data, isLoading }] = authApi.useSignUpMutation()
+  const [signUp, { isLoading }] = authApi.useSignUpMutation()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [body, setBody] = useState('')
 
@@ -60,6 +62,8 @@ export const SignUpForm = () => {
     mode: 'onChange',
     resolver: zodResolver(SignUpScheme),
   })
+
+  const termsAccepted = watch('terms')
 
   const onSubmit: SubmitHandler<FormFields> = async data => {
     try {
@@ -124,7 +128,12 @@ export const SignUpForm = () => {
 
       <div className='flex items-center'>
         <label className='flex items-center'>
-          <Checkbox checked={watch('terms')} {...register('terms')} />
+          <Checkbox
+            checked={termsAccepted}
+            {...register('terms', {
+              required: 'you must accept the terms',
+            })}
+          />
           <span className='text-xs font-normal text-light-500'>
             I agree to the{' '}
             <Typography.LinkSm href='/terms-of-service'> Terms of Service</Typography.LinkSm> and{' '}
@@ -134,13 +143,11 @@ export const SignUpForm = () => {
           </span>
         </label>
       </div>
-      {errors.terms && (
-        <Typography.TextXs className='mb-4 ml-3 text-red-700'>
-          {errors.terms.message}
-        </Typography.TextXs>
-      )}
 
-      <Button className='w-full cursor-pointer' disabled={!isValid || !isDirty || isLoading}>
+      <Button
+        className='w-full cursor-pointer'
+        disabled={!isValid || !isDirty || isLoading || !termsAccepted}
+      >
         Sign Up
       </Button>
       <EmailSentModal
