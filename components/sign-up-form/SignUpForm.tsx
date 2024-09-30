@@ -72,11 +72,13 @@ export const SignUpForm = () => {
       console.error('Registration failed:', err)
       if (isFetchBaseQueryError(err)) {
         if (isApiError(err.data)) {
-          err.data.messages.forEach(message => {
-            setError(message.field, {
-              message: message.message,
+          if (Array.isArray(err.data.messages)) {
+            err.data.messages.forEach(message => {
+              setError(message.field as keyof FormFields, {
+                message: message.message,
+              })
             })
-          })
+          }
         }
       }
     }
@@ -84,7 +86,7 @@ export const SignUpForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='mb-4'>
+      <div className='mb-2 flex flex-col gap-6'>
         <Input
           errorText={errors.userName?.message}
           label='Username'
@@ -92,9 +94,7 @@ export const SignUpForm = () => {
           type='text'
           {...register('userName')}
         />
-      </div>
 
-      <div className='mb-4'>
         <Input
           errorText={errors.email?.message}
           label='Email'
@@ -102,28 +102,24 @@ export const SignUpForm = () => {
           type='email'
           {...register('email')}
         />
-      </div>
 
-      <div className='relative mb-4'>
         <PasswordInput
           errorText={errors.password?.message}
           label='Password'
-          placeholder='******'
+          placeholder='************'
           {...register('password')}
         />
-      </div>
 
-      <div className='relative mb-4'>
         <PasswordInput
           errorText={errors.passwordConfirmation?.message}
           label='Password Confirmation'
-          placeholder='********'
+          placeholder='************'
           {...register('passwordConfirmation')}
         />
       </div>
 
-      <div className='flex items-center'>
-        <label className='flex items-center'>
+      <div className='flex flex-col'>
+        <label className='mb-2 flex items-center'>
           <Checkbox
             checked={termsAccepted}
             {...register('terms', {
