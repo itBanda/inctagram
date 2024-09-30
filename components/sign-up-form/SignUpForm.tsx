@@ -125,12 +125,7 @@ export const SignUpForm = () => {
 
         <div className='flex flex-col'>
           <label className='mb-2 flex items-center'>
-            <Checkbox
-              checked={isTermsAccepted}
-              {...register('terms', {
-                required: 'you must accept the terms',
-              })}
-            />
+            <Checkbox checked={isTermsAccepted} {...register('terms')} />
             <span className='text-xs font-normal text-light-500'>
               I agree to the{' '}
               <Link className='text-accent-500 underline' href='/terms-of-service'>
