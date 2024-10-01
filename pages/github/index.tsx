@@ -1,16 +1,15 @@
 import { useEffect } from 'react'
 
-import { Spinner } from '@/components'
+import { Spinner, getAuthLayout } from '@/components'
 import { authActions } from '@/features'
 import { useAppDispatch } from '@/store'
 import { useRouter } from 'next/router'
 
-const GitHubAuth = () => {
+const OAuthGitHub = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const { accessToken, email } = router.query
 
-  // access token заревертить, если нет токена, то ретернуть.......
   useEffect(() => {
     if (accessToken) {
       const getUserIdFromToken = (token: string) => {
@@ -37,4 +36,5 @@ const GitHubAuth = () => {
   return <Spinner />
 }
 
-export default GitHubAuth
+export default OAuthGitHub
+OAuthGitHub.getLayout = getAuthLayout

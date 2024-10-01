@@ -26,7 +26,7 @@ export default function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page)
 
   return (
-    <GoogleOAuthProvider clientId='135295053738-s4rjv66sgldc1jvcrs6ambg34rn7rect.apps.googleusercontent.com'>
+    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_CLIENT_ID}>
       <Provider store={store}>
         <App>{getLayout(<Component {...props.pageProps} />)}</App>
       </Provider>
