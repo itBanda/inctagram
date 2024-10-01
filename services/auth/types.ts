@@ -30,3 +30,8 @@ export type SignUpRequest = {
   password: string
   userName: string
 }
+
+export type UpdatePasswordRequest = {
+  newPassword: string
+  recoveryCode: string
+}
