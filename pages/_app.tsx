@@ -1,10 +1,9 @@
 import type { AppProps } from 'next/app'
 
-import { PropsWithChildren, ReactElement, ReactNode, useEffect } from 'react'
+import { ReactElement, ReactNode } from 'react'
 import { Provider } from 'react-redux'
 
-import { useAppDispatch, useAppSelector, wrapper } from '@/store'
-import { appActions, appSelectors } from '@/store/appSlice'
+import { wrapper } from '@/store'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { NextPage } from 'next'
 
@@ -27,20 +26,7 @@ export default function MyApp({ Component, ...rest }: AppPropsWithLayout) {
 
   return (
     <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_CLIENT_ID}>
-      <Provider store={store}>
-        <App>{getLayout(<Component {...props.pageProps} />)}</App>
-      </Provider>
+      <Provider store={store}>{getLayout(<Component {...props.pageProps} />)}</Provider>
     </GoogleOAuthProvider>
   )
-}
-
-const App = ({ children }: PropsWithChildren) => {
-  const isAppInitialized = useAppSelector(appSelectors.selectIsAppInitialized)
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(appActions.init())
-  }, [dispatch])
-
-  return children
 }

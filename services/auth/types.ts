@@ -33,3 +33,9 @@ export type GoogleResponse = {
   accessToken: string
   email: string
 }
+
+export type SignUpRequest = {
+  email: string
+  password: string
+  userName: string
+}
