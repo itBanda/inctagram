@@ -7,6 +7,7 @@ import {
   ResendConfirmationCodeRequest,
   SignInRequest,
   SignInResponse,
+  SignUpRequest,
   UpdateTokensResponse,
 } from './types'
 
@@ -30,6 +31,9 @@ export const authApi = createApi({
     }),
     resendConfirmationCode: builder.mutation<{}, ResendConfirmationCodeRequest>({
       query: body => ({ body, method: 'POST', url: 'auth/registration-email-resending' }),
+    }),
+    signUp: builder.mutation<{}, SignUpRequest>({
+      query: body => ({ body, method: 'POST', url: 'auth/registration' }),
     }),
     updateTokens: builder.mutation<UpdateTokensResponse, void>({
       query: () => ({ method: 'POST', url: 'auth/update-tokens' }),

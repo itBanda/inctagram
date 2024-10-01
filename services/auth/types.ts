@@ -24,3 +24,9 @@ export type ResendConfirmationCodeRequest = {
   baseUrl: string
   email: string
 }
+
+export type SignUpRequest = {
+  email: string
+  password: string
+  userName: string
+}
