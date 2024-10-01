@@ -1,15 +1,11 @@
-import { createApi } from '@reduxjs/toolkit/query/react'
-
-import { baseQueryWithReauth } from './baseQuery'
 import {
   AuthMeResponse,
   ConfirmRegistrationRequest,
-  ResendConfirmationCodeRequest,
-  SignInRequest,
-  SignInResponse,
-  UpdateTokensResponse,
-} from './types'
+  PasswordRecoveryRequest,
+} from '@/services/auth/types'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
+import { baseQueryWithReauth } from './baseQuery'
 export const authApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: builder => ({
@@ -26,6 +22,13 @@ export const authApi = createApi({
       query: () => ({
         method: 'POST',
         url: 'auth/logout',
+      }),
+    }),
+    passwordRecovery: builder.mutation<PasswordRecoveryRequest, void>({
+      query: body => ({
+        body,
+        method: 'POST',
+        url: 'auth/password-recovery',
       }),
     }),
     resendConfirmationCode: builder.mutation<{}, ResendConfirmationCodeRequest>({

@@ -1,13 +1,14 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { authActions } from '@/features'
-import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
-import { useAppDispatch } from '@/store'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Button, Input, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
+
+import { authActions } from '../../features'
+import { authApi, isApiError, isFetchBaseQueryError } from '../../services/'
+import { useAppDispatch } from '../../store'
 
 const SignInFormSchema = z.object({
   email: z.string().email(),
@@ -17,7 +18,7 @@ const SignInFormSchema = z.object({
 type FormFields = z.infer<typeof SignInFormSchema>
 
 export const SignInForm = () => {
-  const [login, { isLoading }] = authApi.useLoginMutation()
+  const [login, { error, isError, isLoading }] = authApi.useLoginMutation()
   const dispatch = useAppDispatch()
   const router = useRouter()
   const { formState, handleSubmit, register, setError } = useForm<FormFields>({
@@ -34,10 +35,7 @@ export const SignInForm = () => {
       const response = await login(values).unwrap()
 
       dispatch(authActions.login({ accessToken: response.accessToken }))
-      const payload = response.accessToken.split('.')[1]
-      const id = JSON.parse(atob(payload)).userId
-
-      router.push(`/profile/${id}`)
+      router.push('/profile')
     } catch (err) {
       if (isFetchBaseQueryError(err)) {
         if (isApiError(err.data)) {
@@ -74,7 +72,7 @@ export const SignInForm = () => {
         />
       </div>
       <Typography.TextSm className='mb-6 text-right text-light-900'>
-        <Link className='mb-6' href='#'>
+        <Link className='mb-6' href='/forgot-password'>
           Forgot Password
         </Link>
       </Typography.TextSm>
