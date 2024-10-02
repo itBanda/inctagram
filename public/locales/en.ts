@@ -12,7 +12,7 @@ export const en = {
           return `We have sent a link to confirm your email to ${email}`;
         }
       },
-      error: 'The email or password are incorrect. Try again please',
+      error: "The email or password are incorrect. Try again please",
       haveAccount: "Don’t have an account?",
       maxCharacters(max: number) {
         return `Maximum number of characters ${max}`;
@@ -57,6 +57,13 @@ export const en = {
     no: "No",
     ok: "Ok",
     yes: "Yes"
+  },
+  recovery: {
+    congratulations: "Congratulations",
+    message: "Looks like the verification link has expired. Not to worry, we can send the link again",
+    messageCongratulations: "Your email has been confirmed",
+    resend: "Resend verification link",
+    title: "Email verification link expired"
   }
 };
 

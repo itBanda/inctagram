@@ -4,12 +4,15 @@ import congratulationsImg from '@/assets/auth-img/congratulations.svg'
 import emailVerificationImg from '@/assets/auth-img/emailVerification.svg'
 import { Spinner, getAuthLayout } from '@/components'
 import { AuthMessage } from '@/components/auth-message/AuthMessage'
+import { useTranslation } from '@/hocs/useTranslation'
 import { authApi } from '@/services'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Button } from 'uikit-inctagram'
 
 const RegistrationConfirmation = () => {
+  const { t } = useTranslation()
+
   const [confirmRegistration, { isError, isLoading: isConfirmRegistrationLoading }] =
     authApi.useConfirmRegistrationMutation()
   const [resendCode, { isLoading: isResendCodeLoading }] =
@@ -44,12 +47,12 @@ const RegistrationConfirmation = () => {
             disabled={isResendCodeLoading}
             onClick={handleResendCode}
           >
-            Resend verification link
+            {t.recovery.resend}
           </Button>
         }
         imageSrc={emailVerificationImg}
-        message='Looks like the verification link has expired. Not to worry, we can send the link again'
-        title='Email verification link expired'
+        message={t.recovery.message}
+        title={t.recovery.title}
       />
     )
   }
@@ -59,12 +62,12 @@ const RegistrationConfirmation = () => {
       <AuthMessage
         action={
           <Button asChild className='mb-[72px] mt-14 min-w-44'>
-            <Link href='/sign-in'>Sign In</Link>
+            <Link href='/sign-in'>{t.authPage.signIn}</Link>
           </Button>
         }
         imageSrc={congratulationsImg}
-        message='Your email has been confirmed'
-        title='Congratulations'
+        message={t.recovery.messageCongratulations}
+        title={t.recovery.congratulations}
       />
     </>
   )
