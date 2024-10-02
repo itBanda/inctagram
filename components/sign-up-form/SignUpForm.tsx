@@ -90,10 +90,13 @@ export const SignUpForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
         <div className='mb-2 flex flex-col gap-6'>
+          <input name='username' readOnly='true' style={{ display: 'none' }} type='text' />
           <Input
+            autoComplete='none'
             errorText={errors.userName?.message}
+            id={`username-${Math.random()}`}
             label='Username'
             placeholder='Exapmle-123'
             type='text'
@@ -101,6 +104,7 @@ export const SignUpForm = () => {
           />
 
           <Input
+            autoComplete='email'
             errorText={errors.email?.message}
             label='Email'
             placeholder='example@example.com'
@@ -108,7 +112,9 @@ export const SignUpForm = () => {
             {...register('email')}
           />
 
+          <input name='password' readOnly='true' style={{ display: 'none' }} type='password' />
           <PasswordInput
+            autocomlete='none'
             errorText={errors.password?.message}
             label='Password'
             placeholder='************'
@@ -116,6 +122,7 @@ export const SignUpForm = () => {
           />
 
           <PasswordInput
+            autoComplete='none'
             errorText={errors.passwordConfirmation?.message}
             label='Password Confirmation'
             placeholder='************'
