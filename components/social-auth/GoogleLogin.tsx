@@ -5,8 +5,8 @@ import { useGoogleLogin } from '@react-oauth/google'
 import { useRouter } from 'next/router'
 import { Icon } from 'uikit-inctagram'
 
-export const GoogleAuth = () => {
-  const [google] = authApi.useGoogleMutation()
+export const GoogleLogin = () => {
+  const [googleLogin] = authApi.useGoogleLoginMutation()
   const dispatch = useAppDispatch()
   const router = useRouter()
 
@@ -20,13 +20,14 @@ export const GoogleAuth = () => {
       try {
         const { code } = res
 
-        const response = await google({ code }).unwrap()
+        const response = await googleLogin({ code }).unwrap()
 
         dispatch(authActions.login({ accessToken: response.accessToken }))
 
-        const email = response.email
+        const payload = response.accessToken.split('.')[1]
+        const id = JSON.parse(atob(payload)).userId
 
-        router.push(`/profile/${email}`)
+        router.push(`/profile/${id}`)
       } catch (error) {
         console.error('Google login failed:', error)
       }

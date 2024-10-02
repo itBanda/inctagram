@@ -5,10 +5,10 @@ import { authActions } from '@/features'
 import { useAppDispatch } from '@/store'
 import { useRouter } from 'next/router'
 
-const OAuthGitHub = () => {
+const OAuthGithub = () => {
   const router = useRouter()
   const dispatch = useAppDispatch()
-  const { accessToken, email } = router.query
+  const accessToken = router.query.accessToken as string
 
   useEffect(() => {
     if (accessToken) {
@@ -19,22 +19,22 @@ const OAuthGitHub = () => {
 
           return decodedPayload.userId
         } catch (err) {
-          console.error('Ошибка извлечения userId из токена', err)
+          console.error('Error extracting userId from token', err)
 
           return null
         }
       }
-      const userId = getUserIdFromToken(accessToken as string)
+      const userId = getUserIdFromToken(accessToken)
 
       if (userId) {
-        dispatch(authActions.login({ accessToken: accessToken as string }))
+        dispatch(authActions.login({ accessToken: accessToken }))
         router.push(`/profile/${userId}`)
       }
     }
-  }, [accessToken, email, router, dispatch])
+  }, [accessToken, router, dispatch])
 
   return <Spinner />
 }
 
-export default OAuthGitHub
-OAuthGitHub.getLayout = getAuthLayout
+export default OAuthGithub
+OAuthGithub.getLayout = getAuthLayout

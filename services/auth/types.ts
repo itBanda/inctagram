@@ -24,12 +24,11 @@ export type ResendConfirmationCodeRequest = {
   baseUrl: string
   email: string
 }
-export type GoogleRequest = {
+export type GoogleLoginRequest = {
   code: string
-  scope?: string
 }
 
-export type GoogleResponse = {
+export type GoogleLoginResponse = {
   accessToken: string
   email: string
 }
