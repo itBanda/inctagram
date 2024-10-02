@@ -1,5 +1,4 @@
-import { getAuthLayout } from '@/components'
-import { SignUpForm } from '@/components/sign-up-form'
+import { SignUpForm, getAuthLayout } from '@/components'
 import Link from 'next/link'
 import { Button, Card, Icon, Typography } from 'uikit-inctagram'
 
