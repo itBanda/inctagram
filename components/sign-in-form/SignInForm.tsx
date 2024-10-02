@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { useTranslation } from '@/hocs/useTranslation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -20,7 +21,10 @@ type FormFields = z.infer<typeof SignInFormSchema>
 export const SignInForm = () => {
   const [login, { error, isError, isLoading }] = authApi.useLoginMutation()
   const dispatch = useAppDispatch()
+
   const router = useRouter()
+  const { t } = useTranslation()
+
   const { formState, handleSubmit, register, setError } = useForm<FormFields>({
     defaultValues: {
       email: '',
@@ -59,25 +63,25 @@ export const SignInForm = () => {
       <div className='mb-9 flex flex-col gap-6'>
         <Input
           errorText={formState.errors.email?.message}
-          label='Email'
+          label={t.authPage.form.email}
           placeholder='Example@gram.com'
           type='email'
           {...register('email')}
         />
         <PasswordInput
           errorText={formState.errors.password?.message}
-          label='Password'
+          label={t.authPage.form.password}
           placeholder='************'
           {...register('password')}
         />
       </div>
       <Typography.TextSm className='mb-6 text-right text-light-900'>
         <Link className='mb-6' href='#'>
-          Forgot Password
+          {t.authPage.form.forgotPassword}
         </Link>
       </Typography.TextSm>
       <Button className='w-full' disabled={isLoading}>
-        Sign In
+        {t.authPage.signIn}
       </Button>
     </form>
   )

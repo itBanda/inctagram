@@ -1,4 +1,8 @@
+import { useTranslation } from '@/hocs/useTranslation'
+
 export const Spinner = () => {
+  const { t } = useTranslation()
+
   return (
     <div className='fixed inset-0 bg-dark-700 backdrop-blur-sm'>
       <div className='absolute left-1/2 top-2/4 -translate-x-1/2 -translate-y-1/2' role='status'>
@@ -18,7 +22,7 @@ export const Spinner = () => {
             fill='currentFill'
           />
         </svg>
-        <span className='sr-only'>Loading...</span>
+        <span className='sr-only'>{t.loading}...</span>
       </div>
     </div>
   )
