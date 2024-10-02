@@ -1,5 +1,4 @@
-import { GithubLogin, GoogleLogin, getAuthLayout } from '@/components'
-import { SignUpForm } from '@/components/sign-up-form'
+import { GithubLogin, GoogleLogin, SignUpForm, getAuthLayout } from '@/components'
 import Link from 'next/link'
 import { Button, Card, Typography } from 'uikit-inctagram'
 
