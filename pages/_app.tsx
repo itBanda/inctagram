@@ -3,13 +3,12 @@ import type { AppProps } from 'next/app'
 import { ReactElement, ReactNode } from 'react'
 import { Provider } from 'react-redux'
 
+import { wrapper } from '@/store'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import { NextPage } from 'next'
 
 import '@/styles/globals.css'
 import 'uikit-inctagram/style.css'
-
-import { LoadingWrapper } from '../components/ui/loading-wrapper/LoadingWrapper'
-import { wrapper } from '../store'
 
 export type NextPageWithLayout<P = {}, IP = P> = {
   getLayout?: (page: ReactElement) => ReactNode
@@ -26,8 +25,8 @@ export default function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page)
 
   return (
-    <Provider store={store}>
-      <LoadingWrapper>{getLayout(<Component {...props.pageProps} />)}</LoadingWrapper>
-    </Provider>
+    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_CLIENT_ID}>
+      <Provider store={store}>{getLayout(<Component {...props.pageProps} />)}</Provider>
+    </GoogleOAuthProvider>
   )
 }
