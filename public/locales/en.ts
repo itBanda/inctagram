@@ -14,7 +14,7 @@ export const en = {
         }
       },
       error: "The email or password are incorrect. Try again please",
-      haveAccount: "Don’t have an account?",
+      haveAccount: "Do you have an account?",
       maxCharacters(max: number) {
         return `Maximum number of characters ${max}`;
       },

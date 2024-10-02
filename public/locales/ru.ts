@@ -16,7 +16,7 @@ export const ru: LocaleType = {
         },
       },
       error: 'Адрес электронной почты или пароль неверны. Попробуйте еще раз, пожалуйста',
-      haveAccount: "Нет аккаунта?",
+      haveAccount: "У вас есть учетная запись?",
       maxCharacters(max: number) {
         return `Максимальное количество символов ${max}`;
       },

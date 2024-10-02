@@ -1,14 +1,20 @@
 import { getMainLayout } from '@/components'
+import { useTranslation } from '@/hocs/useTranslation'
 import withAuth from '@/hocs/withAuth'
 import { authApi } from '@/services'
 
 const Profile = () => {
+  const { t } = useTranslation()
   const { data } = authApi.useAuthMeQuery()
 
   return (
     <div className='text-center text-white'>
-      <h2>Username: {data?.userName}</h2>
-      <h2>Email: {data?.email}</h2>
+      <h2>
+        {t.authPage.form.userName}: {data?.userName}
+      </h2>
+      <h2>
+        {t.authPage.form.email.email}: {data?.email}
+      </h2>
     </div>
   )
 }
