@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { authApi } from '@/services'
+import { authApi, sessionsApi } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { Button, PasswordInput, Typography } from 'uikit-inctagram'
@@ -29,6 +29,8 @@ type FormFields = z.infer<typeof RecoveryPasswordFormSchema>
 export const RecoveryPasswordForm = () => {
   const [updatePassword, { isLoading: isUpdatePasswordLoading }] =
     authApi.useUpdatePasswordMutation()
+  const [terminateAllSessions] = sessionsApi.useTerminateAllSessionsMutation()
+
   const router = useRouter()
   const recoveryCode = router.query.code as string
 
@@ -48,6 +50,7 @@ export const RecoveryPasswordForm = () => {
   const onSubmit: SubmitHandler<FormFields> = async values => {
     try {
       await updatePassword({ newPassword: values.password, recoveryCode })
+      terminateAllSessions()
     } catch (err) {
       console.error(err)
     }
