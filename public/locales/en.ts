@@ -1,22 +1,24 @@
 export const en = {
   authPage: {
     form: {
-      agree: 'I agree to the',
-      and: 'and',
+      agree: "I agree to the",
+      and: "and",
       email: {
         email: "Email",
         help: "Email must match the format example@example.com",
+        invalid: "Invalid email",
         sent: "Email sent",
         sentLink(email: string | undefined) {
           return `We have sent a link to confirm your email to ${email}`;
-        },
+        }
       },
+      error: 'The email or password are incorrect. Try again please',
       haveAccount: "Don’t have an account?",
       maxCharacters(max: number) {
         return `Maximum number of characters ${max}`;
       },
       minCharacters(min: number) {
-        return `Minimum number of characters ${min}`
+        return `Minimum number of characters ${min}`;
       },
       password: {
         confirmation: "Password confirmation",
@@ -28,14 +30,15 @@ export const en = {
         regex: "Password must contain a-z, A-Z, special characters, and numbers"
       },
       privacy: {
-        noun: 'Terms of Service',
-        with: 'Terms of Service',
+        noun: "Terms of Service",
+        with: "Terms of Service"
       },
+      required: "Required",
       terms: {
-        noun: 'Privacy Policy',
-        with: 'Privacy Policy',
+        noun: "Privacy Policy",
+        with: "Privacy Policy"
       },
-      userName : 'Username',
+      userName: "Username",
       userNameRegex: "Username can contain only A-Z, a-z, 0-9, _ or -"
     },
     signIn: "Sign In",

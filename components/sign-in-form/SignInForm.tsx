@@ -10,12 +10,13 @@ import { useRouter } from 'next/router'
 import { Button, Input, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
-const SignInFormSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(1, 'Required'),
-})
+const SignInFormSchema = (t: any) =>
+  z.object({
+    email: z.string().email(t.authPage.form.email.invalid),
+    password: z.string().min(1, t.authPage.form.required),
+  })
 
-type FormFields = z.infer<typeof SignInFormSchema>
+type FormFields = z.infer<ReturnType<typeof SignInFormSchema>>
 
 export const SignInForm = () => {
   const [login, { isLoading }] = authApi.useLoginMutation()
@@ -30,7 +31,7 @@ export const SignInForm = () => {
       password: '',
     },
     mode: 'onBlur',
-    resolver: zodResolver(SignInFormSchema),
+    resolver: zodResolver(SignInFormSchema(t)),
   })
 
   const onSubmit: SubmitHandler<FormFields> = async values => {
@@ -48,7 +49,7 @@ export const SignInForm = () => {
           if (typeof err.data.messages === 'string') {
             console.log(err.data.messages)
             setError('password', {
-              message: 'The email or password are incorrect. Try again please',
+              message: t.authPage.form.error,
             })
           } else {
             err.data.messages.forEach(message => {
