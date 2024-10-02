@@ -1,6 +1,6 @@
+import emailVerificationImg from '@/assets/auth-img/emailVerification.svg'
 import { AuthMessage } from '@/components/auth-message/AuthMessage'
 import { getAuthLayout } from '@/components/ui/layouts/AuthLayout'
-import emailVerificationImg from '@/public/assets/auth-img/emailVerification.svg'
 
 const AuthEmailExpired = () => {
   return (
