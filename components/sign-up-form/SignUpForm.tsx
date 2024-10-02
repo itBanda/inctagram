@@ -90,9 +90,9 @@ export const SignUpForm = () => {
 
   return (
     <>
-      <form autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className='mb-2 flex flex-col gap-6'>
-          <input className='hidden' name='username' readOnly='true' type='text' />
+          <input className='hidden' name='username' type='text' />
           <Input
             autoComplete='none'
             errorText={errors.userName?.message}
@@ -111,9 +111,9 @@ export const SignUpForm = () => {
             {...register('email')}
           />
 
-          <input className='hidden' name='password' readOnly='true' type='password' />
+          <input className='hidden' name='password' type='password' />
           <PasswordInput
-            autocomlete='none'
+            autoComplete='none'
             errorText={errors.password?.message}
             label='Password'
             placeholder='************'
