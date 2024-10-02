@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { EmailSentModal } from '@/components'
 import { authApi } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Button, Input, Modal, Recaptcha } from 'uikit-inctagram'
+import { Button, Input, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
 const ForgotPasswordFormSchema = z.object({
   email: z.string().email(),
+  recaptcha: z.string(),
 })
 
 type FormFields = z.infer<typeof ForgotPasswordFormSchema>
@@ -18,15 +21,19 @@ export const ForgotPasswordForm = () => {
   const [forgotPassword, { error, isError, isLoading, isSuccess }] =
     authApi.usePasswordRecoveryMutation()
   const router = useRouter()
-  const { formState, handleSubmit, register, setError } = useForm<FormFields>({
+  const { formState, handleSubmit, register, setError, setValue, watch } = useForm<FormFields>({
     defaultValues: {
       email: '',
+      recaptcha: '',
     },
     mode: 'onBlur',
     resolver: zodResolver(ForgotPasswordFormSchema),
   })
 
-  const [isModalOpened, setIsModalOpened] = useState(true)
+  const [isModalOpened, setIsModalOpened] = useState(false)
+  const handleChangeCaptcha = (token: string) => {
+    setValue('recaptcha', token)
+  }
 
   const onSubmit: SubmitHandler<FormFields> = async values => {
     try {
@@ -47,20 +54,18 @@ export const ForgotPasswordForm = () => {
 
   return (
     <>
-      <Modal isOpened={isModalOpened} onClose={() => setIsModalOpened(false)} title='Email sent'>
-        <span>
-          We have sent a link to confirm your email to
-          {formState.defaultValues?.email}
-        </span>
-        <Button
-          className='mt-[18px] w-[96px] self-end'
-          onClick={() => setIsModalOpened(false)}
-          variant='primary'
-        >
-          OK
-        </Button>
-      </Modal>
-      <form className='mb-[18px] flex flex-col' onSubmit={handleSubmit(onSubmit)}>
+      <EmailSentModal
+        body={
+          <Typography.TextBase>
+            We have sent a link to confirm your email to {watch('email')}
+          </Typography.TextBase>
+        }
+        isOpened={isModalOpened}
+        onClose={() => setIsModalOpened(false)}
+        title='Email sent'
+      />
+
+      <form className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
         <Input label='Email' placeholder='Example@gram.com' type='email' {...register('email')} />
         {formState.errors.email && (
           <span className='text-red-500'>{formState.errors.email.message}</span>
@@ -79,7 +84,16 @@ export const ForgotPasswordForm = () => {
         <Button asChild className='mb-[24px] w-full text-center' variant='text'>
           <Link href='/sign-in'>Back to Sign in</Link>
         </Button>
-        {!isSuccess && <div>КАПЧА</div>}
+        {!isSuccess && (
+          <div className='w-[300px] self-center'>
+            <ReCAPTCHA
+              hl='en'
+              onChange={handleChangeCaptcha}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              theme='dark'
+            />
+          </div>
+        )}
       </form>
     </>
   )
