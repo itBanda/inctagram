@@ -27,7 +27,7 @@ const OAuthGithub = () => {
       const userId = getUserIdFromToken(accessToken)
 
       if (userId) {
-        dispatch(authActions.login({ accessToken: accessToken }))
+        dispatch(authActions.login({ accessToken }))
         router.push(`/profile/${userId}`)
       }
     }

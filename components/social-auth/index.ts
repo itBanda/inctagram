@@ -1,2 +1,2 @@
-export { GithubLogin } from './GithabLogin'
+export { GithubLogin } from './GithubLogin'
 export { GoogleLogin } from './GoogleLogin'

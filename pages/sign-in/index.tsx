@@ -1,5 +1,4 @@
-import { SignInForm, getAuthLayout } from '@/components'
-import { GithubLogin, GoogleLogin } from '@/components/social-auth'
+import { GithubLogin, GoogleLogin, SignInForm, getAuthLayout } from '@/components'
 import Link from 'next/link'
 import { Button, Card, Typography } from 'uikit-inctagram'
 const SignIn = () => {
