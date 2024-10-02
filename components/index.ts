@@ -1,4 +1,6 @@
+export * from './auth-message'
 export * from './header-menu'
+export * from './lang-select'
 export * from './modals'
 export * from './recovery-password-form'
 export * from './sign-in-form'

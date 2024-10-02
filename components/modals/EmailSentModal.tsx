@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
+import { useTranslation } from '@/hocs/useTranslation'
 import { Button, Modal } from 'uikit-inctagram'
 
 type Props = {
@@ -11,6 +12,8 @@ type Props = {
 }
 
 export const EmailSentModal = ({ body, ...props }: Props) => {
+  const { t } = useTranslation()
+
   if (typeof window === 'undefined') {
     return null
   }
@@ -21,7 +24,7 @@ export const EmailSentModal = ({ body, ...props }: Props) => {
         {body}
         <div className='flex justify-end gap-6'>
           <Button className='px-8' onClick={props.onClose}>
-            OK
+            {t.modal.ok}
           </Button>
         </div>
       </div>

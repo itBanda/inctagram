@@ -2,42 +2,46 @@ import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { EmailSentModal } from '@/components'
+import { useTranslation } from '@/hocs/useTranslation'
 import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { Button, Checkbox, Input, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
-const SignUpSchema = z
-  .object({
-    email: z.string().trim().email('Email must match the format example@example.com'),
-    password: z
-      .string()
-      .trim()
-      .min(6, 'Minimum number of characters 6')
-      .max(20, 'Maximum number of characters 20')
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])/,
-        'Password must contain a-z, A-Z, !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
-      ),
-    passwordConfirmation: z.string().trim(),
-    terms: z.boolean(),
-    userName: z
-      .string()
-      .trim()
-      .regex(/^[A-Za-z0-9_-]+$/, 'Username can contain only A-Z, a-z, 0-9, _ or -')
-      .min(6, 'Minimum number of characters 6')
-      .max(30, 'Maximum number of characters 30'),
-  })
-  .refine(data => data.terms, '')
-  .refine(data => data.password === data.passwordConfirmation, {
-    message: 'Passwords must match',
-    path: ['passwordConfirmation'],
-  })
+const SignUpSchema = (t: any) =>
+  z
+    .object({
+      email: z.string().trim().email(t.authPage.form.email.help),
+      password: z
+        .string()
+        .trim()
+        .min(6, t.authPage.form.minCharacters(6))
+        .max(20, t.authPage.form.maxCharacters(20))
+        .regex(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])/,
+          t.authPage.form.password.regex
+        ),
+      passwordConfirmation: z.string().trim(),
+      terms: z.boolean(),
+      userName: z
+        .string()
+        .trim()
+        .regex(/^[A-Za-z0-9_-]+$/, 'Username can contain only A-Z, a-z, 0-9, _ or -')
+        .min(6, t.authPage.form.minCharacters(6))
+        .max(30, t.authPage.form.maxCharacters(30)),
+    })
+    .refine(data => data.terms, '')
+    .refine(data => data.password === data.passwordConfirmation, {
+      message: t.authPage.form.password.mismatch,
+      path: ['passwordConfirmation'],
+    })
 
-type FormFields = z.infer<typeof SignUpSchema>
+type FormFields = z.infer<ReturnType<typeof SignUpSchema>>
 
 export const SignUpForm = () => {
+  const { t } = useTranslation()
+
   const [signUp, { isLoading }] = authApi.useSignUpMutation()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -57,7 +61,7 @@ export const SignUpForm = () => {
       userName: '',
     },
     mode: 'onChange',
-    resolver: zodResolver(SignUpSchema),
+    resolver: zodResolver(SignUpSchema(t)),
   })
 
   const isTermsAccepted = watch('terms')
@@ -94,7 +98,7 @@ export const SignUpForm = () => {
         <div className='mb-2 flex flex-col gap-6'>
           <Input
             errorText={errors.userName?.message}
-            label='Username'
+            label={t.authPage.form.userName}
             placeholder='Exapmle-123'
             type='text'
             {...register('userName')}
@@ -102,7 +106,7 @@ export const SignUpForm = () => {
 
           <Input
             errorText={errors.email?.message}
-            label='Email'
+            label={t.authPage.form.email.email}
             placeholder='example@example.com'
             type='email'
             {...register('email')}
@@ -110,14 +114,14 @@ export const SignUpForm = () => {
 
           <PasswordInput
             errorText={errors.password?.message}
-            label='Password'
+            label={t.authPage.form.password.password}
             placeholder='************'
             {...register('password')}
           />
 
           <PasswordInput
             errorText={errors.passwordConfirmation?.message}
-            label='Password Confirmation'
+            label={t.authPage.form.password.confirmation}
             placeholder='************'
             {...register('passwordConfirmation')}
           />
@@ -127,12 +131,12 @@ export const SignUpForm = () => {
           <label className='mb-2 flex items-center'>
             <Checkbox checked={isTermsAccepted} {...register('terms')} />
             <span className='text-xs font-normal text-light-500'>
-              I agree to the{' '}
+              {t.authPage.form.agree}{' '}
               <Link className='text-accent-500 underline' href='/terms-of-service'>
                 {' '}
                 Terms of Service
               </Link>{' '}
-              and{' '}
+              {t.authPage.form.and}{' '}
               <Link className='text-accent-500 underline' href='/privacy-policy'>
                 Privacy Policy
               </Link>
@@ -141,7 +145,7 @@ export const SignUpForm = () => {
         </div>
 
         <Button className='w-full cursor-pointer' disabled={!isValid || !isDirty || isLoading}>
-          Sign Up
+          {t.authPage.signUp}
         </Button>
       </form>
       <EmailSentModal
