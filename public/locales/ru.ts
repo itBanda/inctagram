@@ -2,20 +2,24 @@ import { LocaleType } from "@/public/locales/en";
 
 export const ru: LocaleType = {
   authPage: {
-      form: {
-        agree: 'Я согласен с',
-        and: 'и',
-        email: {
-          email: "Пароль",
-          help: 'Электронная почта должна соответствовать формату example@example.com',
+    form: {
+      agree: "Я согласен с",
+      and: "и",
+      email: {
+        email: "Почта",
+        help: "Электронная почта должна соответствовать формату example@example.com",
+        sent: "Отправит письмо",
+        sentLink(email: string | undefined) {
+          return `Мы отправили ссылку для подтверждения вашей почты на адрес ${email}`;
         },
-        haveAccount: "Нет аккаунта?",
-        maxCharacters(max: number) {
-          return `"Максимальное количество символов ${max}`;
-        },
-        minCharacters(min: number) {
-          `Минимальное количество символов ${min}`
-        },
+      },
+      haveAccount: "Нет аккаунта?",
+      maxCharacters(max: number) {
+        return `Максимальное количество символов ${max}`;
+      },
+      minCharacters(min: number) {
+        return `Минимальное количество символов ${min}`;
+      },
       password: {
         confirmation: "Подтверждение пароля",
         createNew: "Создать новый пароль",
@@ -23,9 +27,18 @@ export const ru: LocaleType = {
         help: "Ваш пароль должен содержать от 6 до 20 символов",
         mismatch: "Пароли должны совпадать",
         password: "Пароль",
-        regex : "Пароль должен содержать a-z, A-Z, специальные символы и цифры"
+        regex: "Пароль должен содержать a-z, A-Z, специальные символы и цифры"
       },
-        userName : 'Имя пользователя',
+      privacy: {
+        noun: 'Политика конфиденциальности',
+        with: 'Политикой конфиденциальности',
+      },
+      terms: {
+        noun: 'Условия использования',
+        with: 'Условиями использования',
+      },
+      userName: "Имя пользователя",
+      userNameRegex: "Имя пользователя может содержать только A-Z, a-z, 0-9, _ или -"
     },
     signIn: "Войти",
     signUp: "Зарегистрироваться"
@@ -41,8 +54,8 @@ export const ru: LocaleType = {
   loading: "Загрузка",
   modal: {
     no: "Нет",
-    ok: 'Хорошо',
-    yes: "Да",
+    ok: "Хорошо",
+    yes: "Да"
   }
 
 };

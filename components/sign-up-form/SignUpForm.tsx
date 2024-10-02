@@ -27,7 +27,7 @@ const SignUpSchema = (t: any) =>
       userName: z
         .string()
         .trim()
-        .regex(/^[A-Za-z0-9_-]+$/, 'Username can contain only A-Z, a-z, 0-9, _ or -')
+        .regex(/^[A-Za-z0-9_-]+$/, t.authPage.form.userNameRegex)
         .min(6, t.authPage.form.minCharacters(6))
         .max(30, t.authPage.form.maxCharacters(30)),
     })
@@ -134,11 +134,11 @@ export const SignUpForm = () => {
               {t.authPage.form.agree}{' '}
               <Link className='text-accent-500 underline' href='/terms-of-service'>
                 {' '}
-                Terms of Service
+                {t.authPage.form.terms.with}
               </Link>{' '}
               {t.authPage.form.and}{' '}
               <Link className='text-accent-500 underline' href='/privacy-policy'>
-                Privacy Policy
+                {t.authPage.form.privacy.with}
               </Link>
             </span>
           </label>
@@ -151,12 +151,12 @@ export const SignUpForm = () => {
       <EmailSentModal
         body={
           <Typography.TextBase>
-            We have sent a link to confirm your email to {watch('email')}
+            {t.authPage.form.email.sentLink(watch('email'))}
           </Typography.TextBase>
         }
         isOpened={isModalOpen}
         onClose={handlerCloseModal}
-        title='Email sent'
+        title={t.authPage.form.email.sent}
       />
     </>
   )

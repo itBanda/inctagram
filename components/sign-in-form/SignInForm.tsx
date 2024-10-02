@@ -65,21 +65,21 @@ export const SignInForm = () => {
       <div className='mb-9 flex flex-col gap-6'>
         <Input
           errorText={formState.errors.email?.message}
-          label={t.authPage.form.email}
+          label={t.authPage.form.email.email}
           placeholder='Example@gram.com'
           type='email'
           {...register('email')}
         />
         <PasswordInput
           errorText={formState.errors.password?.message}
-          label={t.authPage.form.password}
+          label={t.authPage.form.password.password}
           placeholder='************'
           {...register('password')}
         />
       </div>
       <Typography.TextSm className='mb-6 text-right text-light-900'>
         <Link className='mb-6' href='#'>
-          {t.authPage.form.forgotPassword}
+          {t.authPage.form.password.forgot}
         </Link>
       </Typography.TextSm>
       <Button className='w-full' disabled={isLoading}>
