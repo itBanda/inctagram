@@ -1,5 +1,6 @@
 export const en = {
   authPage: {
+    backToSignUp: "Back to Sign Up",
     form: {
       agree: "I agree to the",
       and: "and",

@@ -2,6 +2,7 @@ import { LocaleType } from "@/public/locales/en";
 
 export const ru: LocaleType = {
   authPage: {
+    backToSignUp: "Вернуться к регистрации",
     form: {
       agree: "Я согласен с",
       and: "и",
@@ -44,7 +45,8 @@ export const ru: LocaleType = {
       userNameRegex: "Имя пользователя может содержать только A-Z, a-z, 0-9, _ или -"
     },
     signIn: "Войти",
-    signUp: "Зарегистрироваться"
+    signUp: "Зарегистрироваться",
+
   },
   header: {
     en: "Английский",
