@@ -24,6 +24,14 @@ export type ResendConfirmationCodeRequest = {
   baseUrl: string
   email: string
 }
+export type GoogleLoginRequest = {
+  code: string
+}
+
+export type GoogleLoginResponse = {
+  accessToken: string
+  email: string
+}
 
 export type SignUpRequest = {
   email: string

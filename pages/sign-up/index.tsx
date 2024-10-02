@@ -1,6 +1,6 @@
-import { SignUpForm, getAuthLayout } from '@/components'
+import { GithubLogin, GoogleLogin, SignUpForm, getAuthLayout } from '@/components'
 import Link from 'next/link'
-import { Button, Card, Icon, Typography } from 'uikit-inctagram'
+import { Button, Card, Typography } from 'uikit-inctagram'
 
 const SignUp = () => {
   return (
@@ -9,8 +9,8 @@ const SignUp = () => {
         <Typography.H1 className='mb-3 text-center text-light-100'>Sign Up</Typography.H1>
 
         <div className='mb-6 flex justify-center gap-16'>
-          <Icon height={36} icon='google' width={36} />
-          <Icon color='white' height={36} icon='github' width={36} />
+          <GoogleLogin />
+          <GithubLogin />
         </div>
         <SignUpForm />
         <div className='flex flex-col items-center gap-2'>
