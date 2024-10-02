@@ -3,7 +3,7 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { EmailSentModal } from '@/components'
-import { authApi } from '@/services'
+import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -41,13 +41,19 @@ export const ForgotPasswordForm = () => {
 
       await forgotPassword({ baseUrl, ...values }).unwrap()
       setIsModalOpened(true)
-      router.push('/check-email')
     } catch (err) {
-      if (isError) {
-        setError('email', {
-          message: 'Failed to send reset link. Please try again.',
-        })
-      }
+      // if (isFetchBaseQueryError(err)) {
+      //   if (isApiError(err.data)) {
+      //     if (Array.isArray(err.data.messages)) {
+      //       err.data.messages.forEach(message => {
+      //         setError(message.field as keyof FormFields, {
+      //           message: message.message,
+      //         })
+      //       })
+      //     }
+      //   }
+      // }
+      setError('email', { message: "User with this email doesn't exist" })
     }
   }
   const buttonText = isSuccess ? 'Send Link Again' : 'Send Link'
@@ -66,10 +72,13 @@ export const ForgotPasswordForm = () => {
       />
 
       <form className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
-        <Input label='Email' placeholder='Example@gram.com' type='email' {...register('email')} />
-        {formState.errors.email && (
-          <span className='text-red-500'>{formState.errors.email.message}</span>
-        )}
+        <Input
+          errorText={formState.errors.email?.message}
+          label='Email'
+          placeholder='Example@gram.com'
+          type='email'
+          {...register('email')}
+        />
         <span className='mt-[7px] font-normal text-light-900'>
           Enter your email address and we will send you further instructions
         </span>
@@ -78,7 +87,11 @@ export const ForgotPasswordForm = () => {
             The link has been sent by email. If you don’t receive an email send link again
           </span>
         )}
-        <Button className='mb-[24px] mt-[17px]' disabled={isLoading} variant='primary'>
+        <Button
+          className='mb-[24px] mt-[17px]'
+          disabled={!formState.isValid || isLoading}
+          variant='primary'
+        >
           {buttonText}
         </Button>
         <Button asChild className='mb-[24px] w-full text-center' variant='text'>
