@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { baseQueryWithReauth } from './baseQuery'
+import { baseQueryWithReauth } from '../baseQuery'
 import {
   AuthMeResponse,
   ConfirmRegistrationRequest,
@@ -8,6 +8,7 @@ import {
   SignInRequest,
   SignInResponse,
   SignUpRequest,
+  UpdatePasswordRequest,
   UpdateTokensResponse,
 } from './types'
 
@@ -16,6 +17,9 @@ export const authApi = createApi({
   endpoints: builder => ({
     authMe: builder.query<AuthMeResponse, void>({
       query: () => ({ url: 'auth/me' }),
+    }),
+    checkRecoveryCode: builder.mutation<{ email: string }, { recoveryCode: string }>({
+      query: body => ({ body, method: 'POST', url: 'auth/check-recovery-code' }),
     }),
     confirmRegistration: builder.mutation<{}, ConfirmRegistrationRequest>({
       query: body => ({ body, method: 'POST', url: 'auth/registration-confirmation' }),
@@ -34,6 +38,9 @@ export const authApi = createApi({
     }),
     signUp: builder.mutation<{}, SignUpRequest>({
       query: body => ({ body, method: 'POST', url: 'auth/registration' }),
+    }),
+    updatePassword: builder.mutation<void, UpdatePasswordRequest>({
+      query: body => ({ body, method: 'POST', url: 'auth/new-password' }),
     }),
     updateTokens: builder.mutation<UpdateTokensResponse, void>({
       query: () => ({ method: 'POST', url: 'auth/update-tokens' }),
