@@ -96,7 +96,6 @@ export const SignUpForm = () => {
           <Input
             autoComplete='none'
             errorText={errors.userName?.message}
-            id={`username-${Math.random()}`}
             label='Username'
             placeholder='Exapmle-123'
             type='text'
