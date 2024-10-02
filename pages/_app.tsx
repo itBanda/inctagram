@@ -4,6 +4,7 @@ import { ReactElement, ReactNode } from 'react'
 import { Provider } from 'react-redux'
 
 import { wrapper } from '@/store'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import { NextPage } from 'next'
 
 import '@/styles/globals.css'
@@ -23,5 +24,9 @@ export default function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? (page => page)
 
-  return <Provider store={store}>{getLayout(<Component {...props.pageProps} />)}</Provider>
+  return (
+    <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_CLIENT_ID}>
+      <Provider store={store}>{getLayout(<Component {...props.pageProps} />)}</Provider>
+    </GoogleOAuthProvider>
+  )
 }

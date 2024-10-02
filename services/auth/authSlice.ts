@@ -4,6 +4,8 @@ import { baseQueryWithReauth } from '../baseQuery'
 import {
   AuthMeResponse,
   ConfirmRegistrationRequest,
+  GoogleLoginRequest,
+  GoogleLoginResponse,
   ResendConfirmationCodeRequest,
   SignInRequest,
   SignInResponse,
@@ -23,6 +25,9 @@ export const authApi = createApi({
     }),
     confirmRegistration: builder.mutation<{}, ConfirmRegistrationRequest>({
       query: body => ({ body, method: 'POST', url: 'auth/registration-confirmation' }),
+    }),
+    googleLogin: builder.mutation<GoogleLoginResponse, GoogleLoginRequest>({
+      query: body => ({ body, method: 'POST', url: 'auth/google/login' }),
     }),
     login: builder.mutation<SignInResponse, SignInRequest>({
       query: body => ({ body, method: 'POST', url: 'auth/login' }),
