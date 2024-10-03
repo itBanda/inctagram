@@ -1,6 +1,7 @@
 import { GithubLogin, GoogleLogin, SignUpForm, getAuthLayout } from '@/components'
 import Link from 'next/link'
 import { Button, Card, Typography } from 'uikit-inctagram'
+
 const SignUp = () => {
   return (
     <section className='flex justify-center px-4 py-6'>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+// eslint-disable-next-line import/no-named-as-default
 import ReCAPTCHA from 'react-google-recaptcha'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -6,7 +7,6 @@ import { EmailSentModal } from '@/components'
 import { authApi } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { Button, Input, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
@@ -30,8 +30,8 @@ export const ForgotPasswordForm = () => {
   })
 
   const [isModalOpened, setIsModalOpened] = useState(false)
-  const handleChangeCaptcha = (token: string) => {
-    setValue('recaptcha', token)
+  const handleChangeCaptcha = (token: null | string) => {
+    setValue('recaptcha', token ?? '')
   }
 
   const onSubmit: SubmitHandler<FormFields> = async values => {
