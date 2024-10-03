@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { EmailSentModal } from '@/components'
+import { Trans } from '@/components/transtlate-with-tags/Trans'
 import { useTranslation } from '@/hocs/useTranslation'
 import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -130,17 +131,22 @@ export const SignUpForm = () => {
         <div className='flex flex-col'>
           <label className='mb-2 flex items-center'>
             <Checkbox checked={isTermsAccepted} {...register('terms')} />
-            <span className='text-xs font-normal text-light-500'>
-              {t.authPage.form.agree}{' '}
-              <Link className='text-accent-500 underline' href='/terms-of-service'>
-                {' '}
-                {t.authPage.form.terms.with}
-              </Link>{' '}
-              {t.authPage.form.and}{' '}
-              <Link className='text-accent-500 underline' href='/privacy-policy'>
-                {t.authPage.form.privacy.with}
-              </Link>
-            </span>
+            <Trans
+              className='text-xs font-normal text-light-500'
+              tags={{
+                1: content => (
+                  <Link className='text-accent-500 underline' href='/terms-of-service'>
+                    {content}
+                  </Link>
+                ),
+                2: content => (
+                  <Link className='text-accent-500 underline' href='/privacy-policy'>
+                    {content}
+                  </Link>
+                ),
+              }}
+              text={t.authPage.form.agree(t.authPage.form.terms.with, t.authPage.form.privacy.with)}
+            />
           </label>
         </div>
 

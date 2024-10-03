@@ -2,8 +2,9 @@ export const en = {
   authPage: {
     backToSignUp: "Back to Sign Up",
     form: {
-      agree: "I agree to the",
-      and: "and",
+      agree(term: string, privacy: string) {
+        return `I agree to the <1>${term}</1> and <2>${privacy}</2>`;
+      },
       email: {
         email: "Email",
         help: "Email must match the format example@example.com",
