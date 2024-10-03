@@ -3,7 +3,7 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { EmailSentModal } from '@/components'
-import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
+import { authApi } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -42,17 +42,6 @@ export const ForgotPasswordForm = () => {
       await forgotPassword({ baseUrl, ...values }).unwrap()
       setIsModalOpened(true)
     } catch (err) {
-      // if (isFetchBaseQueryError(err)) {
-      //   if (isApiError(err.data)) {
-      //     if (Array.isArray(err.data.messages)) {
-      //       err.data.messages.forEach(message => {
-      //         setError(message.field as keyof FormFields, {
-      //           message: message.message,
-      //         })
-      //       })
-      //     }
-      //   }
-      // }
       setError('email', { message: "User with this email doesn't exist" })
     }
   }

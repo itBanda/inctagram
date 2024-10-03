@@ -30,7 +30,7 @@ export const authApi = createApi({
         url: 'auth/logout',
       }),
     }),
-    passwordRecovery: builder.mutation<PasswordRecoveryRequest, void>({
+    passwordRecovery: builder.mutation<void, PasswordRecoveryRequest>({
       query: body => ({
         body,
         method: 'POST',
