@@ -17,9 +17,9 @@ const SignInFormSchema = z.object({
 type FormFields = z.infer<typeof SignInFormSchema>
 
 export const SignInForm = () => {
-  const [login, { error, isError, isLoading }] = authApi.useLoginMutation()
+  const [login, { isLoading }] = authApi.useLoginMutation()
   const dispatch = useAppDispatch()
-  const router = useRouter()
+
   const { formState, handleSubmit, register, setError } = useForm<FormFields>({
     defaultValues: {
       email: '',
@@ -34,7 +34,6 @@ export const SignInForm = () => {
       const response = await login(values).unwrap()
 
       dispatch(authActions.login({ accessToken: response.accessToken }))
-      router.push('/profile')
     } catch (err) {
       if (isFetchBaseQueryError(err)) {
         if (isApiError(err.data)) {

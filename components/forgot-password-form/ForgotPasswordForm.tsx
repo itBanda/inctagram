@@ -20,7 +20,6 @@ type FormFields = z.infer<typeof ForgotPasswordFormSchema>
 export const ForgotPasswordForm = () => {
   const [forgotPassword, { error, isError, isLoading, isSuccess }] =
     authApi.usePasswordRecoveryMutation()
-  const router = useRouter()
   const { formState, handleSubmit, register, setError, setValue, watch } = useForm<FormFields>({
     defaultValues: {
       email: '',
