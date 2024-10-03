@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { EmailSentModal } from '@/components'
@@ -47,6 +47,7 @@ export const SignUpForm = () => {
     register,
     reset,
     setError,
+    trigger,
     watch,
   } = useForm<FormFields>({
     defaultValues: {
@@ -56,7 +57,7 @@ export const SignUpForm = () => {
       terms: false,
       userName: '',
     },
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(SignUpSchema),
   })
 
@@ -125,7 +126,12 @@ export const SignUpForm = () => {
 
         <div className='flex flex-col'>
           <label className='mb-2 flex items-center'>
-            <Checkbox checked={isTermsAccepted} {...register('terms')} />
+            <Checkbox
+              checked={isTermsAccepted}
+              {...register('terms', {
+                onChange: async (e: ChangeEvent<HTMLInputElement>) => await trigger('terms'),
+              })}
+            />
             <span className='text-xs font-normal text-light-500'>
               I agree to the{' '}
               <Link className='text-accent-500 underline' href='/terms-of-service'>
