@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { EmailSentModal } from '@/components'
@@ -66,7 +66,6 @@ export const SignUpForm = () => {
   const onSubmit: SubmitHandler<FormFields> = async data => {
     try {
       await signUp(data).unwrap()
-
       setIsModalOpen(true)
     } catch (err) {
       console.error('Registration failed:', err)
@@ -95,7 +94,6 @@ export const SignUpForm = () => {
         <div className='mb-2 flex flex-col gap-6'>
           <input className='hidden' name='username' type='text' />
           <Input
-            autoComplete='none'
             errorText={errors.userName?.message}
             label='Username'
             placeholder='Exapmle-123'
@@ -104,7 +102,6 @@ export const SignUpForm = () => {
           />
 
           <Input
-            autoComplete='email'
             errorText={errors.email?.message}
             label='Email'
             placeholder='example@example.com'
@@ -114,7 +111,6 @@ export const SignUpForm = () => {
 
           <input className='hidden' name='password' type='password' />
           <PasswordInput
-            autoComplete='none'
             errorText={errors.password?.message}
             label='Password'
             placeholder='************'
@@ -122,7 +118,6 @@ export const SignUpForm = () => {
           />
 
           <PasswordInput
-            autoComplete='none'
             errorText={errors.passwordConfirmation?.message}
             label='Password Confirmation'
             placeholder='************'
@@ -135,7 +130,7 @@ export const SignUpForm = () => {
             <Checkbox
               checked={isTermsAccepted}
               {...register('terms', {
-                onChange: async (e: ChangeEvent<HTMLInputElement>) => await trigger('terms'),
+                onChange: async () => await trigger('terms'),
               })}
             />
             <span className='text-xs font-normal text-light-500'>
