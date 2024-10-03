@@ -1,14 +1,13 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { authActions } from '@/features'
+import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
+import { useAppDispatch } from '@/store'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Button, Input, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
-
-import { authActions } from '../../features'
-import { authApi, isApiError, isFetchBaseQueryError } from '../../services/'
-import { useAppDispatch } from '../../store'
 
 const SignInFormSchema = z.object({
   email: z.string().email(),
