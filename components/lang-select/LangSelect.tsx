@@ -17,7 +17,6 @@ export const LangSelect = () => {
   //   push({ pathname, query }, asPath, { locale })
   // }
 
-  console.log('Текущий язык:', locale)
   const changeLangHandler = (value: string) => {
     //const locale = event.currentTarget.value
     console.log('Выбранный язык:', value)
@@ -28,7 +27,6 @@ export const LangSelect = () => {
     <Select
       id='language-select'
       onValueChange={() => console.log('Текущий язык:', locale)}
-      //onOpenChange={() => changeLangHandler(true)}
       options={[
         { icon: <Image alt='Russian Language' src={Ru} />, label: t.header.en, value: 'en' },
         { icon: <Image alt='English Language' src={En} />, label: t.header.ru, value: 'ru' },
