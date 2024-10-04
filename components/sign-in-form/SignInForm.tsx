@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { authActions } from '@/features'
@@ -25,7 +26,7 @@ export const SignInForm = () => {
   const router = useRouter()
   const { t } = useTranslation()
 
-  const { formState, handleSubmit, register, setError } = useForm<FormFields>({
+  const { formState, handleSubmit, register, setError, trigger } = useForm<FormFields>({
     defaultValues: {
       email: '',
       password: '',
@@ -33,6 +34,20 @@ export const SignInForm = () => {
     mode: 'onBlur',
     resolver: zodResolver(SignInFormSchema(t)),
   })
+
+  const [touchedFields, setTouchedFields] = useState<{ email: boolean; password: boolean }>({
+    email: false,
+    password: false,
+  })
+
+  useEffect(() => {
+    trigger()
+  }, [t, trigger])
+
+  const handleBlurInt = (field: keyof FormFields) => {
+    setTouchedFields(prev => ({ ...prev, [field]: true }))
+    trigger(field)
+  }
 
   const onSubmit: SubmitHandler<FormFields> = async values => {
     try {
@@ -65,17 +80,21 @@ export const SignInForm = () => {
     <form className='mb-[18px]' onSubmit={handleSubmit(onSubmit)}>
       <div className='mb-9 flex flex-col gap-6'>
         <Input
-          errorText={formState.errors.email?.message}
+          errorText={touchedFields.email ? formState.errors.email?.message : undefined}
           label={t.authPage.form.email.email}
           placeholder='Example@gram.com'
           type='email'
-          {...register('email')}
+          {...register('email', {
+            onBlur: () => handleBlurInt('email'),
+          })}
         />
         <PasswordInput
-          errorText={formState.errors.password?.message}
+          errorText={touchedFields.password ? formState.errors.password?.message : undefined}
           label={t.authPage.form.password.password}
           placeholder='************'
-          {...register('password')}
+          {...register('password', {
+            onBlur: () => handleBlurInt('password'),
+          })}
         />
       </div>
       <Typography.TextSm className='mb-6 text-right text-light-900'>

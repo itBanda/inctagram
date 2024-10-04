@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { EmailSentModal } from '@/components'
@@ -68,6 +68,27 @@ export const SignUpForm = () => {
 
   const isTermsAccepted = watch('terms')
 
+  const [touchedFields, setTouchedFields] = useState<{
+    email: boolean
+    password: boolean
+    passwordConfirmation: boolean
+    userName: boolean
+  }>({
+    email: false,
+    password: false,
+    passwordConfirmation: false,
+    userName: false,
+  })
+
+  useEffect(() => {
+    trigger()
+  }, [t, trigger])
+
+  const handleBlurInt = (field: keyof FormFields) => {
+    setTouchedFields(prev => ({ ...prev, [field]: true }))
+    trigger(field)
+  }
+
   const onSubmit: SubmitHandler<FormFields> = async data => {
     try {
       await signUp(data).unwrap()
@@ -99,26 +120,32 @@ export const SignUpForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='mb-2 flex flex-col gap-6'>
           <Input
-            errorText={errors.userName?.message}
+            errorText={touchedFields.userName ? errors.userName?.message : undefined}
             label={t.authPage.form.userName}
             placeholder='Exapmle-123'
             type='text'
-            {...register('userName')}
+            {...register('userName', {
+              onBlur: () => handleBlurInt('userName'),
+            })}
           />
 
           <Input
-            errorText={errors.email?.message}
+            errorText={touchedFields.email ? errors.email?.message : undefined}
             label={t.authPage.form.email.email}
             placeholder='example@example.com'
             type='email'
-            {...register('email')}
+            {...register('email', {
+              onBlur: () => handleBlurInt('email'),
+            })}
           />
 
           <PasswordInput
-            errorText={errors.password?.message}
+            errorText={touchedFields.password ? errors.password?.message : undefined}
             label={t.authPage.form.password.password}
             placeholder='************'
-            {...register('password')}
+            {...register('password', {
+              onBlur: () => handleBlurInt('password'),
+            })}
           />
 
           <PasswordInput
