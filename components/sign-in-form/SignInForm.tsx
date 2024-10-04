@@ -74,7 +74,7 @@ export const SignInForm = () => {
         />
       </div>
       <Typography.TextSm className='mb-6 text-right text-light-900'>
-        <Link className='mb-6' href='#'>
+        <Link className='mb-6' href='/forgot-password'>
           Forgot Password
         </Link>
       </Typography.TextSm>

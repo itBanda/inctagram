@@ -6,6 +6,7 @@ import {
   ConfirmRegistrationRequest,
   GoogleLoginRequest,
   GoogleLoginResponse,
+  PasswordRecoveryRequest,
   ResendConfirmationCodeRequest,
   SignInRequest,
   SignInResponse,
@@ -36,6 +37,13 @@ export const authApi = createApi({
       query: () => ({
         method: 'POST',
         url: 'auth/logout',
+      }),
+    }),
+    passwordRecovery: builder.mutation<void, PasswordRecoveryRequest>({
+      query: body => ({
+        body,
+        method: 'POST',
+        url: 'auth/password-recovery',
       }),
     }),
     resendConfirmationCode: builder.mutation<{}, ResendConfirmationCodeRequest>({

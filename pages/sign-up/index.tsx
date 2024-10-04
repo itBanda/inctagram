@@ -7,7 +7,6 @@ const SignUp = () => {
     <section className='flex justify-center px-4 py-6'>
       <Card className='w-full max-w-[378px]'>
         <Typography.H1 className='mb-3 text-center text-light-100'>Sign Up</Typography.H1>
-
         <div className='mb-6 flex justify-center gap-16'>
           <GoogleLogin />
           <GithubLogin />
