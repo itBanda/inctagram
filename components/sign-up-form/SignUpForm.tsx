@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { EmailSentModal } from '@/components'
@@ -66,7 +66,6 @@ export const SignUpForm = () => {
   const onSubmit: SubmitHandler<FormFields> = async data => {
     try {
       await signUp(data).unwrap()
-
       setIsModalOpen(true)
     } catch (err) {
       console.error('Registration failed:', err)
@@ -93,6 +92,7 @@ export const SignUpForm = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='mb-2 flex flex-col gap-6'>
+          <input className='hidden' name='username' type='text' />
           <Input
             errorText={errors.userName?.message}
             label='Username'
@@ -109,6 +109,7 @@ export const SignUpForm = () => {
             {...register('email')}
           />
 
+          <input className='hidden' name='password' type='password' />
           <PasswordInput
             errorText={errors.password?.message}
             label='Password'
@@ -129,7 +130,7 @@ export const SignUpForm = () => {
             <Checkbox
               checked={isTermsAccepted}
               {...register('terms', {
-                onChange: async (e: ChangeEvent<HTMLInputElement>) => await trigger('terms'),
+                onChange: async () => await trigger('terms'),
               })}
             />
             <span className='text-xs font-normal text-light-500'>
