@@ -35,7 +35,7 @@ export const RecoveryPasswordForm = () => {
   const recoveryCode = router.query.code as string
 
   const {
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
     register,
   } = useForm<FormFields>({
@@ -49,8 +49,9 @@ export const RecoveryPasswordForm = () => {
 
   const onSubmit: SubmitHandler<FormFields> = async values => {
     try {
-      await updatePassword({ newPassword: values.password, recoveryCode })
+      await updatePassword({ newPassword: values.password, recoveryCode }).unwrap()
       terminateAllSessions()
+      router.push('/sign-in')
     } catch (err) {
       console.error(err)
     }
@@ -78,7 +79,7 @@ export const RecoveryPasswordForm = () => {
           </Typography.TextSm>
         </div>
       </div>
-      <Button className='w-full' disabled={isUpdatePasswordLoading}>
+      <Button className='w-full' disabled={isUpdatePasswordLoading || !isValid}>
         Create new password
       </Button>
     </form>

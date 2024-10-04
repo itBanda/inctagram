@@ -22,10 +22,11 @@
     "next-redux-wrapper": "8.1.0",
     "react": "18",
     "react-dom": "18",
+    "react-google-recaptcha": "3.1.0",
     "react-hook-form": "7.53.0",
     "react-redux": "9.1.2",
     "tailwind-scrollbar": "3.1.0",
-    "uikit-inctagram": "^1.0.8",
+    "uikit-inctagram": "1.0.8",
     "zod": "3.23.8"
   },
   "devDependencies": {
@@ -45,6 +46,7 @@
     "prettier": "3.3.3",
     "prettier-plugin-tailwindcss": "0.6.6",
     "tailwindcss": "3.4.10",
-    "typescript": "5"
+    "typescript": "5",
+    "@types/react-google-recaptcha": "2.1.9"
   }
 }

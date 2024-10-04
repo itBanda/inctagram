@@ -6,6 +6,11 @@ export type SignInRequest = {
 export type SignInResponse = {
   accessToken: string
 }
+export type PasswordRecoveryRequest = {
+  baseUrl: string
+  email: string
+  recaptcha: string
+}
 
 export type AuthMeResponse = {
   email: string
