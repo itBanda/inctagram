@@ -1,5 +1,5 @@
 import { LangSelect } from '@/components/lang-select/LangSelect'
-import { useTranslation } from '@/hocs/useTranslation'
+import { useTranslation } from '@/hooks/useTranslation'
 import Link from 'next/link'
 import { Button } from 'uikit-inctagram'
 

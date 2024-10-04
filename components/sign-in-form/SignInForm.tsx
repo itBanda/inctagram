@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { authActions } from '@/features'
-import { useTranslation } from '@/hocs/useTranslation'
+import { useTranslation } from '@/hooks/useTranslation'
+import { LocaleType } from '@/public/locales/en'
 import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
 import { useAppDispatch } from '@/store'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import { Button, Input, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
-const SignInFormSchema = (t: any) =>
+const SignInFormSchema = (t: LocaleType) =>
   z.object({
     email: z.string().email(t.authPage.form.email.invalid),
     password: z.string().min(1, t.authPage.form.required),
@@ -26,7 +26,7 @@ export const SignInForm = () => {
   const router = useRouter()
   const { t } = useTranslation()
 
-  const { formState, handleSubmit, register, setError, trigger } = useForm<FormFields>({
+  const { formState, handleSubmit, register, setError } = useForm<FormFields>({
     defaultValues: {
       email: '',
       password: '',
@@ -34,20 +34,6 @@ export const SignInForm = () => {
     mode: 'onBlur',
     resolver: zodResolver(SignInFormSchema(t)),
   })
-
-  const [touchedFields, setTouchedFields] = useState<{ email: boolean; password: boolean }>({
-    email: false,
-    password: false,
-  })
-
-  useEffect(() => {
-    trigger()
-  }, [t, trigger])
-
-  const handleBlurInt = (field: keyof FormFields) => {
-    setTouchedFields(prev => ({ ...prev, [field]: true }))
-    trigger(field)
-  }
 
   const onSubmit: SubmitHandler<FormFields> = async values => {
     try {
@@ -64,7 +50,7 @@ export const SignInForm = () => {
           if (typeof err.data.messages === 'string') {
             console.log(err.data.messages)
             setError('password', {
-              message: t.authPage.form.error,
+              message: 'The email or password are incorrect. Try again please',
             })
           } else {
             err.data.messages.forEach(message => {
@@ -80,21 +66,17 @@ export const SignInForm = () => {
     <form className='mb-[18px]' onSubmit={handleSubmit(onSubmit)}>
       <div className='mb-9 flex flex-col gap-6'>
         <Input
-          errorText={touchedFields.email ? formState.errors.email?.message : undefined}
+          errorText={formState.errors.email?.message}
           label={t.authPage.form.email.email}
           placeholder='Example@gram.com'
           type='email'
-          {...register('email', {
-            onBlur: () => handleBlurInt('email'),
-          })}
+          {...register('email')}
         />
         <PasswordInput
-          errorText={touchedFields.password ? formState.errors.password?.message : undefined}
+          errorText={formState.errors.password?.message}
           label={t.authPage.form.password.password}
           placeholder='************'
-          {...register('password', {
-            onBlur: () => handleBlurInt('password'),
-          })}
+          {...register('password')}
         />
       </div>
       <Typography.TextSm className='mb-6 text-right text-light-900'>

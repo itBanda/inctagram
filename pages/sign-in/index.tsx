@@ -1,5 +1,5 @@
 import { GithubLogin, GoogleLogin, SignInForm, getAuthLayout } from '@/components'
-import { useTranslation } from '@/hocs/useTranslation'
+import { useTranslation } from '@/hooks/useTranslation'
 import Link from 'next/link'
 import { Button, Card, Typography } from 'uikit-inctagram'
 const SignIn = () => {

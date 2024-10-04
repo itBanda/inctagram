@@ -1,13 +1,14 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { useTranslation } from '@/hocs/useTranslation'
+import { useTranslation } from '@/hooks/useTranslation'
+import { LocaleType } from '@/public/locales/en'
 import { authApi, sessionsApi } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { Button, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
-const RecoveryPasswordFormSchema = (t: any) =>
+const RecoveryPasswordFormSchema = (t: LocaleType) =>
   z
     .object({
       password: z

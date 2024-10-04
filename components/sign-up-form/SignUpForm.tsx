@@ -1,16 +1,17 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { EmailSentModal } from '@/components'
 import { Trans } from '@/components/transtlate-with-tags/Trans'
-import { useTranslation } from '@/hocs/useTranslation'
+import { useTranslation } from '@/hooks/useTranslation'
+import { LocaleType } from '@/public/locales/en'
 import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { Button, Checkbox, Input, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
-const SignUpSchema = (t: any) =>
+const SignUpSchema = (t: LocaleType) =>
   z
     .object({
       email: z.string().trim().email(t.authPage.form.email.help),

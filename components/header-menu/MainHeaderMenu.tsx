@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { ConfirmationModal } from '@/components/modals'
 import { authActions } from '@/features'
-import { useTranslation } from '@/hocs/useTranslation'
+import { useTranslation } from '@/hooks/useTranslation'
 import { authApi } from '@/services'
 import { useAppDispatch } from '@/store'
 import { Button, Typography } from 'uikit-inctagram'

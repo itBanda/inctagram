@@ -1,5 +1,5 @@
 import { getAuthLayout } from '@/components'
-import { useTranslation } from '@/hocs/useTranslation'
+import { useTranslation } from '@/hooks/useTranslation'
 import Link from 'next/link'
 import { Icon } from 'uikit-inctagram'
 

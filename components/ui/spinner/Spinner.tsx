@@ -1,4 +1,4 @@
-import { useTranslation } from '@/hocs/useTranslation'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export const Spinner = () => {
   const { t } = useTranslation()

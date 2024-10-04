@@ -1,6 +1,6 @@
-import En from '@/assets/lang-img/FlagEn.svg'
-import Ru from '@/assets/lang-img/FlagRu.svg'
-import { useTranslation } from '@/hocs/useTranslation'
+import En from '@/assets/lang-img/FlagEn.png'
+import Ru from '@/assets/lang-img/FlagRu.png'
+import { useTranslation } from '@/hooks/useTranslation'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Select } from 'uikit-inctagram'
@@ -18,10 +18,10 @@ export const LangSelect = () => {
       id='language-select'
       onValueChange={changeLangHandler}
       options={[
-        { icon: <Image alt='Russian Language' src={Ru} />, label: t.header.en, value: 'en' },
-        { icon: <Image alt='English Language' src={En} />, label: t.header.ru, value: 'ru' },
+        { icon: <Image alt='Russian Language' src={Ru} />, label: t.header.ru, value: 'ru' },
+        { icon: <Image alt='English Language' src={En} />, label: t.header.en, value: 'en' },
       ]}
-      placeholder={locale === 'en' ? t.header.en : t.header.ru}
+      // placeholder={locale === 'en' ? t.header.en : t.header.ru}
       value={locale}
     />
   )

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
-import { useTranslation } from '@/hocs/useTranslation'
+import { useTranslation } from '@/hooks/useTranslation'
 import { Button, Modal } from 'uikit-inctagram'
 
 type Props = {

@@ -1,6 +1,6 @@
 import { getMainLayout } from '@/components'
-import { useTranslation } from '@/hocs/useTranslation'
 import withAuth from '@/hocs/withAuth'
+import { useTranslation } from '@/hooks/useTranslation'
 import { authApi } from '@/services'
 
 const Profile = () => {
