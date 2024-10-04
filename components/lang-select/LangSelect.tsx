@@ -18,8 +18,8 @@ export const LangSelect = () => {
       id='language-select'
       onValueChange={changeLangHandler}
       options={[
-        { icon: <Image alt='Russian Language' src={Ru} />, label: t.header.en, value: 'en' },
-        { icon: <Image alt='English Language' src={En} />, label: t.header.ru, value: 'ru' },
+        { icon: <Image alt='Russian Language' src={Ru} />, label: t.header.ru, value: 'ru' },
+        { icon: <Image alt='English Language' src={En} />, label: t.header.en, value: 'en' },
       ]}
       placeholder={locale === 'en' ? t.header.en : t.header.ru}
       value={locale}
