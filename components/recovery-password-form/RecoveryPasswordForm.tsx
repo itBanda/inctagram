@@ -35,7 +35,7 @@ export const RecoveryPasswordForm = () => {
   const recoveryCode = router.query.code as string
 
   const {
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
     register,
   } = useForm<FormFields>({
@@ -78,7 +78,7 @@ export const RecoveryPasswordForm = () => {
           </Typography.TextSm>
         </div>
       </div>
-      <Button className='w-full' disabled={isUpdatePasswordLoading}>
+      <Button className='w-full' disabled={isUpdatePasswordLoading || !isValid}>
         Create new password
       </Button>
     </form>

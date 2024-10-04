@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 // eslint-disable-next-line import/no-named-as-default
 import ReCAPTCHA from 'react-google-recaptcha'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -18,8 +18,7 @@ const ForgotPasswordFormSchema = z.object({
 type FormFields = z.infer<typeof ForgotPasswordFormSchema>
 
 export const ForgotPasswordForm = () => {
-  const [forgotPassword, { error, isError, isLoading, isSuccess }] =
-    authApi.usePasswordRecoveryMutation()
+  const [forgotPassword, { isLoading, isSuccess }] = authApi.usePasswordRecoveryMutation()
   const { formState, handleSubmit, register, setError, setValue, watch } = useForm<FormFields>({
     defaultValues: {
       email: '',

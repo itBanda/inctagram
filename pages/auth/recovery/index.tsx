@@ -27,7 +27,7 @@ const Recovery = () => {
     return <Spinner />
   }
 
-  if (!isCheckRecoveryCodeError) {
+  if (isCheckRecoveryCodeError) {
     return (
       <AuthMessage
         action={
