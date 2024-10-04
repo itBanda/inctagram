@@ -18,7 +18,7 @@ const SignUpSchema = z
       .max(20, 'Maximum number of characters 20')
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])/,
-        'Password must contain a-z, A-Z, !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
+        'Password must contain 0-9, a-z, A-Z, ! " # $ % & \' () * + , - . / : ; < = > ? @ [\\] ^ _ ` { | } ~'
       ),
     passwordConfirmation: z.string().trim(),
     terms: z.boolean(),
