@@ -92,7 +92,6 @@ export const SignUpForm = () => {
   const onSubmit: SubmitHandler<FormFields> = async data => {
     try {
       await signUp(data).unwrap()
-
       setIsModalOpen(true)
     } catch (err) {
       console.error('Registration failed:', err)
@@ -119,6 +118,7 @@ export const SignUpForm = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='mb-2 flex flex-col gap-6'>
+          <input className='hidden' name='username' type='text' />
           <Input
             errorText={touchedFields.userName ? errors.userName?.message : undefined}
             label={t.authPage.form.userName}
@@ -139,6 +139,7 @@ export const SignUpForm = () => {
             })}
           />
 
+          <input className='hidden' name='password' type='password' />
           <PasswordInput
             errorText={touchedFields.password ? errors.password?.message : undefined}
             label={t.authPage.form.password.password}
@@ -161,7 +162,7 @@ export const SignUpForm = () => {
             <Checkbox
               checked={isTermsAccepted}
               {...register('terms', {
-                onChange: async (e: ChangeEvent<HTMLInputElement>) => await trigger('terms'),
+                onChange: async () => await trigger('terms'),
               })}
             />
             <Trans

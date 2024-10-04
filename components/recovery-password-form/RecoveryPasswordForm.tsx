@@ -53,8 +53,9 @@ export const RecoveryPasswordForm = () => {
 
   const onSubmit: SubmitHandler<FormFields> = async values => {
     try {
-      await updatePassword({ newPassword: values.password, recoveryCode })
+      await updatePassword({ newPassword: values.password, recoveryCode }).unwrap()
       terminateAllSessions()
+      router.push('/sign-in')
     } catch (err) {
       console.error(err)
     }
