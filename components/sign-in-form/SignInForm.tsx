@@ -79,7 +79,7 @@ export const SignInForm = () => {
         />
       </div>
       <Typography.TextSm className='mb-6 text-right text-light-900'>
-        <Link className='mb-6' href='#'>
+        <Link className='mb-6 transition-colors hover:text-light-700' href='/forgot-password'>
           {t.authPage.form.password.forgot}
         </Link>
       </Typography.TextSm>

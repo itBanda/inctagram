@@ -12,7 +12,6 @@ const SignUp = () => {
         <Typography.H1 className='mb-3 text-center text-light-100'>
           {t.authPage.signUp}
         </Typography.H1>
-
         <div className='mb-6 flex justify-center gap-16'>
           <GoogleLogin />
           <GithubLogin />
