@@ -43,8 +43,8 @@ export const en = {
       userName: "Username",
       userNameRegex: "Username can contain only A-Z, a-z, 0-9, _ or -"
     },
-    signIn: "Sign In",
-    signUp: "Sign Up"
+    signIn: `Sign\u00A0In`,
+    signUp: `Sign\u00A0Up`
   },
   header: {
     en: "English",
