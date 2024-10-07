@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { useTranslation } from '@/hooks/useTranslation'
-import { LocaleType } from '@/public/locales/en'
+import { LocaleType } from '@/public/locales/types'
 import { authApi, sessionsApi } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'

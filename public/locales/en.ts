@@ -1,6 +1,14 @@
 export const en = {
   authPage: {
+    backToSignIn: "Back to Sign in",
     backToSignUp: "Back to Sign Up",
+    forgotPassword: {
+      enterEmail: "Enter your email address and we will send you further instructions",
+      errorNotUser: "User with this email doesn't exist",
+      linkHasBeenSent: "The link has been sent by email. If you don’t receive an email send link again",
+      sendLinkAgainBtn: 'Send Link Again',
+      sendLinkBtn: 'Send Link',
+    },
     form: {
       agree(term: string, privacy: string) {
         return `I agree to the <1>${term}</1> and <2>${privacy}</2>`;
@@ -43,6 +51,13 @@ export const en = {
       userName: "Username",
       userNameRegex: "Username can contain only A-Z, a-z, 0-9, _ or -"
     },
+    recovery: {
+      congratulations: "Congratulations",
+      message: "Looks like the verification link has expired. Not to worry, we can send the link again",
+      messageCongratulations: "Your email has been confirmed",
+      resend: "Resend verification link",
+      title: "Email verification link expired"
+    },
     signIn: `Sign\u00A0In`,
     signUp: `Sign\u00A0Up`
   },
@@ -59,14 +74,6 @@ export const en = {
     no: "No",
     ok: "Ok",
     yes: "Yes"
-  },
-  recovery: {
-    congratulations: "Congratulations",
-    message: "Looks like the verification link has expired. Not to worry, we can send the link again",
-    messageCongratulations: "Your email has been confirmed",
-    resend: "Resend verification link",
-    title: "Email verification link expired"
   }
-};
 
-export type LocaleType = typeof en
+};

@@ -1,8 +1,16 @@
-import { LocaleType } from "@/public/locales/en";
+import { LocaleType } from "@/public/locales/types";
 
 export const ru: LocaleType = {
   authPage: {
+    backToSignIn: "Вернуться ко входу",
     backToSignUp: "Вернуться к регистрации",
+    forgotPassword: {
+      enterEmail: "Введите свой адрес электронной почты и мы вышлем вам дальнейшие инструкции",
+      errorNotUser: "Пользователя с таким адресом электронной почты не существует",
+      linkHasBeenSent: "Ссылка была отправлена по электронной почте. Если вы не получили письмо, отправьте ссылку еще раз",
+      sendLinkAgainBtn: 'Отправить ссылку снова',
+      sendLinkBtn: 'Отправить ссылку',
+    },
     form: {
       agree(term: string, privacy: string) {
         return `Я согласен с <1>${term}</1> и <2>${privacy}</2>`;
@@ -45,9 +53,17 @@ export const ru: LocaleType = {
       userName: "Имя пользователя",
       userNameRegex: "Имя пользователя может содержать только A-Z, a-z, 0-9, _ или -"
     },
+    recovery: {
+      congratulations: "Поздравляем",
+      message: "Похоже, что ссылка для подтверждения истекла. Не переживайте, мы можем отправить ссылку снова",
+      messageCongratulations: "Ваш адрес электронной почты подтвержден",
+      resend: "Повторно отправить ссылку для подтверждения",
+      title: "Ссылка для подтверждения электронной почты истекла"
+    },
     signIn: "Войти",
     signUp: "Зарегистрироваться"
   },
+
   header: {
     en: "Английский",
     logout: "Выйти",
@@ -61,14 +77,6 @@ export const ru: LocaleType = {
     no: "Нет",
     ok: "Хорошо",
     yes: "Да"
-  },
-  recovery: {
-    congratulations: "Поздравkztv",
-    message: "Похоже, что ссылка для подтверждения истекла. Не переживайте, мы можем отправить ссылку снова",
-    messageCongratulations: "Ваш адрес электронной почты подтвержден",
-    resend: "Повторно отправить ссылку для подтверждения",
-    title: "Ссылка для подтверждения электронной почты истекла"
   }
 
 };
-

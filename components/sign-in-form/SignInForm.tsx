@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { authActions } from '@/features'
 import { useTranslation } from '@/hooks/useTranslation'
-import { LocaleType } from '@/public/locales/en'
+import { LocaleType } from '@/public/locales/types'
 import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
 import { useAppDispatch } from '@/store'
 import { zodResolver } from '@hookform/resolvers/zod'
