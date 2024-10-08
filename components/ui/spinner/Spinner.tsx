@@ -22,7 +22,7 @@ export const Spinner = () => {
             fill='currentFill'
           />
         </svg>
-        <span className='sr-only'>{t.loading}...</span>
+        <span className='sr-only'>{t.common.loading}...</span>
       </div>
     </div>
   )

@@ -10,7 +10,7 @@ const TermsOfService = () => {
     <div className='mx-auto max-w-[1232px] px-4 py-6 text-center text-light-100 sm:px-6 lg:px-8'>
       <Link className='flex items-center gap-3 text-white' href='/sign-up'>
         <Icon className='cursor-pointer' icon='arrow-back-outline' />
-        {t.authPage.backToSignUp}
+        {t.authPage.button.backToSignUp}
       </Link>
       <h1 className='py-6 text-xl font-bold'>{t.authPage.form.terms.noun}</h1>
       <p className='mx-auto max-w-[958px] cursor-default text-sm leading-6'>

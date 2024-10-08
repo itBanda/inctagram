@@ -47,12 +47,12 @@ const RegistrationConfirmation = () => {
             disabled={isResendCodeLoading}
             onClick={handleResendCode}
           >
-            {t.recovery.resend}
+            {t.authPage.button.resend}
           </Button>
         }
         imageSrc={emailVerificationImg}
-        message={t.recovery.message}
-        title={t.recovery.title}
+        message={t.authPage.recovery.message}
+        title={t.authPage.recovery.title}
       />
     )
   }
@@ -62,12 +62,12 @@ const RegistrationConfirmation = () => {
       <AuthMessage
         action={
           <Button asChild className='mb-[72px] mt-14 min-w-44'>
-            <Link href='/sign-in'>{t.authPage.signIn}</Link>
+            <Link href='/sign-in'>{t.authPage.button.signIn}</Link>
           </Button>
         }
         imageSrc={congratulationsImg}
-        message={t.recovery.messageCongratulations}
-        title={t.recovery.congratulations}
+        message={t.authPage.recovery.messageCongratulations}
+        title={t.authPage.recovery.congratulations}
       />
     </>
   )

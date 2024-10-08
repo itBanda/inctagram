@@ -10,7 +10,7 @@ const SignUp = () => {
     <section className='flex justify-center px-4 py-6'>
       <Card className='w-full max-w-[378px]'>
         <Typography.H1 className='mb-3 text-center text-light-100'>
-          {t.authPage.signUp}
+          {t.authPage.button.signUp}
         </Typography.H1>
         <div className='mb-6 flex justify-center gap-16'>
           <GoogleLogin />
@@ -22,7 +22,7 @@ const SignUp = () => {
             {t.authPage.form.haveAccount}
           </Typography.TextBase>
           <Button asChild variant='text'>
-            <Link href='/sign-in'>{t.authPage.signIn}</Link>
+            <Link href='/sign-in'>{t.authPage.button.signIn}</Link>
           </Button>
         </div>
       </Card>

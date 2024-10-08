@@ -35,12 +35,12 @@ const Recovery = () => {
       <AuthMessage
         action={
           <Button asChild className='mb-[72px] mt-14 min-w-44'>
-            <Link href='/forgot-password'>{t.recovery.resend}</Link>
+            <Link href='/forgot-password'>{t.authPage.button.resend}</Link>
           </Button>
         }
         imageSrc={emailVerificationImg}
-        message={t.recovery.message}
-        title={t.recovery.title}
+        message={t.authPage.recovery.message}
+        title={t.authPage.recovery.title}
       />
     )
   }

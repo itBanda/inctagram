@@ -6,11 +6,12 @@ import { useRouter } from 'next/router'
 import { Select } from 'uikit-inctagram'
 
 export const LangSelect = () => {
-  const { locale, pathname } = useRouter()
+  const { asPath, locale, pathname, push, query } = useRouter()
   const { t } = useTranslation()
 
   const changeLangHandler = (value: string) => {
-    window.location.href = value === 'en' ? pathname : `/ru/${pathname}`
+    push({ pathname, query }, asPath, { locale: value })
+    //window.location.href = value === 'en' ? pathname : `/ru/${pathname}`
   }
 
   return (

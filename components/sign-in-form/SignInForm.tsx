@@ -50,7 +50,7 @@ export const SignInForm = () => {
           if (typeof err.data.messages === 'string') {
             console.log(err.data.messages)
             setError('password', {
-              message: 'The email or password are incorrect. Try again please',
+              message: t.authPage.form.error,
             })
           } else {
             err.data.messages.forEach(message => {
@@ -85,7 +85,7 @@ export const SignInForm = () => {
         </Link>
       </Typography.TextSm>
       <Button className='w-full' disabled={isLoading}>
-        {t.authPage.signIn}
+        {t.authPage.button.signIn}
       </Button>
     </form>
   )

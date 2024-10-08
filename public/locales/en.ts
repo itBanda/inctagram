@@ -1,13 +1,18 @@
 export const en = {
   authPage: {
-    backToSignIn: "Back to Sign in",
-    backToSignUp: "Back to Sign Up",
+    button: {
+      backToSignIn: "Back to Sign in",
+      backToSignUp: "Back to Sign Up",
+      resend: "Resend verification link",
+      sendLinkAgainBtn: "Send Link Again",
+      sendLinkBtn: "Send Link",
+      signIn: `Sign\u00A0In`,
+      signUp: `Sign\u00A0Up`
+    },
     forgotPassword: {
       enterEmail: "Enter your email address and we will send you further instructions",
       errorNotUser: "User with this email doesn't exist",
-      linkHasBeenSent: "The link has been sent by email. If you don’t receive an email send link again",
-      sendLinkAgainBtn: 'Send Link Again',
-      sendLinkBtn: 'Send Link',
+      linkHasBeenSent: "The link has been sent by email. If you don’t receive an email send link again"
     },
     form: {
       agree(term: string, privacy: string) {
@@ -55,11 +60,16 @@ export const en = {
       congratulations: "Congratulations",
       message: "Looks like the verification link has expired. Not to worry, we can send the link again",
       messageCongratulations: "Your email has been confirmed",
-      resend: "Resend verification link",
       title: "Email verification link expired"
-    },
-    signIn: `Sign\u00A0In`,
-    signUp: `Sign\u00A0Up`
+    }
+  },
+  common: {
+    loading: "Loading",
+    modal: {
+      no: "No",
+      ok: "Ok",
+      yes: "Yes"
+    }
   },
   header: {
     en: "English",
@@ -68,12 +78,5 @@ export const en = {
       return `Are you really want to log out of your account ${email}?`;
     },
     ru: "Russian"
-  },
-  loading: "Loading",
-  modal: {
-    no: "No",
-    ok: "Ok",
-    yes: "Yes"
   }
-
 };

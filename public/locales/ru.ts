@@ -2,14 +2,19 @@ import { LocaleType } from "@/public/locales/types";
 
 export const ru: LocaleType = {
   authPage: {
-    backToSignIn: "Вернуться ко входу",
-    backToSignUp: "Вернуться к регистрации",
+    button: {
+      backToSignIn: "Вернуться ко входу",
+      backToSignUp: "Вернуться к регистрации",
+      resend: "Повторно отправить ссылку для подтверждения",
+      sendLinkAgainBtn: "Отправить ссылку снова",
+      sendLinkBtn: "Отправить ссылку",
+      signIn: "Войти",
+      signUp: "Зарегистрироваться"
+    },
     forgotPassword: {
       enterEmail: "Введите свой адрес электронной почты и мы вышлем вам дальнейшие инструкции",
       errorNotUser: "Пользователя с таким адресом электронной почты не существует",
-      linkHasBeenSent: "Ссылка была отправлена по электронной почте. Если вы не получили письмо, отправьте ссылку еще раз",
-      sendLinkAgainBtn: 'Отправить ссылку снова',
-      sendLinkBtn: 'Отправить ссылку',
+      linkHasBeenSent: "Ссылка была отправлена по электронной почте. Если вы не получили письмо, отправьте ссылку еще раз"
     },
     form: {
       agree(term: string, privacy: string) {
@@ -20,7 +25,7 @@ export const ru: LocaleType = {
         help: "Электронная почта должна соответствовать формату example@example.com",
         invalid: "Неверный адрес электронной почты",
         sent: "Отправит письмо",
-        sentLink(email: string | undefined) {
+        sentLink(email?: string) {
           return `Мы отправили ссылку для подтверждения вашей почты на адрес ${email}`;
         }
       },
@@ -57,13 +62,17 @@ export const ru: LocaleType = {
       congratulations: "Поздравляем",
       message: "Похоже, что ссылка для подтверждения истекла. Не переживайте, мы можем отправить ссылку снова",
       messageCongratulations: "Ваш адрес электронной почты подтвержден",
-      resend: "Повторно отправить ссылку для подтверждения",
       title: "Ссылка для подтверждения электронной почты истекла"
-    },
-    signIn: "Войти",
-    signUp: "Зарегистрироваться"
+    }
   },
-
+  common: {
+    loading: "Загрузка",
+    modal: {
+      no: "Нет",
+      ok: "Хорошо",
+      yes: "Да"
+    }
+  },
   header: {
     en: "Английский",
     logout: "Выйти",
@@ -71,12 +80,5 @@ export const ru: LocaleType = {
       return `Вы действительно хотите выйти из своей учетной записи ${email}?`;
     },
     ru: "Русский"
-  },
-  loading: "Загрузка",
-  modal: {
-    no: "Нет",
-    ok: "Хорошо",
-    yes: "Да"
   }
-
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { EmailSentModal } from '@/components'
@@ -69,27 +69,6 @@ export const SignUpForm = () => {
 
   const isTermsAccepted = watch('terms')
 
-  const [touchedFields, setTouchedFields] = useState<{
-    email: boolean
-    password: boolean
-    passwordConfirmation: boolean
-    userName: boolean
-  }>({
-    email: false,
-    password: false,
-    passwordConfirmation: false,
-    userName: false,
-  })
-
-  useEffect(() => {
-    trigger()
-  }, [t, trigger])
-
-  const handleBlurInt = (field: keyof FormFields) => {
-    setTouchedFields(prev => ({ ...prev, [field]: true }))
-    trigger(field)
-  }
-
   const onSubmit: SubmitHandler<FormFields> = async data => {
     try {
       await signUp(data).unwrap()
@@ -121,33 +100,27 @@ export const SignUpForm = () => {
         <div className='mb-2 flex flex-col gap-6'>
           <input className='hidden' name='username' type='text' />
           <Input
-            errorText={touchedFields.userName ? errors.userName?.message : undefined}
+            errorText={errors.userName?.message}
             label={t.authPage.form.userName}
             placeholder='Exapmle-123'
             type='text'
-            {...register('userName', {
-              onBlur: () => handleBlurInt('userName'),
-            })}
+            {...register('userName')}
           />
 
           <Input
-            errorText={touchedFields.email ? errors.email?.message : undefined}
+            errorText={errors.email?.message}
             label={t.authPage.form.email.email}
             placeholder='example@example.com'
             type='email'
-            {...register('email', {
-              onBlur: () => handleBlurInt('email'),
-            })}
+            {...register('email')}
           />
 
           <input className='hidden' name='password' type='password' />
           <PasswordInput
-            errorText={touchedFields.password ? errors.password?.message : undefined}
+            errorText={errors.password?.message}
             label={t.authPage.form.password.password}
             placeholder='************'
-            {...register('password', {
-              onBlur: () => handleBlurInt('password'),
-            })}
+            {...register('password')}
           />
 
           <PasswordInput
@@ -186,7 +159,7 @@ export const SignUpForm = () => {
         </div>
 
         <Button className='w-full cursor-pointer' disabled={!isValid || !isDirty || isLoading}>
-          {t.authPage.signUp}
+          {t.authPage.button.signUp}
         </Button>
       </form>
       <EmailSentModal

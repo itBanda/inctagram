@@ -9,10 +9,10 @@ export const AuthHeaderMenu = () => {
   return (
     <div className='flex items-center gap-6'>
       <Button asChild variant='text'>
-        <Link href='/sign-in'>{t.authPage.signIn}</Link>
+        <Link href='/sign-in'>{t.authPage.button.signIn}</Link>
       </Button>
       <Button asChild>
-        <Link href='/sign-up'>{t.authPage.signUp}</Link>
+        <Link href='/sign-up'>{t.authPage.button.signUp}</Link>
       </Button>
       <LangSelect />
     </div>

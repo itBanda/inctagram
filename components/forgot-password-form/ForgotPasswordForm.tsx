@@ -50,9 +50,7 @@ export const ForgotPasswordForm = () => {
       setError('email', { message: t.authPage.forgotPassword.errorNotUser })
     }
   }
-  const buttonText = isSuccess
-    ? t.authPage.forgotPassword.sendLinkAgainBtn
-    : t.authPage.forgotPassword.sendLinkBtn
+  const buttonText = isSuccess ? t.authPage.button.sendLinkAgainBtn : t.authPage.button.sendLinkBtn
 
   return (
     <>
@@ -89,7 +87,7 @@ export const ForgotPasswordForm = () => {
           {buttonText}
         </Button>
         <Button asChild className='mb-[24px] w-full text-center' variant='text'>
-          <Link href='/sign-in'>{t.authPage.backToSignIn}</Link>
+          <Link href='/sign-in'>{t.authPage.button.backToSignIn}</Link>
         </Button>
         {!isSuccess && (
           <div className='w-[300px] self-center'>
