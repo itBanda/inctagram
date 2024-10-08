@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { EmailSentModal } from '@/components'
@@ -69,6 +69,9 @@ export const SignUpForm = () => {
 
   const isTermsAccepted = watch('terms')
 
+  useEffect(() => {
+    reset()
+  }, [t, reset])
   const onSubmit: SubmitHandler<FormFields> = async data => {
     try {
       await signUp(data).unwrap()

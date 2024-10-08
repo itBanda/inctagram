@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { authActions } from '@/features'
@@ -26,7 +27,7 @@ export const SignInForm = () => {
   const router = useRouter()
   const { t } = useTranslation()
 
-  const { formState, handleSubmit, register, setError } = useForm<FormFields>({
+  const { formState, handleSubmit, register, reset, setError } = useForm<FormFields>({
     defaultValues: {
       email: '',
       password: '',
@@ -34,6 +35,10 @@ export const SignInForm = () => {
     mode: 'onBlur',
     resolver: zodResolver(SignInFormSchema(t)),
   })
+
+  useEffect(() => {
+    reset()
+  }, [t, reset])
 
   const onSubmit: SubmitHandler<FormFields> = async values => {
     try {

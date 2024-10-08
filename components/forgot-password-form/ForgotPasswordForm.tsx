@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 // eslint-disable-next-line import/no-named-as-default
 import ReCAPTCHA from 'react-google-recaptcha'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -26,15 +26,19 @@ export const ForgotPasswordForm = () => {
   const { locale } = useRouter()
 
   const [forgotPassword, { isLoading, isSuccess }] = authApi.usePasswordRecoveryMutation()
-  const { formState, handleSubmit, register, setError, setValue, watch } = useForm<FormFields>({
-    defaultValues: {
-      email: '',
-      recaptcha: '',
-    },
-    mode: 'onBlur',
-    resolver: zodResolver(ForgotPasswordFormSchema(t)),
-  })
+  const { formState, handleSubmit, register, reset, setError, setValue, watch } =
+    useForm<FormFields>({
+      defaultValues: {
+        email: '',
+        recaptcha: '',
+      },
+      mode: 'onBlur',
+      resolver: zodResolver(ForgotPasswordFormSchema(t)),
+    })
 
+  useEffect(() => {
+    reset()
+  }, [t, reset])
   const [isModalOpened, setIsModalOpened] = useState(false)
   const handleChangeCaptcha = (token: null | string) => {
     setValue('recaptcha', token ?? '')
