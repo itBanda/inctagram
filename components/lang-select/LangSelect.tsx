@@ -11,7 +11,6 @@ export const LangSelect = () => {
 
   const changeLangHandler = (value: string) => {
     push({ pathname, query }, asPath, { locale: value })
-    //window.location.href = value === 'en' ? pathname : `/ru/${pathname}`
   }
 
   return (
