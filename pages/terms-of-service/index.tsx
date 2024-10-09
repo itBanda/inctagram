@@ -1,15 +1,18 @@
 import { getAuthLayout } from '@/components'
+import { useTranslation } from '@/hooks/useTranslation'
 import Link from 'next/link'
 import { Icon } from 'uikit-inctagram'
 
 const TermsOfService = () => {
+  const { t } = useTranslation()
+
   return (
     <div className='mx-auto max-w-[1232px] px-4 py-6 text-center text-light-100 sm:px-6 lg:px-8'>
       <Link className='flex items-center gap-3 text-white' href='/sign-up'>
         <Icon className='cursor-pointer' icon='arrow-back-outline' />
-        Back to Sign Up
+        {t.authPage.button.backToSignUp}
       </Link>
-      <h1 className='py-6 text-xl font-bold'>Terms of Service</h1>
+      <h1 className='py-6 text-xl font-bold'>{t.authPage.form.terms.noun}</h1>
       <p className='mx-auto max-w-[958px] cursor-default text-sm leading-6'>
         Terms of Service Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Fames ac turpis egestas integer eget

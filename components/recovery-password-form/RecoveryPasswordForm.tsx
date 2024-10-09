@@ -1,32 +1,37 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { useTranslation } from '@/hooks/useTranslation'
+import { LocaleType } from '@/public/locales/types'
 import { authApi, sessionsApi } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { Button, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
-const RecoveryPasswordFormSchema = z
-  .object({
-    password: z
-      .string()
-      .trim()
-      .min(6, 'Minimum number of characters 6')
-      .max(20, 'Maximum number of characters 20')
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])/,
-        'Password must contain a-z, A-Z, !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'
-      ),
-    passwordConfirmation: z.string().trim(),
-  })
-  .refine(({ password, passwordConfirmation }) => password === passwordConfirmation, {
-    message: 'The passwords must match',
-    path: ['passwordConfirmation'],
-  })
+const RecoveryPasswordFormSchema = (t: LocaleType) =>
+  z
+    .object({
+      password: z
+        .string()
+        .trim()
+        .min(6, t.authPage.form.minCharacters(6))
+        .max(20, t.authPage.form.maxCharacters(20))
+        .regex(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])/,
+          t.authPage.form.password.regex
+        ),
+      passwordConfirmation: z.string().trim(),
+    })
+    .refine(({ password, passwordConfirmation }) => password === passwordConfirmation, {
+      message: t.authPage.form.password.mismatch,
+      path: ['passwordConfirmation'],
+    })
 
-type FormFields = z.infer<typeof RecoveryPasswordFormSchema>
+type FormFields = z.infer<ReturnType<typeof RecoveryPasswordFormSchema>>
 
 export const RecoveryPasswordForm = () => {
+  const { t } = useTranslation()
+
   const [updatePassword, { isLoading: isUpdatePasswordLoading }] =
     authApi.useUpdatePasswordMutation()
   const [terminateAllSessions] = sessionsApi.useTerminateAllSessionsMutation()
@@ -44,7 +49,7 @@ export const RecoveryPasswordForm = () => {
       passwordConfirmation: '',
     },
     mode: 'onBlur',
-    resolver: zodResolver(RecoveryPasswordFormSchema),
+    resolver: zodResolver(RecoveryPasswordFormSchema(t)),
   })
 
   const onSubmit: SubmitHandler<FormFields> = async values => {
@@ -62,7 +67,7 @@ export const RecoveryPasswordForm = () => {
       <div className='mb-10 flex flex-col gap-6'>
         <PasswordInput
           errorText={errors.password?.message}
-          label='Password'
+          label={t.authPage.form.password.password}
           placeholder='******************'
           {...register('password')}
         />
@@ -70,17 +75,17 @@ export const RecoveryPasswordForm = () => {
         <div className='flex flex-col gap-2'>
           <PasswordInput
             errorText={errors.passwordConfirmation?.message}
-            label='Password confirmation'
+            label={t.authPage.form.password.confirmation}
             placeholder='******************'
             {...register('passwordConfirmation')}
           />
           <Typography.TextSm className='text-light-900'>
-            Your password must be between 6 and 20 characters
+            {t.authPage.form.password.help}
           </Typography.TextSm>
         </div>
       </div>
       <Button className='w-full' disabled={isUpdatePasswordLoading || !isValid}>
-        Create new password
+        {t.authPage.form.password.createNew}
       </Button>
     </form>
   )

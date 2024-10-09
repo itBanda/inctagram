@@ -1,6 +1,9 @@
+import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { authActions } from '@/features'
+import { useTranslation } from '@/hooks/useTranslation'
+import { LocaleType } from '@/public/locales/types'
 import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
 import { useAppDispatch } from '@/store'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,25 +12,33 @@ import { useRouter } from 'next/router'
 import { Button, Input, PasswordInput, Typography } from 'uikit-inctagram'
 import { z } from 'zod'
 
-const SignInFormSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(1, 'Required'),
-})
+const SignInFormSchema = (t: LocaleType) =>
+  z.object({
+    email: z.string().email(t.authPage.form.email.invalid),
+    password: z.string().min(1, t.authPage.form.required),
+  })
 
-type FormFields = z.infer<typeof SignInFormSchema>
+type FormFields = z.infer<ReturnType<typeof SignInFormSchema>>
 
 export const SignInForm = () => {
   const [login, { isLoading }] = authApi.useLoginMutation()
   const dispatch = useAppDispatch()
+
   const router = useRouter()
-  const { formState, handleSubmit, register, setError } = useForm<FormFields>({
+  const { t } = useTranslation()
+
+  const { formState, handleSubmit, register, reset, setError } = useForm<FormFields>({
     defaultValues: {
       email: '',
       password: '',
     },
     mode: 'onBlur',
-    resolver: zodResolver(SignInFormSchema),
+    resolver: zodResolver(SignInFormSchema(t)),
   })
+
+  useEffect(() => {
+    reset()
+  }, [t, reset])
 
   const onSubmit: SubmitHandler<FormFields> = async values => {
     try {
@@ -44,7 +55,7 @@ export const SignInForm = () => {
           if (typeof err.data.messages === 'string') {
             console.log(err.data.messages)
             setError('password', {
-              message: 'The email or password are incorrect. Try again please',
+              message: t.authPage.form.error,
             })
           } else {
             err.data.messages.forEach(message => {
@@ -61,25 +72,25 @@ export const SignInForm = () => {
       <div className='mb-9 flex flex-col gap-6'>
         <Input
           errorText={formState.errors.email?.message}
-          label='Email'
+          label={t.authPage.form.email.email}
           placeholder='Example@gram.com'
           type='email'
           {...register('email')}
         />
         <PasswordInput
           errorText={formState.errors.password?.message}
-          label='Password'
+          label={t.authPage.form.password.password}
           placeholder='************'
           {...register('password')}
         />
       </div>
       <Typography.TextSm className='mb-6 text-right text-light-900'>
         <Link className='mb-6 transition-colors hover:text-light-700' href='/forgot-password'>
-          Forgot Password
+          {t.authPage.form.password.forgot}
         </Link>
       </Typography.TextSm>
       <Button className='w-full' disabled={isLoading}>
-        Sign In
+        {t.authPage.button.signIn}
       </Button>
     </form>
   )
