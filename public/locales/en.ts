@@ -78,5 +78,13 @@ export const en = {
       return `Are you really want to log out of your account ${email}?`;
     },
     ru: "Russian"
+  },
+  profile: {
+    addPhoto: 'Add a Profile Photo',
+    modal: {
+      choosePhoto: 'Select from Computer',
+      saveButton: 'Save',
+      title: 'Add a Profile Photo'
+    }
   }
 };

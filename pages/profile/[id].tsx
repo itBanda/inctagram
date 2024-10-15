@@ -1,4 +1,5 @@
 import { getMainLayout } from '@/components'
+import { ProfilePhoto } from '@/components/profile-photo'
 import withAuth from '@/hocs/withAuth'
 import { useTranslation } from '@/hooks/useTranslation'
 import { authApi } from '@/services'
@@ -9,6 +10,7 @@ const Profile = () => {
 
   return (
     <div className='text-center text-white'>
+      <ProfilePhoto />
       <h2>
         {t.authPage.form.userName}: {data?.userName}
       </h2>
