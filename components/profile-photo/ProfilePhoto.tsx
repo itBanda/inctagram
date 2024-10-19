@@ -16,9 +16,9 @@ export const ProfilePhoto = () => {
 
   return (
     <div className='m-6 box-border w-[196px]'>
-      <div className='relative mx-[2px] flex h-48 w-48 items-center justify-center rounded-full bg-dark-500'>
+      <div className='relative mx-[2px] flex h-48 w-48 items-center justify-center overflow-hidden rounded-full bg-dark-500'>
         {profile?.avatars[0] ? (
-          <Image alt='profile photo' src={profile.avatars[0].url} />
+          <Image alt='profile photo' height={192} src={profile.avatars[0].url} width={192} />
         ) : (
           <Icon height={48} icon='image-outline' width={48} />
         )}

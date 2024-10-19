@@ -6,13 +6,15 @@ import { AvatarResponse, ProfileResponse } from './types'
 export const profileApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: builder => ({
-    loadAvatar: builder.mutation<AvatarResponse, { abort?: AbortSignal; file: string }>({
-      query: ({ abort, file }) => ({
-        body: file,
-        method: 'POST',
-        signal: abort,
-        url: 'users/profile/avatar',
-      }),
+    loadAvatar: builder.mutation<AvatarResponse, { abort?: AbortSignal; formData: FormData }>({
+      query: ({ abort, formData }) => {
+        return {
+          body: formData,
+          method: 'POST',
+          signal: abort,
+          url: 'users/profile/avatar',
+        }
+      },
     }),
     profile: builder.query<ProfileResponse, void>({
       query: () => ({ url: 'users/profile' }),

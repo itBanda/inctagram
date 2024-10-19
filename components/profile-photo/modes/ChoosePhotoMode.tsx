@@ -1,15 +1,16 @@
 import { ChangeEvent, useRef, useState } from 'react'
 
 import { useTranslation } from '@/hooks/useTranslation'
-import { Button, Card, Icon } from 'uikit-inctagram'
+import { Alert, Button, Card, Icon } from 'uikit-inctagram'
 
 type Props = {
-  setProfilePhoto: (photo: null | string) => void
+  setProfilePhoto: (photo: File | null) => void
 }
 export const ChoosePhotoMode = ({ setProfilePhoto }: Props) => {
   const [photoError, setPhotoError] = useState<string>()
   const { t } = useTranslation()
   const inputRef = useRef<HTMLInputElement | null>(null)
+
   const selectFile = () => {
     if (inputRef.current) {
       inputRef.current.click()
@@ -20,7 +21,6 @@ export const ChoosePhotoMode = ({ setProfilePhoto }: Props) => {
     const photo = e.target.files ? e.target.files[0] : null
 
     if (photo) {
-      const reader = new FileReader()
       const maxFileSizeMB = 10
       const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024
 
@@ -29,28 +29,22 @@ export const ChoosePhotoMode = ({ setProfilePhoto }: Props) => {
 
         return
       }
+
       if (photo.type !== 'image/png' && photo.type !== 'image/jpeg') {
-        setPhotoError('Error! The format of the uploaded photo must be PNG and JPEG')
+        setPhotoError('Error! The format of the uploaded photo must be PNG or JPEG')
 
         return
       }
-      reader.onloadend = () => {
-        setProfilePhoto(reader.result as string)
-      }
-      reader.readAsDataURL(photo)
+
+      setProfilePhoto(photo)
     }
   }
 
   return (
     <>
-      <div className='mb-6 h-[60px] w-full border border-danger-500'>
-        {photoError ? (
-          photoError
-        ) : (
-          <span>размер падинга по Y у модалки захардкоджен в ui-kit py-[30px] ай ай ай</span>
-        )}
-      </div>
-      <Card className='flex h-[228px] w-[222px] items-center justify-center'>
+      {photoError && <Alert isOpened message={photoError} type='error' />}
+
+      <Card className='mt-6 flex h-[228px] w-[222px] items-center justify-center'>
         <Icon height={48} icon='image-outline' width={48} />
       </Card>
 

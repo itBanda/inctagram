@@ -27,7 +27,7 @@
     "react-hook-form": "7.53.0",
     "react-redux": "9.1.2",
     "tailwind-scrollbar": "3.1.0",
-    "uikit-inctagram": "1.1.7",
+    "uikit-inctagram": "1.1.8",
     "zod": "3.23.8"
   },
   "devDependencies": {

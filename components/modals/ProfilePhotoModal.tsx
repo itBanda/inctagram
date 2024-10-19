@@ -13,7 +13,7 @@ type Props = {
 
 export const ProfilePhotoModal = ({ isOpened, onClose, ...props }: Props) => {
   const { t } = useTranslation()
-  const [profilePhoto, setProfilePhoto] = useState<null | string>(null)
+  const [profilePhoto, setProfilePhoto] = useState<File | null>(null)
 
   useEffect(() => {
     if (!isOpened) {
@@ -34,7 +34,7 @@ export const ProfilePhotoModal = ({ isOpened, onClose, ...props }: Props) => {
     >
       <div className='relative flex flex-col items-center justify-center'>
         {profilePhoto ? (
-          <SendPhotoMode profilePhoto={profilePhoto} />
+          <SendPhotoMode onClose={onClose} profilePhoto={profilePhoto} />
         ) : (
           <ChoosePhotoMode setProfilePhoto={setProfilePhoto} />
         )}
