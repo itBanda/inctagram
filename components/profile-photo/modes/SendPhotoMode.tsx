@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import Cropper from 'react-easy-crop'
+import Cropper, { Area } from 'react-easy-crop'
 
 import { Spinner } from '@/components/ui'
 import { useTranslation } from '@/hooks/useTranslation'
 import { profileApi } from '@/services'
+import clsx from 'clsx'
 import { Button } from 'uikit-inctagram'
 
-type CroppedArea = { height: number; width: number; x: number; y: number }
 type Props = {
   onClose: () => void
   profilePhoto: File
@@ -15,14 +15,14 @@ export const SendPhotoMode = ({ onClose, profilePhoto }: Props) => {
   const { t } = useTranslation()
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
-  const [croppedArea, setCroppedArea] = useState<CroppedArea | null>(null)
+  const [croppedArea, setCroppedArea] = useState<Area | null>(null)
 
-  const [loadAvatar, { isLoading }] = profileApi.useLoadAvatarMutation()
-  const { refetch } = profileApi.useProfileQuery()
+  const [loadAvatar, { isLoading: isAvatarLoading }] = profileApi.useLoadAvatarMutation()
+  const { refetch: refetchProfile } = profileApi.useProfileQuery()
   const [abortController, setAbortController] = useState<AbortController | null>(null)
   const [imageSrc, setImageSrc] = useState<null | string>(null)
 
-  const getCroppedImg = async (imageSrc: string, pixelCrop: CroppedArea) => {
+  const getCroppedImg = async (imageSrc: string, pixelCrop: Area) => {
     const image = new Image()
 
     image.src = imageSrc
@@ -69,19 +69,23 @@ export const SendPhotoMode = ({ onClose, profilePhoto }: Props) => {
 
     setAbortController(controller)
     const formData = new FormData()
-    const croppedImg = await getCroppedImg(imageSrc!, croppedArea!)
 
-    formData.append('file', croppedImg as Blob)
+    if (imageSrc && croppedArea) {
+      const croppedImg = await getCroppedImg(imageSrc, croppedArea)
+
+      formData.append('file', croppedImg as Blob)
+    }
+
     try {
       await loadAvatar({ abort: controller.signal, formData }).unwrap()
       onClose()
-      await refetch()
+      await refetchProfile()
     } catch (err) {
       console.error(err)
     }
   }
 
-  const onCropComplete = (croppedArea: CroppedArea, croppedAreaPixels: CroppedArea) => {
+  const onCropComplete = (croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedArea(croppedAreaPixels)
   }
   const handleWheel = (e: WheelEvent) => {
@@ -95,13 +99,13 @@ export const SendPhotoMode = ({ onClose, profilePhoto }: Props) => {
 
   return (
     <div className='relative flex h-full w-full flex-col items-center justify-center'>
-      <div className='relative flex h-[340px] w-[332px] items-center justify-center overflow-hidden rounded-sm'>
-        {isLoading && (
-          <>
-            <div className='absolute inset-0 z-20 bg-black opacity-70' />
-            <Spinner className='z-30' modal />
-          </>
+      <div
+        className={clsx(
+          'relative flex h-[340px] w-[332px] items-center justify-center overflow-hidden rounded-sm',
+          { 'opacity-50': isAvatarLoading }
         )}
+      >
+        {isAvatarLoading && <Spinner className='inset-auto z-30' />}
         {imageSrc && (
           <Cropper
             crop={crop}
@@ -118,7 +122,7 @@ export const SendPhotoMode = ({ onClose, profilePhoto }: Props) => {
         )}
       </div>
       <div className='flex w-full justify-end'>
-        <Button className='mt-9' disabled={isLoading} onClick={setPhoto}>
+        <Button className='mt-9' disabled={isAvatarLoading} onClick={setPhoto}>
           {t.profile.modal.saveButton}
         </Button>
       </div>

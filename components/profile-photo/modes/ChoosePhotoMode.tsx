@@ -42,11 +42,13 @@ export const ChoosePhotoMode = ({ setProfilePhoto }: Props) => {
 
   return (
     <>
-      {photoError && <Alert isOpened message={photoError} type='error' />}
+      {photoError && (
+        <Alert className='w-full text-center' isOpened message={photoError} type='error' />
+      )}
 
-      <Card className='mt-6 flex h-[228px] w-[222px] items-center justify-center'>
+      <div className='mt-6 flex h-[228px] w-[222px] items-center justify-center bg-dark-500'>
         <Icon height={48} icon='image-outline' width={48} />
-      </Card>
+      </div>
 
       <input
         accept='image/*'

@@ -27,10 +27,11 @@ export const ProfilePhotoModal = ({ isOpened, onClose, ...props }: Props) => {
 
   return createPortal(
     <Modal
-      className='h-[536px] max-w-[492px] overflow-hidden'
+      className='min-h-[536px] max-w-[492px]'
       isOpened={isOpened}
       onClose={onClose}
       title={t.profile.modal.title}
+      {...props}
     >
       <div className='relative flex flex-col items-center justify-center'>
         {profilePhoto ? (

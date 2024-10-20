@@ -1,12 +1,6 @@
 export type ProfileResponse = {
   aboutMe: string
-  avatars: {
-    createdAt: string
-    fileSize: number
-    height: number
-    url: string
-    width: number
-  }[]
+  avatars: AvatarResponse[]
   city: string
   country: string
   createdAt: string

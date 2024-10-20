@@ -6,6 +6,14 @@ import { AvatarResponse, ProfileResponse } from './types'
 export const profileApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: builder => ({
+    deleteAvatar: builder.mutation<void, void>({
+      query: () => {
+        return {
+          method: 'DELETE',
+          url: 'users/profile/avatar',
+        }
+      },
+    }),
     loadAvatar: builder.mutation<AvatarResponse, { abort?: AbortSignal; formData: FormData }>({
       query: ({ abort, formData }) => {
         return {
