@@ -32,6 +32,9 @@ importers:
       react-dom:
         specifier: '18'
         version: 18.3.1(react@18.3.1)
+      react-google-recaptcha:
+        specifier: 3.1.0
+        version: 3.1.0(react@18.3.1)
       react-hook-form:
         specifier: 7.53.0
         version: 7.53.0(react@18.3.1)
@@ -42,8 +45,8 @@ importers:
         specifier: 3.1.0
         version: 3.1.0(tailwindcss@3.4.10)
       uikit-inctagram:
-        specifier: ^1.0.8
-        version: 1.0.8(@types/react-dom@18.3.0)(@types/react@18.3.4)(rollup@4.21.3)(tailwindcss@3.4.10)(typescript@5.5.4)(vite@5.4.4(@types/node@20.16.1))
+        specifier: 1.1.4
+        version: 1.1.4(@types/react-dom@18.3.0)(@types/react@18.3.4)(rollup@4.21.3)(tailwindcss@3.4.10)(typescript@5.5.4)(vite@5.4.4(@types/node@20.16.1))
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -69,6 +72,9 @@ importers:
       '@types/react-dom':
         specifier: '18'
         version: 18.3.0
+      '@types/react-google-recaptcha':
+        specifier: 2.1.9
+        version: 2.1.9
       autoprefixer:
         specifier: 10.4.20
         version: 10.4.20(postcss@8.4.41)
@@ -1005,6 +1011,9 @@ packages:
 
   '@types/react-dom@18.3.0':
     resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
+
+  '@types/react-google-recaptcha@2.1.9':
+    resolution: {integrity: sha512-nT31LrBDuoSZJN4QuwtQSF3O89FVHC4jLhM+NtKEmVF5R1e8OY0Jo4//x2Yapn2aNHguwgX5doAq8Zo+Ehd0ug==}
 
   '@types/react@18.3.4':
     resolution: {integrity: sha512-J7W30FTdfCxDDjmfRM+/JqLHBIyl7xUIp9kwK637FGmY7+mkSFSe6L4jpZzhj5QMfLssSDP4/i75AKkrdC7/Jw==}
@@ -3034,8 +3043,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  uikit-inctagram@1.0.8:
-    resolution: {integrity: sha512-ZzT0XJugRqwvSqFNyZ4bVX86tLT+8E/CL1UTV5tMjOYdKCp5ZgE6KjmgRxnHUe/kuzE+NIilG7Ye0FkKTWRNRA==}
+  uikit-inctagram@1.1.4:
+    resolution: {integrity: sha512-g6+BRmE55jLWK0Bp5ns8iutrBByfe5GyUaI7/hXWpyt4vhNF+OsJRR8bpZos3Ro7uB9a9mmHVLYTLz22PhIswQ==}
 
   unbox-primitive@1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
@@ -4018,6 +4027,10 @@ snapshots:
   '@types/prop-types@15.7.12': {}
 
   '@types/react-dom@18.3.0':
+    dependencies:
+      '@types/react': 18.3.4
+
+  '@types/react-google-recaptcha@2.1.9':
     dependencies:
       '@types/react': 18.3.4
 
@@ -6250,7 +6263,7 @@ snapshots:
 
   typescript@5.5.4: {}
 
-  uikit-inctagram@1.0.8(@types/react-dom@18.3.0)(@types/react@18.3.4)(rollup@4.21.3)(tailwindcss@3.4.10)(typescript@5.5.4)(vite@5.4.4(@types/node@20.16.1)):
+  uikit-inctagram@1.1.4(@types/react-dom@18.3.0)(@types/react@18.3.4)(rollup@4.21.3)(tailwindcss@3.4.10)(typescript@5.5.4)(vite@5.4.4(@types/node@20.16.1)):
     dependencies:
       '@radix-ui/react-select': 2.1.1(@types/react-dom@18.3.0)(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-slot': 1.1.0(@types/react@18.3.4)(react@18.3.1)

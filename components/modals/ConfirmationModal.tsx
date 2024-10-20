@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
+import { useTranslation } from '@/hooks/useTranslation'
 import { Button, Modal } from 'uikit-inctagram'
 
 type Props = {
@@ -13,6 +14,8 @@ type Props = {
 }
 
 export const ConfirmationModal = ({ body, isLoading, onConfirm, ...props }: Props) => {
+  const { t } = useTranslation()
+
   if (typeof window === 'undefined') {
     return null
   }
@@ -23,10 +26,10 @@ export const ConfirmationModal = ({ body, isLoading, onConfirm, ...props }: Prop
         {body}
         <div className='flex justify-end gap-6'>
           <Button className='px-8' disabled={isLoading} onClick={onConfirm}>
-            Yes
+            {t.common.modal.yes}
           </Button>
           <Button className='px-8' onClick={props.onClose} variant='outlined'>
-            No
+            {t.common.modal.no}
           </Button>
         </div>
       </div>
