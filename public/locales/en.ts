@@ -3,6 +3,7 @@ export const en = {
     button: {
       backToSignIn: "Back to Sign in",
       backToSignUp: "Back to Sign Up",
+      logOut: 'Log Out',
       resend: "Resend verification link",
       sendLinkAgainBtn: "Send Link Again",
       sendLinkBtn: "Send Link",
@@ -78,5 +79,17 @@ export const en = {
       return `Are you really want to log out of your account ${email}?`;
     },
     ru: "Russian"
+  },
+  navbar: {
+    button: {
+      logOut: 'Log Out',
+    },
+    create: 'Create',
+    favorites: 'Favorites',
+    home: 'Home',
+    messenger: 'Messenger',
+    profile: 'My Profile',
+    search: 'Search',
+    statistic: 'Statistic',
   }
 };
