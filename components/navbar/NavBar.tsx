@@ -1,4 +1,4 @@
-import { ComponentProps, ReactNode, useState } from 'react'
+import { ComponentProps, ReactNode, startTransition, useState } from 'react'
 
 import { ConfirmationModal } from '@/components'
 import { authActions } from '@/features'
@@ -7,6 +7,7 @@ import { authApi } from '@/services'
 import { useAppDispatch } from '@/store'
 import Link from 'next/link'
 import { Button, Icon, SideBar, Typography } from 'uikit-inctagram'
+
 type Menu = {
   href: string
   icon: ReactNode
@@ -20,18 +21,23 @@ export const Navbar = ({ className }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const dispatch = useAppDispatch()
   const [logout, { isLoading: isLogoutLoading }] = authApi.useLogoutMutation()
+
   const handleOpenModal = () => setIsModalOpen(true)
   const handleCloseModal = () => setIsModalOpen(false)
+
   const handleLogout = () => {
-    logout()
-      .unwrap()
-      .then(() => {
-        dispatch(authActions.logout())
-      })
-      .catch(err => {
-        console.warn(err)
-      })
+    startTransition(() => {
+      logout()
+        .unwrap()
+        .then(() => {
+          dispatch(authActions.logout())
+        })
+        .catch(err => {
+          console.warn(err)
+        })
+    })
   }
+
   const menu1: Menu[] = [
     {
       href: '/',
@@ -59,6 +65,7 @@ export const Navbar = ({ className }: Props) => {
       label: t.navbar.search,
     },
   ]
+
   const menu2: Menu[] = [
     {
       href: '#',
