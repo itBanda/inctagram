@@ -1,7 +1,7 @@
-import { PropsWithChildren, ReactElement, ReactNode } from 'react'
+import { PropsWithChildren, ReactElement } from 'react'
 
+import { Navbar } from '@/components'
 import { MainHeaderMenu } from '@/components/header-menu'
-import { Navbar } from '@/components/navbar/NavBar'
 import Link from 'next/link'
 import { Header, Typography } from 'uikit-inctagram'
 
