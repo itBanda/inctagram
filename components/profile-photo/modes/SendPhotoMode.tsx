@@ -4,8 +4,12 @@ import Cropper, { Area } from 'react-easy-crop'
 import { Spinner } from '@/components/ui'
 import { useTranslation } from '@/hooks/useTranslation'
 import { profileApi } from '@/services'
-import clsx from 'clsx'
+import { cn } from '@/utils'
 import { Button } from 'uikit-inctagram'
+
+const ZOOM_STEP = 0.001
+const MIN_ZOOM = 1
+const MAX_ZOOM = 3
 
 type Props = {
   onClose: () => void
@@ -45,9 +49,13 @@ export const SendPhotoMode = ({ onClose, profilePhoto }: Props) => {
       pixelCrop.height
     )
 
-    return new Promise(resolve => {
+    return new Promise<Blob>((resolve, reject) => {
       canvas.toBlob(blob => {
-        resolve(blob)
+        if (blob) {
+          resolve(blob)
+        } else {
+          reject('blob is null')
+        }
       }, 'image/jpeg')
     })
   }
@@ -65,16 +73,17 @@ export const SendPhotoMode = ({ onClose, profilePhoto }: Props) => {
   }, [abortController])
 
   const setPhoto = async () => {
+    if (!imageSrc || !croppedArea) {
+      return
+    }
     const controller = new AbortController()
 
     setAbortController(controller)
     const formData = new FormData()
 
-    if (imageSrc && croppedArea) {
-      const croppedImg = await getCroppedImg(imageSrc, croppedArea)
+    const croppedImg = await getCroppedImg(imageSrc, croppedArea)
 
-      formData.append('file', croppedImg as Blob)
-    }
+    formData.append('file', croppedImg)
 
     try {
       await loadAvatar({ abort: controller.signal, formData }).unwrap()
@@ -90,9 +99,9 @@ export const SendPhotoMode = ({ onClose, profilePhoto }: Props) => {
   }
   const handleWheel = (e: WheelEvent) => {
     e.preventDefault()
-    const newZoom = zoom - e.deltaY * 0.001
+    const newZoom = zoom - e.deltaY * ZOOM_STEP
 
-    setZoom(Math.min(Math.max(newZoom, 1), 3))
+    setZoom(Math.min(Math.max(newZoom, MIN_ZOOM), MAX_ZOOM))
 
     return false
   }
@@ -100,7 +109,7 @@ export const SendPhotoMode = ({ onClose, profilePhoto }: Props) => {
   return (
     <div className='relative flex h-full w-full flex-col items-center justify-center'>
       <div
-        className={clsx(
+        className={cn(
           'relative flex h-[340px] w-[332px] items-center justify-center overflow-hidden rounded-sm',
           { 'opacity-50': isAvatarLoading }
         )}

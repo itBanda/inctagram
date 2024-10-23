@@ -11,7 +11,7 @@ type Props = {
   onClose: () => void
 }
 
-export const ProfilePhotoModal = ({ isOpened, onClose, ...props }: Props) => {
+export const ProfilePhotoModal = ({ isOpened, onClose }: Props) => {
   const { t } = useTranslation()
   const [profilePhoto, setProfilePhoto] = useState<File | null>(null)
 
@@ -31,7 +31,6 @@ export const ProfilePhotoModal = ({ isOpened, onClose, ...props }: Props) => {
       isOpened={isOpened}
       onClose={onClose}
       title={t.profile.modal.title}
-      {...props}
     >
       <div className='relative flex flex-col items-center justify-center'>
         {profilePhoto ? (

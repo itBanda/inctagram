@@ -1,12 +1,11 @@
 import { ReactNode, useState } from 'react'
 
+import { ProfilePhotoModal } from '@/components/modals/ProfilePhotoModal'
+import { Spinner } from '@/components/ui'
 import { useTranslation } from '@/hooks/useTranslation'
 import { AvatarResponse, profileApi } from '@/services'
 import Image from 'next/image'
 import { Button, Icon } from 'uikit-inctagram'
-
-import { ProfilePhotoModal } from '../modals/ProfilePhotoModal'
-import { Spinner } from '../ui'
 
 type ProfilePhotoProps = {
   profileAvatars: AvatarResponse[]
@@ -17,7 +16,7 @@ export const ProfilePhoto = ({ profileAvatars }: ProfilePhotoProps) => {
   const handleCloseModal = () => setIsModalOpen(false)
   const { t } = useTranslation()
   const { isFetching: isFetchingProfile, refetch: refetchProfile } = profileApi.useProfileQuery()
-  const [deleteAvatar, { isLoading: isLoadingDelete }] = profileApi.useDeleteAvatarMutation()
+  const [deleteAvatar, { isLoading: isLoadingDeleteAvatar }] = profileApi.useDeleteAvatarMutation()
 
   const deleteAvatarHandler = async () => {
     try {
@@ -29,7 +28,7 @@ export const ProfilePhoto = ({ profileAvatars }: ProfilePhotoProps) => {
   }
   let content: ReactNode
 
-  if (isLoadingDelete || isFetchingProfile) {
+  if (isLoadingDeleteAvatar || isFetchingProfile) {
     content = <Spinner className='relative size-12 bg-transparent' />
   } else if (profileAvatars[0]) {
     content = <Image alt='profile photo' height={192} src={profileAvatars[0].url} width={192} />
@@ -42,7 +41,7 @@ export const ProfilePhoto = ({ profileAvatars }: ProfilePhotoProps) => {
       {profileAvatars.length !== 0 && (
         <div className='absolute right-3 top-3 z-10 mx-auto flex size-6 items-center justify-center rounded-full bg-dark-700'>
           <Icon
-            className='rounded-full bg-danger-500'
+            className='cursor-pointer rounded-full bg-danger-500'
             height={16}
             icon='close-outline'
             onClick={deleteAvatarHandler}
@@ -54,7 +53,7 @@ export const ProfilePhoto = ({ profileAvatars }: ProfilePhotoProps) => {
       <div className='relative mx-[2px] flex size-48 items-center justify-center overflow-hidden rounded-full bg-dark-500'>
         {content}
       </div>
-      <Button className='mt-6 w-full' onClick={handleOpenModal} variant='outlined'>
+      <Button className='mt-6 w-full cursor-pointer' onClick={handleOpenModal} variant='outlined'>
         {t.profile.addPhoto}
       </Button>
 
