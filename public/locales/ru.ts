@@ -80,5 +80,18 @@ export const ru: LocaleType = {
       return `Вы действительно хотите выйти из своей учетной записи ${email}?`;
     },
     ru: "Русский"
+
+  },
+  navbar: {
+    button: {
+      logOut: 'Выйти',
+    },
+    create: 'Создать',
+    favorites: 'Закладки',
+    home: 'Главная',
+    messenger: 'Сообщения',
+    profile: 'Мой Профиль',
+    search: 'Поиск',
+    statistic: 'Статистика',
   }
 };
