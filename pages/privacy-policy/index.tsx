@@ -1,16 +1,28 @@
 import { getAuthLayout } from '@/components'
 import { useTranslation } from '@/hooks/useTranslation'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Icon } from 'uikit-inctagram'
 
 const PrivacyPolicy = () => {
   const { t } = useTranslation()
+  const router = useRouter()
 
   return (
     <div className='mx-auto max-w-[1232px] px-4 py-6 text-center text-light-100 sm:px-6 lg:px-8'>
       <Link className='flex items-center gap-3 text-white' href='/sign-up'>
         <Icon className='cursor-pointer' icon='arrow-back-outline' />
         {t.authPage.button.backToSignUp}
+      </Link>
+      <Link
+        className='flex items-center gap-3 text-white'
+        href={{
+          pathname: '/general-information',
+          query: { data: router.query.data },
+        }}
+      >
+        <Icon className='cursor-pointer' icon='arrow-back-outline' />
+        Back to profile setting
       </Link>
       <h1 className='py-6 text-xl font-bold'>{t.authPage.form.privacy.noun}</h1>
       <p className='mx-auto max-w-[958px] cursor-default text-sm leading-6'>

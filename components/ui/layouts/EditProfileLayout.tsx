@@ -1,10 +1,11 @@
-import { PropsWithChildren, ReactElement } from 'react'
+import { ReactElement } from 'react'
 
 import { MainHeaderMenu } from '@/components/header-menu'
+import GeneralInformation from '@/pages/general-information'
 import Link from 'next/link'
-import { Header, Typography } from 'uikit-inctagram'
+import { Header, Tabs, Typography } from 'uikit-inctagram'
 
-export const EditProfileLayout = ({ children }: PropsWithChildren) => {
+export const EditProfileLayout = () => {
   return (
     <div className='min-h-dvh bg-dark-700'>
       <Header
@@ -36,7 +37,18 @@ export const EditProfileLayout = ({ children }: PropsWithChildren) => {
             </ul>
           </nav>
         </aside>
-        <main className='custom-scrollbar w-full overflow-auto scrollbar-thin'>{children}</main>
+        <main className='custom-scrollbar ml-6 mt-6 flex w-full justify-start overflow-auto scrollbar-thin'>
+          {/*<div className='ml-6 mt-6 flex justify-start'>*/}
+          <Tabs
+            tabsData={[
+              { content: <GeneralInformation />, title: 'General information', value: 'tab1' },
+              { content: ' ', title: 'Devices', value: 'tab2' },
+              { content: ' ', title: 'Account management', value: 'tab3' },
+              { content: ' ', title: 'Payments', value: 'tab4' },
+            ]}
+          ></Tabs>
+          {/*</div>*/}
+        </main>
       </div>
     </div>
   )

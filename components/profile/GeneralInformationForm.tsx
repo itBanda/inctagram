@@ -1,109 +1,281 @@
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useEffect, useMemo, useState } from 'react'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 
-import { authApi } from '@/services'
+import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
+import { profileApi } from '@/services/profile/profileSlice'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { getCode, getNames } from 'country-list'
 import { City, Country } from 'country-state-city'
-import { Button, Card, Icon, Input, Select } from 'uikit-inctagram'
+import { parse } from 'date-fns'
+import debounce from 'lodash.debounce'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { Alert, Button, DatePicker, Input, Select, TextArea } from 'uikit-inctagram'
 import { z } from 'zod'
 
-const Schema = z.object({
-  firstName: z.string().nonempty('Name is required'),
-  secondName: z.string().nonempty('Name is required'),
-  userName: z
-    .string()
-    .trim()
-    .regex(/^[A-Za-z0-9_-]+$/, 'Username can contain 0-9; A-Z; a-z; _ ; - ')
-    .min(6, 'Minimum numbers of characters 6')
-    .max(30, 'Maximum numbers of characters 30'),
-})
+const today = new Date()
+const minimumAge = 13
+const minimumDate = new Date(today.getFullYear() - minimumAge, today.getMonth(), today.getDate())
 
-type FormFields = z.infer<ReturnType<typeof Schema>>
+const ProfileSchema = z
+  .object({
+    aboutMe: z
+      .string()
+      .trim()
+      .max(200, 'maximum numbers of symbols 200')
+      .regex(
+        /^[a-zA-Z0-9А-Яа-я\d!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~ ]*$/,
+        'maximum numbers of symbols 200'
+      ),
+    city: z.string(),
+    country: z.string(),
+    dateOfBirth: z.string(),
+    firstName: z
+      .string()
+      .trim()
+      .min(1, 'mandatory')
+      .max(50)
+      .regex(/^[a-zA-ZА-Яа-я]*$/, 'can contain only letters'),
+    lastName: z
+      .string()
+      .trim()
+      .min(1, 'mandatory')
+      .max(50)
+      .regex(/^[a-zA-ZА-Яа-я]*$/, 'can contain only letters'),
+    region: z.string(),
+    userName: z
+      .string()
+      .trim()
+      .min(1, 'mandatory')
+      .min(6, 'Minimum numbers of characters 6')
+      .max(30, 'Maximum numbers of characters 30')
+      .regex(/^[A-Za-z0-9_-]+$/, 'Username can contain 0-9; A-Z; a-z; _ ; - '),
+  })
+  .refine(
+    data => {
+      const date = parse(data.dateOfBirth, 'dd/MM/yyyy', new Date())
+
+      return date < minimumDate
+    },
+    {
+      message: `A user under 13 cannot create a profile `,
+      path: ['dateOfBirth'],
+    }
+  )
+
+type FormFields = z.infer<typeof ProfileSchema>
 
 export const GeneralInformationForm = () => {
   const { data } = authApi.useAuthMeQuery()
+  const [setProfileInfo, { isLoading }] = profileApi.useSetProfileInfoMutation()
   const dataUsername = data?.userName
 
-  const countries = Country.getAllCountries()
-
   const [selectedCountry, setSelectedCountry] = useState('')
-  const [cities, setCities] = useState<Array<any> | undefined>([])
+  const [date, setDate] = useState<Date>()
+  const [uiAlert, setUiAlert] = useState({
+    isOpened: false,
+    message: '',
+    type: 'success' as 'error' | 'success' | 'warning',
+  })
+  const router = useRouter()
 
-  const handleCountryChange = countryIsoCode => {
-    setSelectedCountry(countryIsoCode)
-    const citiesOfCountry = City.getCitiesOfCountry(countryIsoCode)
+  const cities = useMemo(() => {
+    const citiesList = selectedCountry ? City.getCitiesOfCountry(selectedCountry) : []
 
-    setCities(citiesOfCountry)
-  }
+    console.log(citiesList)
 
-  console.log(getNames())
+    return citiesList
+  }, [selectedCountry])
+  const countries = useMemo(() => Country.getAllCountries(), [])
   const {
-    formState: { errors, isRequired },
+    control,
+    formState: { errors, isSuccess },
+    getValues,
+    handleSubmit,
     register,
+    reset,
+    setError,
     setValue,
+    trigger,
   } = useForm<FormFields>({
     defaultValues: {
+      aboutMe: '',
+      city: '',
+      country: '',
+      dateOfBirth: '',
       firstName: '',
       lastName: '',
+      region: '',
       userName: '',
     },
     mode: 'onBlur',
-    resolver: zodResolver(Schema),
+    resolver: zodResolver(ProfileSchema),
   })
+  const handleDateChange = date => {
+    setDate(date)
+    trigger('dateOfBirth')
+  }
 
-  console.log(errors)
+  const onSubmit: SubmitHandler<FormFields> = async data => {
+    try {
+      await setProfileInfo(data).unwrap()
+
+      setUiAlert({
+        isOpened: true,
+        message: 'Your settings are saved!',
+        type: 'success',
+      })
+    } catch (err) {
+      console.error('setting profile failed:', err)
+      setUiAlert({
+        isOpened: true,
+        message: 'Error! Server is not available!',
+        type: 'error',
+      })
+      if (isFetchBaseQueryError(err)) {
+        if (isApiError(err.data)) {
+          if (Array.isArray(err.data.messages)) {
+            err.data.messages.forEach(message => {
+              setError(message.field as keyof FormFields, {
+                message: message.message,
+              })
+            })
+          }
+        }
+      }
+    }
+  }
 
   useEffect(() => {
     if (dataUsername) {
       setValue('userName', dataUsername)
     }
-  }, [dataUsername, setValue])
+    if (router.query.data) {
+      const savedData = JSON.parse(router.query.data)
+
+      reset(savedData)
+      if (savedData.country) {
+        setSelectedCountry(savedData.country)
+      }
+      if (savedData.city) {
+        setValue('city', savedData.city)
+      }
+    }
+  }, [dataUsername, reset, router.query, setValue])
 
   return (
-    <form>
-      <div className='mx-6 flex gap-4'>
-        <div className='flex flex-col'>
-          <Card className='m-4 h-48 w-48 rounded-full bg-dark-300'>
-            {/*<Icon icon={}/>*/}
-            {/*photo*/}
-          </Card>
-          <Button type='secondary'>Add a Profile Photo</Button>
-        </div>
-        <div className='m-4 flex flex-1 flex-col border-2 border-danger-100'>
+    <section className='flex flex-col items-center'>
+      <Alert
+        className='absolute'
+        isOpened={uiAlert.isOpened}
+        message={uiAlert.message}
+        onClose={() => setUiAlert(prev => ({ ...prev, isOpened: false }))}
+        type={uiAlert.type}
+      />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className='mt-6 flex w-[740px] flex-1 flex-col gap-6'>
           <Input
             errorText={errors.userName?.message}
+            isRequired
             label='Username'
             type='text'
             {...register('userName')}
           />
-          <Input label='First Name' type='text' />
-          <Input label='Last Name' type='text' />
-          <Input label='Date of birth' type='text' />
-          <div className='flex flex-row gap-8'>
-            <Select
-              className='w-1/2'
-              label='Select your country'
-              onValueChange={handleCountryChange}
-              options={countries.map(country => ({
-                label: country.name,
-                value: country.isoCode,
-              }))}
-              placeholder='Country'
+          <Input
+            errorText={errors.firstName?.message}
+            isRequired
+            label='First Name'
+            type='text'
+            {...register('firstName')}
+          />
+          <Input
+            errorText={errors.lastName?.message}
+            isRequired
+            label='Last Name'
+            type='text'
+            {...register('lastName')}
+          />
+          <DatePicker
+            label='Date of birth'
+            mode='single'
+            onSelect={handleDateChange}
+            selected={date}
+            {...register('dateOfBirth')}
+            errorText={
+              errors.dateOfBirth && (
+                <p>
+                  {errors.dateOfBirth.message}{' '}
+                  <Link
+                    className='underline'
+                    href={{
+                      pathname: '/privacy-policy',
+                      query: { data: JSON.stringify(getValues()) },
+                    }}
+                  >
+                    Privacy Policy
+                  </Link>
+                  .
+                </p>
+              )
+            }
+          />
+          <div className='flex flex-row gap-6'>
+            <Controller
+              control={control}
+              name='country'
+              render={({ field }) => (
+                <Select
+                  className='w-1/2'
+                  label='Select your country'
+                  onValueChange={value => {
+                    field.onChange(value)
+                    setSelectedCountry(value)
+                    setValue('city', '')
+                  }}
+                  options={countries.map(country => ({
+                    label: country.name,
+                    value: country.isoCode,
+                  }))}
+                  placeholder='Country'
+                  value={selectedCountry}
+                />
+              )}
             />
-            <Select
-              className='w-1/2'
-              label='Select your city'
-              options={cities?.map(city => ({
-                label: city.name,
-                value: city.isoCode,
-              }))}
-              placeholder='City'
+            <Controller
+              control={control}
+              name='city'
+              render={({ field }) => (
+                <Select
+                  className='w-1/2'
+                  label='Select your city'
+                  onValueChange={value => {
+                    field.onChange(value)
+                    setValue('city', value)
+                  }}
+                  options={cities?.map((city, index) => ({
+                    label: city.name,
+                    value: city.name,
+                  }))}
+                  placeholder='City'
+                  value={field.value}
+                />
+              )}
             />
           </div>
+          <TextArea
+            errorText={errors.aboutMe?.message}
+            label='About me'
+            {...register('aboutMe', {
+              onChange: async () => await trigger('aboutMe'),
+            })}
+          ></TextArea>
         </div>
-      </div>
-      <div className='mb-2 flex flex-col gap-6'></div>
-    </form>
+        <div className='my-6 border-b border-dark-300'></div>
+        <div className='flex flex-row-reverse'>
+          <Button disabled={isLoading} type='submit'>
+            Submit
+          </Button>
+        </div>
+      </form>
+    </section>
   )
 }
