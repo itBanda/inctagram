@@ -80,5 +80,13 @@ export const ru: LocaleType = {
       return `Вы действительно хотите выйти из своей учетной записи ${email}?`;
     },
     ru: "Русский"
+  },
+  profile: {
+    addPhoto: 'Добавить фото',
+    modal: {
+      choosePhoto: 'Выбрать с компьютера',
+      saveButton: 'Сохранить',
+      title: 'Добавить фото'
+    }
   }
 };
