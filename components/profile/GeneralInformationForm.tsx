@@ -1,14 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
 import { profileApi } from '@/services/profile/profileSlice'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { City, Country } from 'country-state-city'
 import { parse } from 'date-fns'
-import debounce from 'lodash.debounce'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { Alert, Button, DatePicker, Input, Select, TextArea } from 'uikit-inctagram'
 import { z } from 'zod'
 
@@ -68,31 +66,25 @@ export const GeneralInformationForm = () => {
   const { data } = authApi.useAuthMeQuery()
   const [setProfileInfo, { isLoading }] = profileApi.useSetProfileInfoMutation()
   const dataUsername = data?.userName
+  const isBrowser = typeof window !== 'undefined'
+  const [country, setCountry] = useState(isBrowser ? sessionStorage.getItem('selectedCity') : '')
+  const [city, setCity] = useState(isBrowser ? sessionStorage.getItem('selectedCity') : '')
+  const [cityOptions, setCityOptions] = useState([])
+  const [dateOfBirth, setDateOfBirth] = useState(
+    isBrowser ? sessionStorage.getItem('dateOfBirth') : ''
+  )
 
-  const [selectedCountry, setSelectedCountry] = useState('')
-  const [date, setDate] = useState<Date>()
   const [uiAlert, setUiAlert] = useState({
     isOpened: false,
     message: '',
     type: 'success' as 'error' | 'success' | 'warning',
   })
-  const router = useRouter()
 
-  const cities = useMemo(() => {
-    const citiesList = selectedCountry ? City.getCitiesOfCountry(selectedCountry) : []
-
-    console.log(citiesList)
-
-    return citiesList
-  }, [selectedCountry])
-  const countries = useMemo(() => Country.getAllCountries(), [])
   const {
-    control,
     formState: { errors, isSuccess },
     getValues,
     handleSubmit,
     register,
-    reset,
     setError,
     setValue,
     trigger,
@@ -111,7 +103,8 @@ export const GeneralInformationForm = () => {
     resolver: zodResolver(ProfileSchema),
   })
   const handleDateChange = date => {
-    setDate(date)
+    setDateOfBirth(date)
+    sessionStorage.setItem('dateOfBirth', date.toISOString())
     trigger('dateOfBirth')
   }
 
@@ -125,6 +118,7 @@ export const GeneralInformationForm = () => {
         type: 'success',
       })
     } catch (err) {
+      alert('failed')
       console.error('setting profile failed:', err)
       setUiAlert({
         isOpened: true,
@@ -145,25 +139,51 @@ export const GeneralInformationForm = () => {
     }
   }
 
+  const updateCityOptions = selectedCountry => {
+    const cities = City.getCitiesOfCountry(selectedCountry)
+    const options = cities?.map(city => ({
+      label: city.name + city.stateCode,
+      value: city.name + city.stateCode,
+    }))
+
+    setCityOptions(options || [])
+  }
+  const handleCountryChange = selectedCountry => {
+    setCountry(selectedCountry)
+    sessionStorage.setItem('selectedCountry', selectedCountry)
+    updateCityOptions(selectedCountry)
+  }
+
+  const handleCityChange = selectedCity => {
+    setCity(selectedCity)
+    sessionStorage.setItem('selectedCity', selectedCity)
+  }
+
   useEffect(() => {
     if (dataUsername) {
       setValue('userName', dataUsername)
     }
-    if (router.query.data) {
-      const savedData = JSON.parse(router.query.data)
+    const savedData = sessionStorage.getItem('formData')
 
-      reset(savedData)
-      if (savedData.country) {
-        setSelectedCountry(savedData.country)
-      }
-      if (savedData.city) {
-        setValue('city', savedData.city)
-      }
+    if (savedData) {
+      const parsedData = JSON.parse(savedData)
+
+      Object.keys(parsedData).forEach(key => setValue(key, parsedData[key]))
     }
-  }, [dataUsername, reset, router.query, setValue])
+  }, [dataUsername, setValue])
+  useEffect(() => {
+    const storedCountry = sessionStorage.getItem('selectedCountry')
+    const storedCity = sessionStorage.getItem('selectedCity')
+    const storedDateOfBirth = sessionStorage.getItem('dateOfBirth')
+
+    setDateOfBirth(storedDateOfBirth)
+    setCountry(storedCountry)
+    updateCityOptions(storedCountry)
+    setCity(storedCity)
+  }, [])
 
   return (
-    <section className='flex flex-col items-center'>
+    <div className='flex w-full flex-col'>
       <Alert
         className='absolute'
         isOpened={uiAlert.isOpened}
@@ -171,8 +191,8 @@ export const GeneralInformationForm = () => {
         onClose={() => setUiAlert(prev => ({ ...prev, isOpened: false }))}
         type={uiAlert.type}
       />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='mt-6 flex w-[740px] flex-1 flex-col gap-6'>
+      <form className='flex flex-1 flex-col' onSubmit={handleSubmit(onSubmit)}>
+        <div className='mt-6 flex w-full flex-1 flex-col gap-6'>
           <Input
             errorText={errors.userName?.message}
             isRequired
@@ -198,18 +218,16 @@ export const GeneralInformationForm = () => {
             label='Date of birth'
             mode='single'
             onSelect={handleDateChange}
-            selected={date}
+            selected={dateOfBirth}
             {...register('dateOfBirth')}
             errorText={
               errors.dateOfBirth && (
                 <p>
-                  {errors.dateOfBirth.message}{' '}
+                  {errors.dateOfBirth?.message}{' '}
                   <Link
                     className='underline'
-                    href={{
-                      pathname: '/privacy-policy',
-                      query: { data: JSON.stringify(getValues()) },
-                    }}
+                    href='/privacy-policy'
+                    onClick={() => sessionStorage.setItem('formData', JSON.stringify(getValues()))}
                   >
                     Privacy Policy
                   </Link>
@@ -219,46 +237,24 @@ export const GeneralInformationForm = () => {
             }
           />
           <div className='flex flex-row gap-6'>
-            <Controller
-              control={control}
-              name='country'
-              render={({ field }) => (
-                <Select
-                  className='w-1/2'
-                  label='Select your country'
-                  onValueChange={value => {
-                    field.onChange(value)
-                    setSelectedCountry(value)
-                    setValue('city', '')
-                  }}
-                  options={countries.map(country => ({
-                    label: country.name,
-                    value: country.isoCode,
-                  }))}
-                  placeholder='Country'
-                  value={selectedCountry}
-                />
-              )}
+            <Select
+              className='w-1/2'
+              label='Select your country'
+              onValueChange={handleCountryChange}
+              options={Country.getAllCountries().map(country => ({
+                label: country.name,
+                value: country.isoCode,
+              }))}
+              placeholder='country'
+              value={country}
             />
-            <Controller
-              control={control}
-              name='city'
-              render={({ field }) => (
-                <Select
-                  className='w-1/2'
-                  label='Select your city'
-                  onValueChange={value => {
-                    field.onChange(value)
-                    setValue('city', value)
-                  }}
-                  options={cities?.map((city, index) => ({
-                    label: city.name,
-                    value: city.name,
-                  }))}
-                  placeholder='City'
-                  value={field.value}
-                />
-              )}
+            <Select
+              className='w-1/2'
+              label='Select your city'
+              onValueChange={handleCityChange}
+              options={cityOptions}
+              placeholder='City'
+              value={city}
             />
           </div>
           <TextArea
@@ -268,14 +264,14 @@ export const GeneralInformationForm = () => {
               onChange: async () => await trigger('aboutMe'),
             })}
           ></TextArea>
-        </div>
-        <div className='my-6 border-b border-dark-300'></div>
-        <div className='flex flex-row-reverse'>
-          <Button disabled={isLoading} type='submit'>
-            Submit
-          </Button>
+          <div className='my-6 border-b border-dark-300'></div>
+          <div className='flex flex-row-reverse'>
+            <Button disabled={isLoading} type='submit'>
+              Submit
+            </Button>
+          </div>
         </div>
       </form>
-    </section>
+    </div>
   )
 }

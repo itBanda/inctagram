@@ -37,17 +37,17 @@ export const EditProfileLayout = () => {
             </ul>
           </nav>
         </aside>
-        <main className='custom-scrollbar ml-6 mt-6 flex w-full justify-start overflow-auto scrollbar-thin'>
-          {/*<div className='ml-6 mt-6 flex justify-start'>*/}
-          <Tabs
-            tabsData={[
-              { content: <GeneralInformation />, title: 'General information', value: 'tab1' },
-              { content: ' ', title: 'Devices', value: 'tab2' },
-              { content: ' ', title: 'Account management', value: 'tab3' },
-              { content: ' ', title: 'Payments', value: 'tab4' },
-            ]}
-          ></Tabs>
-          {/*</div>*/}
+        <main className='custom-scrollbar flex w-full justify-start overflow-auto scrollbar-thin'>
+          <div className='m-6 w-full max-w-[972px]'>
+            <Tabs
+              tabsData={[
+                { content: <GeneralInformation />, title: 'General information', value: 'tab1' },
+                { content: ' ', title: 'Devices', value: 'tab2' },
+                { content: ' ', title: 'Account management', value: 'tab3' },
+                { content: ' ', title: 'Payments', value: 'tab4' },
+              ]}
+            ></Tabs>
+          </div>
         </main>
       </div>
     </div>

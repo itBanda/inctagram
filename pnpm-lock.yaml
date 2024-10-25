@@ -26,9 +26,6 @@ importers:
       date-fns:
         specifier: 4.1.0
         version: 4.1.0
-      lodash.debounce:
-        specifier: ^4.0.8
-        version: 4.0.8
       next:
         specifier: 14.2.6
         version: 14.2.6(@babel/core@7.25.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2338,9 +2335,6 @@ packages:
 
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
-
-  lodash.debounce@4.0.8:
-    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
 
   lodash.isplainobject@4.0.6:
     resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
@@ -5713,8 +5707,6 @@ snapshots:
       p-locate: 6.0.0
 
   lodash.camelcase@4.3.0: {}
-
-  lodash.debounce@4.0.8: {}
 
   lodash.isplainobject@4.0.6: {}
 
