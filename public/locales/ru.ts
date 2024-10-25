@@ -91,5 +91,13 @@ export const ru: LocaleType = {
     profile: 'Мой Профиль',
     search: 'Поиск',
     statistic: 'Статистика',
+  },
+  profile: {
+    addPhoto: 'Добавить фото',
+    modal: {
+      choosePhoto: 'Выбрать с компьютера',
+      saveButton: 'Сохранить',
+      title: 'Добавить фото'
+    }
   }
 };
