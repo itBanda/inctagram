@@ -80,6 +80,17 @@ export const ru: LocaleType = {
       return `Вы действительно хотите выйти из своей учетной записи ${email}?`;
     },
     ru: "Русский"
+
+  },
+  navbar: {
+    create: 'Создать',
+    favorites: 'Закладки',
+    home: 'Главная',
+    logOut: 'Выйти',
+    messenger: 'Сообщения',
+    profile: 'Мой Профиль',
+    search: 'Поиск',
+    statistic: 'Статистика',
   },
   profile: {
     addPhoto: 'Добавить фото',

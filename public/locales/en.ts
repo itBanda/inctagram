@@ -79,6 +79,16 @@ export const en = {
     },
     ru: "Russian"
   },
+  navbar: {
+    create: 'Create',
+    favorites: 'Favorites',
+    home: 'Home',
+    logOut: 'Log Out',
+    messenger: 'Messenger',
+    profile: 'My Profile',
+    search: 'Search',
+    statistic: 'Statistic',
+  },
   profile: {
     addPhoto: 'Add a Profile Photo',
     modal: {
