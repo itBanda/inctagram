@@ -3,7 +3,6 @@ export const en = {
     button: {
       backToSignIn: "Back to Sign in",
       backToSignUp: "Back to Sign Up",
-      logOut: 'Log Out',
       resend: "Resend verification link",
       sendLinkAgainBtn: "Send Link Again",
       sendLinkBtn: "Send Link",
@@ -81,12 +80,10 @@ export const en = {
     ru: "Russian"
   },
   navbar: {
-    button: {
-      logOut: 'Log Out',
-    },
     create: 'Create',
     favorites: 'Favorites',
     home: 'Home',
+    logOut: 'Log Out',
     messenger: 'Messenger',
     profile: 'My Profile',
     search: 'Search',

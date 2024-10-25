@@ -83,12 +83,10 @@ export const ru: LocaleType = {
 
   },
   navbar: {
-    button: {
-      logOut: 'Выйти',
-    },
     create: 'Создать',
     favorites: 'Закладки',
     home: 'Главная',
+    logOut: 'Выйти',
     messenger: 'Сообщения',
     profile: 'Мой Профиль',
     search: 'Поиск',

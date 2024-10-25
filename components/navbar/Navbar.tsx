@@ -1,21 +1,15 @@
-import { ReactNode, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { ConfirmationModal } from '@/components/modals'
-import { logoutIcon, menu1, menu2 } from '@/components/navbar/constans'
+import { MenuItem, logoutIcon, menu1, menu2 } from '@/components/navbar/constans'
 import { authActions } from '@/features'
 import { useTranslation } from '@/hooks/useTranslation'
 import { LocaleType } from '@/public'
 import { authApi } from '@/services'
 import { useAppDispatch } from '@/store'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Button, SideBar, Typography } from 'uikit-inctagram'
-
-export type MenuItem = {
-  href: string
-  icon: ReactNode
-  label: string
-  translationId: keyof LocaleType['navbar']
-}
 
 const getMenuItemsWithTranslation = (menuItems: MenuItem[], locale: LocaleType) => {
   return menuItems.map(menuItem => ({
@@ -25,7 +19,9 @@ const getMenuItemsWithTranslation = (menuItems: MenuItem[], locale: LocaleType) 
 }
 
 export const Navbar = () => {
+  const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [activeLink, setActiveLink] = useState(router.pathname)
   const dispatch = useAppDispatch()
   const { data } = authApi.useAuthMeQuery()
   const [logout, { isLoading: isLogoutLoading }] = authApi.useLogoutMutation()
@@ -50,8 +46,9 @@ export const Navbar = () => {
     return translatedMenuItems.map(menuItem => (
       <li className='text-light-100' key={menuItem.label}>
         <Link
-          className='flex items-center gap-3 outline-none transition hover:text-accent-100 focus:ring-2 focus:ring-accent-700 active:text-accent-700'
+          className={`flex items-center gap-3 transition ${activeLink === menuItem.href ? 'text-accent-100' : 'hover:text-accent-100 active:text-accent-700'}`}
           href={menuItem.href}
+          onClick={() => setActiveLink(menuItem.href)}
         >
           <span>{menuItem.icon}</span>
           <span>{menuItem.label}</span>
@@ -74,17 +71,17 @@ export const Navbar = () => {
         onConfirm={handleLogout}
         title='Confirm logout'
       />
-      <SideBar className='h-full flex-col items-center justify-start pb-9 pt-[72px]'>
-        <nav className='flex h-full flex-col'>
+      <SideBar className='custom-scrollbar flex-shrink-0 flex-grow basis-[220px] flex-col items-center justify-start pb-9 pt-[72px] scrollbar-thin'>
+        <nav className='flex flex-col gap-[60px]'>
           <ul className='flex flex-col gap-6'>{renderMenuItems(menu1)}</ul>
-          <ul className='mt-[60px] flex flex-col gap-6'>{renderMenuItems(menu2)}</ul>
+          <ul className='flex flex-col gap-6'>{renderMenuItems(menu2)}</ul>
           <Button
-            className='mt-auto flex items-center gap-3 p-0 font-medium text-light-100' // Добавьте временный фон для отладки
+            className='flex items-center gap-3 p-0 font-medium text-light-100 focus:ring-light-100'
             onClick={handleOpenModal}
             variant='text'
           >
             {logoutIcon}
-            <span>{t.navbar.button.logOut}</span>
+            <span>{t.navbar.logOut}</span>
           </Button>
         </nav>
       </SideBar>

@@ -1,5 +1,14 @@
-import { MenuItem } from '@/components/navbar/Navbar'
+import { ReactNode } from 'react'
+
+import { LocaleType } from '@/public'
 import { Icon } from 'uikit-inctagram'
+
+export type MenuItem = {
+  href: string
+  icon: ReactNode
+  label: string
+  translationId: keyof LocaleType['navbar']
+}
 
 export const menu1: MenuItem[] = [
   {
