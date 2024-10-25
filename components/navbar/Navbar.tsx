@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { ConfirmationModal } from '@/components/modals'
-import { MenuItem, logoutIcon, menu1, menu2 } from '@/components/navbar/constans'
+import { MenuItem, logoutIcon, menu1, menu2 } from '@/components/navbar/constants'
 import { authActions } from '@/features'
 import { useTranslation } from '@/hooks/useTranslation'
 import { LocaleType } from '@/public'
 import { authApi } from '@/services'
 import { useAppDispatch } from '@/store'
+import { cn } from '@/utils'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import { Button, SideBar, Typography } from 'uikit-inctagram'
 
 const getMenuItemsWithTranslation = (menuItems: MenuItem[], locale: LocaleType) => {
@@ -19,13 +20,12 @@ const getMenuItemsWithTranslation = (menuItems: MenuItem[], locale: LocaleType) 
 }
 
 export const Navbar = () => {
-  const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [activeLink, setActiveLink] = useState(router.pathname)
   const dispatch = useAppDispatch()
   const { data } = authApi.useAuthMeQuery()
   const [logout, { isLoading: isLogoutLoading }] = authApi.useLogoutMutation()
   const { t } = useTranslation()
+  const currentPath = usePathname()
 
   const handleOpenModal = () => setIsModalOpen(true)
   const handleCloseModal = () => setIsModalOpen(false)
@@ -46,9 +46,10 @@ export const Navbar = () => {
     return translatedMenuItems.map(menuItem => (
       <li className='text-light-100' key={menuItem.label}>
         <Link
-          className={`flex items-center gap-3 transition ${activeLink === menuItem.href ? 'text-accent-100' : 'hover:text-accent-100 active:text-accent-700'}`}
+          className={cn('flex items-center gap-3 transition hover:text-accent-100', {
+            'text-accent-100': currentPath === menuItem.href,
+          })}
           href={menuItem.href}
-          onClick={() => setActiveLink(menuItem.href)}
         >
           <span>{menuItem.icon}</span>
           <span>{menuItem.label}</span>
