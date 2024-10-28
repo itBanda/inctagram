@@ -30,7 +30,7 @@ export const ProfilePhotoModal = ({ isOpened, onClose }: Props) => {
       className='min-h-[536px] max-w-[492px]'
       isOpened={isOpened}
       onClose={onClose}
-      title={t.profile.modal.title}
+      title={t.profile.photoModal.title}
     >
       <div className='relative flex flex-col items-center justify-center'>
         {profilePhoto ? (

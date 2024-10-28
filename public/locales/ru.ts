@@ -94,7 +94,11 @@ export const ru: LocaleType = {
   },
   profile: {
     addPhoto: 'Добавить фото',
-    modal: {
+    confirmationModal: {
+      description: 'Вы действительно хотите удалить фото своего профиля?',
+      title: 'Подтвердить удаление фото'
+    },
+    photoModal: {
       choosePhoto: 'Выбрать с компьютера',
       saveButton: 'Сохранить',
       title: 'Добавить фото'
