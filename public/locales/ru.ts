@@ -94,6 +94,9 @@ export const ru: LocaleType = {
   },
   profile: {
     addPhoto: 'Добавить фото',
+    button: {
+      profileSettings: 'Настройки профиля'
+    },
     modal: {
       choosePhoto: 'Выбрать с компьютера',
       saveButton: 'Сохранить',

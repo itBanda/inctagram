@@ -1,4 +1,5 @@
 export * from './auth-message'
+export * from './avatar'
 export * from './header-menu'
 export * from './lang-select'
 export * from './modals'

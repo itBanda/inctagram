@@ -91,6 +91,9 @@ export const en = {
   },
   profile: {
     addPhoto: 'Add a Profile Photo',
+    button: {
+      profileSettings: 'Profile Settings'
+    },
     modal: {
       choosePhoto: 'Select from Computer',
       saveButton: 'Save',

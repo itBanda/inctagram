@@ -1,24 +1,42 @@
-import { Spinner, getMainLayout } from '@/components'
-import { ProfilePhoto } from '@/components/profile-photo'
+import { Avatar, getMainLayout } from '@/components'
 import withAuth from '@/hocs/withAuth'
 import { useTranslation } from '@/hooks/useTranslation'
-import { authApi, profileApi } from '@/services'
+import { authApi, publicUserApi } from '@/services'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { Button } from 'uikit-inctagram'
 
 const Profile = () => {
   const { t } = useTranslation()
-  const { data } = authApi.useAuthMeQuery()
-  const { data: profile, isLoading: isLoadingProfile } = profileApi.useProfileQuery()
+  const { data: authMeData } = authApi.useAuthMeQuery()
+
+  const router = useRouter()
+  const profileId = Number(router.query.id)
+
+  const { data: publicProfileData, isLoading: isLoadingPublicProfile } =
+    publicUserApi.useGetPublicProfileByIdQuery({ profileId })
+
+  const isCurrentUser = authMeData?.userId === publicProfileData?.id
+
+  if (!profileId) {
+    return <p className='text-light-100'>Profile id is invalid</p>
+  }
 
   return (
-    <div className='text-center text-white'>
-      {isLoadingProfile ? <Spinner /> : <ProfilePhoto profileAvatars={profile?.avatars ?? []} />}
-      <h2>
-        {t.authPage.form.userName}: {data?.userName}
-      </h2>
-      <h2>
-        {t.authPage.form.email.email}: {data?.email}
-      </h2>
-    </div>
+    <section className='py-9 pl-6 pr-16'>
+      <div className='flex items-start justify-between'>
+        <Avatar
+          alt={publicProfileData?.userName}
+          imageUrl={publicProfileData?.avatars[0]?.url}
+          isLoading={isLoadingPublicProfile}
+        />
+        {isCurrentUser && (
+          <Button asChild variant='secondary'>
+            <Link href='/profile/settings'>{t.profile.button.profileSettings}</Link>
+          </Button>
+        )}
+      </div>
+    </section>
   )
 }
 
