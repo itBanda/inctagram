@@ -78,5 +78,46 @@ export const en = {
       return `Are you really want to log out of your account ${email}?`;
     },
     ru: "Russian"
+  },
+  profilePage: {
+    buttons: {
+      profile_settings: 'Profile Settings',
+    }
+  },
+  profileSettings: {
+    about_me: 'About me',
+    add_photo: 'Add a Profile Photo',
+      alert: {
+        error: 'Error! Server is not available!',
+        success: 'Your settings are saved!'
+      },
+    city: 'City',
+    country: 'Country',
+    date_of_birth: 'Date of birth',
+    errors: {
+      date_of_birth: 'Users under 13 13 cannot create a profile',
+      first_last_name_Regex: "Username can contain only A-Z, a-z, А-Я, а-я",
+      mandatory: 'mandatory',
+      maxCharacters(max: number) {
+        return `Maximum number of characters ${max}`;
+      },
+      minCharacters(min: number) {
+        return `Minimum number of characters ${min}`;
+      },
+      privacy: 'Privacy policy',
+      userNameRegex: "Username can contain only A-Z, a-z, 0-9, _ or -"
+    },
+    first_name: 'First Name',
+    last_name: 'Last Name',
+    save_changes: 'Save changes',
+    select_your_city: 'Select your city',
+    select_your_country: 'Select your country',
+    username: 'Username'
+  },
+  tabs: {
+    account_management: 'Account management',
+    devices: 'Devices',
+    generalInfo: 'General Information',
+    payments: 'Payments'
   }
 };

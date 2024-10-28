@@ -1,11 +1,12 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { useTranslation } from '@/hooks/useTranslation'
+import { LocaleType } from '@/public'
 import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
 import { profileApi } from '@/services/profile/profileSlice'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { City, Country } from 'country-state-city'
-import { parse } from 'date-fns'
 import Link from 'next/link'
 import { Alert, Button, DatePicker, Input, Select, TextArea } from 'uikit-inctagram'
 import { z } from 'zod'
@@ -14,55 +15,54 @@ const today = new Date()
 const minimumAge = 13
 const minimumDate = new Date(today.getFullYear() - minimumAge, today.getMonth(), today.getDate())
 
-const ProfileSchema = z
-  .object({
-    aboutMe: z
-      .string()
-      .trim()
-      .max(200, 'maximum numbers of symbols 200')
-      .regex(
-        /^[a-zA-Z0-9А-Яа-я\d!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~ ]*$/,
-        'maximum numbers of symbols 200'
-      ),
-    city: z.string(),
-    country: z.string(),
-    dateOfBirth: z.string(),
-    firstName: z
-      .string()
-      .trim()
-      .min(1, 'mandatory')
-      .max(50)
-      .regex(/^[a-zA-ZА-Яа-я]*$/, 'can contain only letters'),
-    lastName: z
-      .string()
-      .trim()
-      .min(1, 'mandatory')
-      .max(50)
-      .regex(/^[a-zA-ZА-Яа-я]*$/, 'can contain only letters'),
-    region: z.string(),
-    userName: z
-      .string()
-      .trim()
-      .min(1, 'mandatory')
-      .min(6, 'Minimum numbers of characters 6')
-      .max(30, 'Maximum numbers of characters 30')
-      .regex(/^[A-Za-z0-9_-]+$/, 'Username can contain 0-9; A-Z; a-z; _ ; - '),
-  })
-  .refine(
-    data => {
-      const date = parse(data.dateOfBirth, 'dd/MM/yyyy', new Date())
+const ProfileSchema = (t: LocaleType) =>
+  z
+    .object({
+      aboutMe: z
+        .string()
+        .trim()
+        .max(200, t.profileSettings.errors.maxCharacters(200))
+        .regex(/^[a-zA-Z0-9А-Яа-я\d!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~ ]*$/),
+      city: z.string(),
+      country: z.string(),
+      dateOfBirth: z.string(),
+      firstName: z
+        .string()
+        .trim()
+        .min(1, t.profileSettings.errors.mandatory)
+        .max(50)
+        .regex(/^[a-zA-ZА-Яа-я]*$/, t.profileSettings.errors.first_last_name_Regex),
+      lastName: z
+        .string()
+        .trim()
+        .min(1, t.profileSettings.errors.mandatory)
+        .max(50)
+        .regex(/^[a-zA-ZА-Яа-я]*$/, t.profileSettings.errors.first_last_name_Regex),
+      region: z.string(),
+      userName: z
+        .string()
+        .trim()
+        .min(1, t.profileSettings.errors.mandatory)
+        .min(6, t.profileSettings.errors.minCharacters(6))
+        .max(30, t.profileSettings.errors.maxCharacters(30))
+        .regex(/^[A-Za-z0-9_-]+$/, t.profileSettings.errors.userNameRegex),
+    })
+    .refine(
+      data => {
+        const date = new Date(data.dateOfBirth)
 
-      return date < minimumDate
-    },
-    {
-      message: `A user under 13 cannot create a profile `,
-      path: ['dateOfBirth'],
-    }
-  )
+        return date < minimumDate
+      },
+      {
+        message: t.profileSettings.errors.date_of_birth,
+        path: ['dateOfBirth'],
+      }
+    )
 
-type FormFields = z.infer<typeof ProfileSchema>
+type FormFields = z.infer<ReturnType<typeof ProfileSchema>>
 
 export const GeneralInformationForm = () => {
+  const { t } = useTranslation()
   const { data } = authApi.useAuthMeQuery()
   const [setProfileInfo, { isLoading }] = profileApi.useSetProfileInfoMutation()
   const dataUsername = data?.userName
@@ -73,7 +73,6 @@ export const GeneralInformationForm = () => {
   const [dateOfBirth, setDateOfBirth] = useState(
     isBrowser ? sessionStorage.getItem('dateOfBirth') : ''
   )
-
   const [uiAlert, setUiAlert] = useState({
     isOpened: false,
     message: '',
@@ -100,12 +99,37 @@ export const GeneralInformationForm = () => {
       userName: '',
     },
     mode: 'onBlur',
-    resolver: zodResolver(ProfileSchema),
+    resolver: zodResolver(ProfileSchema(t)),
   })
   const handleDateChange = date => {
-    setDateOfBirth(date)
-    sessionStorage.setItem('dateOfBirth', date.toISOString())
+    const formattedDate = date.toISOString()
+
+    setDateOfBirth(formattedDate)
+    setValue('dateOfBirth', formattedDate)
+
+    sessionStorage.setItem('dateOfBirth', formattedDate)
     trigger('dateOfBirth')
+  }
+  const updateCityOptions = selectedCountry => {
+    const cities = City.getCitiesOfCountry(selectedCountry)
+    const options = cities?.map(city => ({
+      label: city.name + city.stateCode,
+      value: city.name + city.stateCode,
+    }))
+
+    setCityOptions(options || [])
+  }
+  const handleCountryChange = selectedCountry => {
+    setCountry(selectedCountry)
+    sessionStorage.setItem('selectedCountry', selectedCountry)
+    updateCityOptions(selectedCountry)
+    setValue('country', country)
+  }
+
+  const handleCityChange = selectedCity => {
+    setCity(selectedCity)
+    sessionStorage.setItem('selectedCity', selectedCity)
+    setValue('city', city)
   }
 
   const onSubmit: SubmitHandler<FormFields> = async data => {
@@ -114,15 +138,14 @@ export const GeneralInformationForm = () => {
 
       setUiAlert({
         isOpened: true,
-        message: 'Your settings are saved!',
+        message: t.profileSettings.alert.success,
         type: 'success',
       })
     } catch (err) {
-      alert('failed')
       console.error('setting profile failed:', err)
       setUiAlert({
         isOpened: true,
-        message: 'Error! Server is not available!',
+        message: t.profileSettings.alert.error,
         type: 'error',
       })
       if (isFetchBaseQueryError(err)) {
@@ -137,26 +160,6 @@ export const GeneralInformationForm = () => {
         }
       }
     }
-  }
-
-  const updateCityOptions = selectedCountry => {
-    const cities = City.getCitiesOfCountry(selectedCountry)
-    const options = cities?.map(city => ({
-      label: city.name + city.stateCode,
-      value: city.name + city.stateCode,
-    }))
-
-    setCityOptions(options || [])
-  }
-  const handleCountryChange = selectedCountry => {
-    setCountry(selectedCountry)
-    sessionStorage.setItem('selectedCountry', selectedCountry)
-    updateCityOptions(selectedCountry)
-  }
-
-  const handleCityChange = selectedCity => {
-    setCity(selectedCity)
-    sessionStorage.setItem('selectedCity', selectedCity)
   }
 
   useEffect(() => {
@@ -196,26 +199,26 @@ export const GeneralInformationForm = () => {
           <Input
             errorText={errors.userName?.message}
             isRequired
-            label='Username'
+            label={t.profileSettings.username}
             type='text'
             {...register('userName')}
           />
           <Input
             errorText={errors.firstName?.message}
             isRequired
-            label='First Name'
+            label={t.profileSettings.first_name}
             type='text'
             {...register('firstName')}
           />
           <Input
             errorText={errors.lastName?.message}
             isRequired
-            label='Last Name'
+            label={t.profileSettings.last_name}
             type='text'
             {...register('lastName')}
           />
           <DatePicker
-            label='Date of birth'
+            label={t.profileSettings.date_of_birth}
             mode='single'
             onSelect={handleDateChange}
             selected={dateOfBirth}
@@ -229,7 +232,7 @@ export const GeneralInformationForm = () => {
                     href='/privacy-policy'
                     onClick={() => sessionStorage.setItem('formData', JSON.stringify(getValues()))}
                   >
-                    Privacy Policy
+                    {t.profileSettings.errors.privacy}
                   </Link>
                   .
                 </p>
@@ -239,27 +242,27 @@ export const GeneralInformationForm = () => {
           <div className='flex flex-row gap-6'>
             <Select
               className='w-1/2'
-              label='Select your country'
+              label={t.profileSettings.select_your_country}
               onValueChange={handleCountryChange}
               options={Country.getAllCountries().map(country => ({
                 label: country.name,
                 value: country.isoCode,
               }))}
-              placeholder='country'
+              placeholder={t.profileSettings.country}
               value={country}
             />
             <Select
               className='w-1/2'
-              label='Select your city'
+              label={t.profileSettings.select_your_city}
               onValueChange={handleCityChange}
               options={cityOptions}
-              placeholder='City'
+              placeholder={t.profileSettings.city}
               value={city}
             />
           </div>
           <TextArea
             errorText={errors.aboutMe?.message}
-            label='About me'
+            label={t.profileSettings.about_me}
             {...register('aboutMe', {
               onChange: async () => await trigger('aboutMe'),
             })}
@@ -267,7 +270,7 @@ export const GeneralInformationForm = () => {
           <div className='my-6 border-b border-dark-300'></div>
           <div className='flex flex-row-reverse'>
             <Button disabled={isLoading} type='submit'>
-              Submit
+              {t.profileSettings.save_changes}
             </Button>
           </div>
         </div>

@@ -22,7 +22,7 @@ const Profile = () => {
       </h2>
       {data?.userId === +profileId && (
         <Button asChild>
-          <Link href='/general-information'>Profile Settings</Link>
+          <Link href='/profile/settings'>{t.profilePage.buttons.profile_settings}</Link>
         </Button>
       )}
     </div>

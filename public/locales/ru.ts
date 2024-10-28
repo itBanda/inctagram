@@ -80,5 +80,46 @@ export const ru: LocaleType = {
       return `Вы действительно хотите выйти из своей учетной записи ${email}?`;
     },
     ru: "Русский"
+  },
+  profilePage: {
+    buttons: {
+      profile_settings: 'Настройки профиля',
+    }
+  },
+  profileSettings: {
+    about_me: 'Обо мне',
+    add_photo: 'Добавить фото профиля',
+    alert: {
+    error: 'Ошибка! Сервер не доступен!',
+    success: 'Ваши изменения сохранены!'
+  },
+    city: 'Город',
+    country: 'Страна',
+    date_of_birth: 'Дата рождения',
+    errors: {
+      date_of_birth: 'Пользователи младше 13 лет не могут создать профайл',
+      first_last_name_Regex: "Имя пользователя может содержать только A-Z, a-z, А-Я, а-я",
+      mandatory: 'Обязательное поле',
+      maxCharacters(max: number) {
+        return `Максимальное количество символов ${max}`;
+      },
+      minCharacters(min: number) {
+        return `Минимальное количество символов ${min}`;
+      },
+      privacy: 'Политика конфиденциальности',
+      userNameRegex: "Имя пользователя может содержать только A-Z, a-z, 0-9, _ или -"
+    },
+    first_name: 'Имя',
+    last_name: 'Фамилия',
+    save_changes: 'Сохранить изменения',
+    select_your_city: 'Выбери город',
+    select_your_country: 'Выбери страну',
+    username: 'Имя пользователя'
+  },
+  tabs: {
+    account_management: 'Управление аккаунтом',
+    devices: 'Устройства',
+    generalInfo: 'Общая информация',
+    payments: 'Платежи'
   }
 };

@@ -1,11 +1,14 @@
 import { ReactElement } from 'react'
 
 import { MainHeaderMenu } from '@/components/header-menu'
-import GeneralInformation from '@/pages/general-information'
+import { useTranslation } from '@/hooks/useTranslation'
+import GeneralInformation from '@/pages/profile/settings'
 import Link from 'next/link'
 import { Header, Tabs, Typography } from 'uikit-inctagram'
 
 export const EditProfileLayout = () => {
+  const { t } = useTranslation()
+
   return (
     <div className='min-h-dvh bg-dark-700'>
       <Header
@@ -41,10 +44,10 @@ export const EditProfileLayout = () => {
           <div className='m-6 w-full max-w-[972px]'>
             <Tabs
               tabsData={[
-                { content: <GeneralInformation />, title: 'General information', value: 'tab1' },
-                { content: ' ', title: 'Devices', value: 'tab2' },
-                { content: ' ', title: 'Account management', value: 'tab3' },
-                { content: ' ', title: 'Payments', value: 'tab4' },
+                { content: <GeneralInformation />, title: t.tabs.generalInfo, value: 'tab1' },
+                { content: ' ', title: t.tabs.devices, value: 'tab2' },
+                { content: ' ', title: t.tabs.account_management, value: 'tab3' },
+                { content: ' ', title: t.tabs.payments, value: 'tab4' },
               ]}
             ></Tabs>
           </div>
