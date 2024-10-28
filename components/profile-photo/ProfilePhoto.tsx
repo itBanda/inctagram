@@ -26,10 +26,9 @@ export const ProfilePhoto = ({ profileAvatars }: ProfilePhotoProps) => {
     try {
       await deleteAvatar().unwrap()
       await refetchProfile()
+      handleCloseConfirmationModal()
     } catch (err) {
       console.error('Failed to delete avatar:', err)
-    } finally {
-      handleCloseConfirmationModal()
     }
   }
   let content: ReactNode
