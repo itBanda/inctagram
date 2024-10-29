@@ -94,7 +94,11 @@ export const en = {
     button: {
       profileSettings: 'Profile Settings'
     },
-    modal: {
+    confirmationModal: {
+      description: 'Do you really want to delete your profile photo?',
+      title: 'Confirm delete photo'
+    },
+    photoModal: {
       choosePhoto: 'Select from Computer',
       saveButton: 'Save',
       title: 'Add a Profile Photo'

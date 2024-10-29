@@ -58,7 +58,7 @@ export const ChoosePhotoMode = ({ setProfilePhoto }: Props) => {
         type='file'
       />
       <Button className='mt-9' onClick={selectFile}>
-        {t.profile.modal.choosePhoto}
+        {t.profile.photoModal.choosePhoto}
       </Button>
     </>
   )
