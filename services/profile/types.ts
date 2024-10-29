@@ -1,3 +1,5 @@
+import { AvatarResponse } from '@/services/types'
+
 export type ProfileResponse = {
   aboutMe: string
   avatars: AvatarResponse[]
@@ -10,12 +12,4 @@ export type ProfileResponse = {
   lastName: string
   region: string
   userName: string
-}
-
-export type AvatarResponse = {
-  createdAt: string
-  fileSize: number
-  height: number
-  url: string
-  width: number
 }

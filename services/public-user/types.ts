@@ -1,14 +1,8 @@
+import { AvatarResponse } from '@/services/types'
+
 export type PublicUserProfileResponse = {
   aboutMe: string
-  avatars: Avatar[]
+  avatars: AvatarResponse[]
   id: number
   userName: string
-}
-
-export type Avatar = {
-  createdAt: string
-  fileSize: number
-  height: number
-  url: string
-  width: number
 }

@@ -1,7 +1,8 @@
+import { AvatarResponse } from '@/services/types'
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 import { baseQueryWithReauth } from '../baseQuery'
-import { AvatarResponse, ProfileResponse } from './types'
+import { ProfileResponse } from './types'
 
 export const profileApi = createApi({
   baseQuery: baseQueryWithReauth,
