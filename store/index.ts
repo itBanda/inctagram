@@ -1,7 +1,7 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
 import authReducer from '@/features/auth'
-import { authApi, profileApi, sessionsApi } from '@/services'
+import { authApi, profileApi, publicUserApi, sessionsApi } from '@/services'
 import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
 
@@ -12,12 +12,14 @@ const makeStore = () =>
       getDefaultMiddleware().concat(
         authApi.middleware,
         sessionsApi.middleware,
-        profileApi.middleware
+        profileApi.middleware,
+        publicUserApi.middleware
       ),
     reducer: {
       auth: authReducer,
       [authApi.reducerPath]: authApi.reducer,
       [profileApi.reducerPath]: profileApi.reducer,
+      [publicUserApi.reducerPath]: publicUserApi.reducer,
       [sessionsApi.reducerPath]: sessionsApi.reducer,
     },
   })

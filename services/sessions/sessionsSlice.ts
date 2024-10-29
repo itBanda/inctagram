@@ -11,4 +11,5 @@ export const sessionsApi = createApi({
       }),
     }),
   }),
+  reducerPath: 'api/sessions',
 })

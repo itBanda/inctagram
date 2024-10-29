@@ -1,11 +1,10 @@
-import { ReactNode, useState } from 'react'
+import { useState } from 'react'
 
+import { Avatar } from '@/components/avatar/Avatar'
 import { ConfirmationModal } from '@/components/modals'
 import { ProfilePhotoModal } from '@/components/modals/ProfilePhotoModal'
-import { Spinner } from '@/components/ui'
 import { useTranslation } from '@/hooks/useTranslation'
 import { AvatarResponse, profileApi } from '@/services'
-import Image from 'next/image'
 import { Button, Icon, Typography } from 'uikit-inctagram'
 
 type ProfilePhotoProps = {
@@ -19,8 +18,14 @@ export const ProfilePhoto = ({ profileAvatars }: ProfilePhotoProps) => {
   const handleOpenConfirmationModal = () => setIsConfirmationModalOpen(true)
   const handleCloseConfirmationModal = () => setIsConfirmationModalOpen(false)
   const { t } = useTranslation()
-  const { isFetching: isFetchingProfile, refetch: refetchProfile } = profileApi.useProfileQuery()
+  const {
+    data: profileData,
+    isFetching: isFetchingProfile,
+    refetch: refetchProfile,
+  } = profileApi.useProfileQuery()
   const [deleteAvatar, { isLoading: isLoadingDeleteAvatar }] = profileApi.useDeleteAvatarMutation()
+
+  const isAvatarLoading = isFetchingProfile || isLoadingDeleteAvatar
 
   const deleteAvatarHandler = async () => {
     try {
@@ -30,15 +35,6 @@ export const ProfilePhoto = ({ profileAvatars }: ProfilePhotoProps) => {
     } catch (err) {
       console.error('Failed to delete avatar:', err)
     }
-  }
-  let content: ReactNode
-
-  if (isLoadingDeleteAvatar || isFetchingProfile) {
-    content = <Spinner className='relative size-12 bg-transparent' />
-  } else if (profileAvatars[0]) {
-    content = <Image alt='profile photo' height={192} src={profileAvatars[0].url} width={192} />
-  } else {
-    content = <Icon height={48} icon='image-outline' width={48} />
   }
 
   return (
@@ -66,10 +62,11 @@ export const ProfilePhoto = ({ profileAvatars }: ProfilePhotoProps) => {
           />
         </div>
       )}
-
-      <div className='relative mx-[2px] flex size-48 items-center justify-center overflow-hidden rounded-full bg-dark-500'>
-        {content}
-      </div>
+      <Avatar
+        alt={profileData?.userName}
+        imageUrl={profileAvatars[0]?.url}
+        isLoading={isAvatarLoading}
+      />
       <Button
         className='mt-6 w-full cursor-pointer'
         onClick={handleOpenPhotoModal}

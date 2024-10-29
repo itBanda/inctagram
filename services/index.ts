@@ -1,4 +1,6 @@
 export * from './auth'
 export * from './helpers'
 export * from './profile'
+export * from './public-user'
 export * from './sessions'
+export * from './types'
