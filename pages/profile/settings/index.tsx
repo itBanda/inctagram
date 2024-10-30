@@ -1,10 +1,12 @@
-import { getMainLayout } from '@/components'
+import { ProfilePhoto, getMainLayout } from '@/components'
 import { GeneralInformationForm } from '@/components/profile'
 import { useTranslation } from '@/hooks/useTranslation'
+import { profileApi } from '@/services'
 import { Tabs } from 'uikit-inctagram'
 
 const Settings = () => {
   const { t } = useTranslation()
+  const { data: profileData } = profileApi.useProfileQuery()
 
   return (
     <section className='flex gap-9 pb-6'>
@@ -13,7 +15,8 @@ const Settings = () => {
           tabsData={[
             {
               content: (
-                <div className='flex gap-10 pt-12'>
+                <div className='flex gap-10 pt-6'>
+                  <ProfilePhoto profileAvatars={profileData?.avatars ? profileData.avatars : []} />
                   <GeneralInformationForm />
                 </div>
               ),
@@ -26,15 +29,6 @@ const Settings = () => {
           ]}
         ></Tabs>
       </div>
-      {/*<div className='flex flex-col gap-6'>*/}
-      {/*    <Card className='mt-12 flex h-48 w-48 items-center justify-center rounded-full bg-dark-500'>*/}
-      {/*        <Icon color='white' height={46} icon='image-outline' width={46}/>*/}
-      {/*    </Card>*/}
-      {/*    <Button className='w-[196px]' variant='outlined'>*/}
-      {/*        {t.profileSettings.add_photo}*/}
-      {/*    </Button>*/}
-      {/*</div>*/}
-      {/*<GeneralInformationForm/>*/}
     </section>
   )
 }

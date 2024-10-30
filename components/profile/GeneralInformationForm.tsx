@@ -79,7 +79,6 @@ export const GeneralInformationForm = () => {
     handleSubmit,
     register,
     setError,
-    setValue,
     trigger,
   } = useForm<FormFields>({
     mode: 'onBlur',

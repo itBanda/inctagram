@@ -79,18 +79,38 @@ export const en = {
     },
     ru: "Russian"
   },
-  profilePage: {
-    buttons: {
-      profile_settings: 'Profile Settings',
+  navbar: {
+    create: 'Create',
+    favorites: 'Favorites',
+    home: 'Home',
+    logOut: 'Log Out',
+    messenger: 'Messenger',
+    profile: 'My Profile',
+    search: 'Search',
+    statistic: 'Statistic',
+  },
+  profile: {
+    addPhoto: 'Add a Profile Photo',
+    button: {
+      profileSettings: 'Profile Settings'
+    },
+    confirmationModal: {
+      description: 'Do you really want to delete your profile photo?',
+      title: 'Confirm delete photo'
+    },
+    photoModal: {
+      choosePhoto: 'Select from Computer',
+      saveButton: 'Save',
+      title: 'Add a Profile Photo'
     }
   },
   profileSettings: {
     about_me: 'About me',
     add_photo: 'Add a Profile Photo',
-      alert: {
-        error: 'Error! Server is not available!',
-        success: 'Your settings are saved!'
-      },
+    alert: {
+      error: 'Error! Server is not available!',
+      success: 'Your settings are saved!'
+    },
     city: 'City',
     country: 'Country',
     date_of_birth: 'Date of birth',

@@ -80,19 +80,40 @@ export const ru: LocaleType = {
       return `Вы действительно хотите выйти из своей учетной записи ${email}?`;
     },
     ru: "Русский"
+
   },
-  profilePage: {
-    buttons: {
-      profile_settings: 'Настройки профиля',
+  navbar: {
+    create: 'Создать',
+    favorites: 'Закладки',
+    home: 'Главная',
+    logOut: 'Выйти',
+    messenger: 'Сообщения',
+    profile: 'Мой Профиль',
+    search: 'Поиск',
+    statistic: 'Статистика',
+  },
+  profile: {
+    addPhoto: 'Добавить фото',
+    button: {
+      profileSettings: 'Настройки профиля'
+    },
+    confirmationModal: {
+      description: 'Вы действительно хотите удалить фото своего профиля?',
+      title: 'Подтвердить удаление фото'
+    },
+    photoModal: {
+      choosePhoto: 'Выбрать с компьютера',
+      saveButton: 'Сохранить',
+      title: 'Добавить фото'
     }
   },
   profileSettings: {
     about_me: 'Обо мне',
     add_photo: 'Добавить фото профиля',
     alert: {
-    error: 'Ошибка! Сервер не доступен!',
-    success: 'Ваши изменения сохранены!'
-  },
+      error: 'Ошибка! Сервер не доступен!',
+      success: 'Ваши изменения сохранены!'
+    },
     city: 'Город',
     country: 'Страна',
     date_of_birth: 'Дата рождения',
