@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 
 import { MainHeaderMenu } from '@/components/header-menu'
 import { useTranslation } from '@/hooks/useTranslation'
-import GeneralInformation from '@/pages/profile/settings'
+import Index from '@/pages/profile/settings'
 import Link from 'next/link'
 import { Header, Tabs, Typography } from 'uikit-inctagram'
 
@@ -44,7 +44,7 @@ export const EditProfileLayout = () => {
           <div className='m-6 w-full max-w-[972px]'>
             <Tabs
               tabsData={[
-                { content: <GeneralInformation />, title: t.tabs.generalInfo, value: 'tab1' },
+                { content: <Index />, title: t.tabs.generalInfo, value: 'tab1' },
                 { content: ' ', title: t.tabs.devices, value: 'tab2' },
                 { content: ' ', title: t.tabs.account_management, value: 'tab3' },
                 { content: ' ', title: t.tabs.payments, value: 'tab4' },

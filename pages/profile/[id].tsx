@@ -8,19 +8,19 @@ import { Button } from 'uikit-inctagram'
 
 const Profile = () => {
   const { t } = useTranslation()
-  const { data } = authApi.useAuthMeQuery()
+  const { data: authMeData } = authApi.useAuthMeQuery()
   const router = useRouter()
   const { id: profileId } = router.query
 
   return (
     <div className='text-center text-white'>
       <h2>
-        {t.authPage.form.userName}: {data?.userName}
+        {t.authPage.form.userName}: {authMeData?.userName}
       </h2>
       <h2>
-        {t.authPage.form.email.email}: {data?.email}
+        {t.authPage.form.email.email}: {authMeData?.email}
       </h2>
-      {data?.userId === +profileId && (
+      {authMeData?.userId === Number(profileId) && (
         <Button asChild>
           <Link href='/profile/settings'>{t.profilePage.buttons.profile_settings}</Link>
         </Button>
