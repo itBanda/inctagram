@@ -24,7 +24,7 @@ const Settings = () => {
               value: 'tab1',
             },
             { content: ' ', title: t.tabs.devices, value: 'tab2' },
-            { content: ' ', title: t.tabs.account_management, value: 'tab3' },
+            { content: ' ', title: t.tabs.accountManagement, value: 'tab3' },
             { content: ' ', title: t.tabs.payments, value: 'tab4' },
           ]}
         ></Tabs>

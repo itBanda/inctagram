@@ -29,7 +29,7 @@ export const profileApi = createApi({
     profile: builder.query<ProfileResponse, void>({
       query: () => ({ url: 'users/profile' }),
     }),
-    setProfileInfo: builder.mutation<{}, ProfileRequest>({
+    updateProfileInfo: builder.mutation<{}, ProfileRequest>({
       query: body => ({ body, method: 'PUT', url: 'users/profile' }),
     }),
   }),

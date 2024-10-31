@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { FieldPath, SubmitHandler, useController, useForm } from 'react-hook-form'
 
 import { useTranslation } from '@/hooks/useTranslation'
@@ -8,6 +8,7 @@ import { profileApi } from '@/services/profile/profileSlice'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { City, Country } from 'country-state-city'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Alert, Button, DatePicker, Input, Select, TextArea } from 'uikit-inctagram'
 import { z } from 'zod'
 
@@ -31,13 +32,13 @@ const ProfileSchema = (t: LocaleType) =>
         .trim()
         .min(1, t.profileSettings.errors.mandatory)
         .max(50)
-        .regex(/^[a-zA-ZА-Яа-я]*$/, t.profileSettings.errors.first_last_name_Regex),
+        .regex(/^[a-zA-ZА-Яа-я]*$/, t.profileSettings.errors.firstLastNameRegex),
       lastName: z
         .string()
         .trim()
         .min(1, t.profileSettings.errors.mandatory)
         .max(50)
-        .regex(/^[a-zA-ZА-Яа-я]*$/, t.profileSettings.errors.first_last_name_Regex),
+        .regex(/^[a-zA-ZА-Яа-я]*$/, t.profileSettings.errors.firstLastNameRegex),
       region: z.string(),
       userName: z
         .string()
@@ -54,7 +55,7 @@ const ProfileSchema = (t: LocaleType) =>
         return date < minimumDate
       },
       {
-        message: t.profileSettings.errors.date_of_birth,
+        message: t.profileSettings.errors.dateOfBirth,
         path: ['dateOfBirth'],
       }
     )
@@ -64,21 +65,21 @@ type FormFields = z.infer<ReturnType<typeof ProfileSchema>>
 export const GeneralInformationForm = () => {
   const { t } = useTranslation()
   const { data } = authApi.useAuthMeQuery()
-  const [setProfileInfo, { isLoading }] = profileApi.useSetProfileInfoMutation()
-  const dataUsername = data?.userName
-
+  const [setProfileInfo, { isLoading }] = profileApi.useUpdateProfileInfoMutation()
+  const router = useRouter()
   const [uiAlert, setUiAlert] = useState({
     isOpened: false,
     message: '',
     type: 'success' as 'error' | 'success' | 'warning',
   })
-
   const {
     control,
     formState: { errors },
+    getValues,
     handleSubmit,
     register,
     setError,
+    setValue,
     trigger,
   } = useForm<FormFields>({
     mode: 'onBlur',
@@ -91,7 +92,7 @@ export const GeneralInformationForm = () => {
       firstName: '',
       lastName: '',
       region: '',
-      userName: dataUsername,
+      userName: data?.userName || '',
     },
   })
   const { field: dateOfBirthField } = useController<FormFields, FieldPath<FormFields>>({
@@ -114,8 +115,8 @@ export const GeneralInformationForm = () => {
     return City.getCitiesOfCountry(countryField.value)
   }, [countryField.value])
 
-  const handleDateChange = date => {
-    const formattedDate = date.toISOString()
+  const handleDateChange = (date: Date | undefined) => {
+    const formattedDate = date?.toISOString()
 
     dateOfBirthField.onChange(formattedDate)
     trigger('dateOfBirth')
@@ -151,6 +152,18 @@ export const GeneralInformationForm = () => {
     }
   }
 
+  useEffect(() => {
+    if (Object.keys(router.query).length) {
+      Object.entries(router.query).forEach(([key, value]) => {
+        setValue(key as keyof FormFields, value as string)
+      })
+      if (router.query.city && cities && cities.length > 0) {
+        setValue('city', router.query.city as string)
+      }
+      router.replace(router.pathname, undefined, { shallow: true })
+    }
+  }, [cities, router, router.query, setValue])
+
   return (
     <form className='flex flex-1 flex-col' onSubmit={handleSubmit(onSubmit)}>
       <Alert
@@ -171,65 +184,71 @@ export const GeneralInformationForm = () => {
         <Input
           errorText={errors.firstName?.message}
           isRequired
-          label={t.profileSettings.first_name}
+          label={t.profileSettings.firstName}
           type='text'
           {...register('firstName')}
         />
         <Input
           errorText={errors.lastName?.message}
           isRequired
-          label={t.profileSettings.last_name}
+          label={t.profileSettings.lastName}
           type='text'
           {...register('lastName')}
         />
-        <DatePicker
-          errorText={
-            errors.dateOfBirth && (
-              <p>
-                {errors.dateOfBirth?.message}{' '}
-                <Link
-                  className='underline'
-                  href='/privacy-policy'
-                  // onClick={() => sessionStorage.setItem('formData', JSON.stringify(getValues()))}
-                >
-                  {t.profileSettings.errors.privacy}
-                </Link>
-                .
-              </p>
-            )
-          }
-          label={t.profileSettings.date_of_birth}
-          mode='single'
-          onSelect={handleDateChange}
-          selected={dateOfBirthField.value ? new Date(dateOfBirthField.value) : undefined}
-          {...dateOfBirthField}
-        />
+        {data ? (
+          <DatePicker
+            label={t.profileSettings.dateOfBirth}
+            mode='single'
+            onSelect={handleDateChange}
+            selected={dateOfBirthField.value ? new Date(dateOfBirthField.value) : undefined}
+            {...dateOfBirthField}
+          />
+        ) : (
+          <Input label='Date of birth' readOnly />
+        )}
+        {errors.dateOfBirth && (
+          <p className='text-sm text-danger-500'>
+            {errors.dateOfBirth?.message}{' '}
+            <Link
+              className='underline'
+              href={{
+                pathname: '/privacy-policy',
+                query: { ...getValues() },
+              }}
+            >
+              {t.profileSettings.errors.privacy}
+            </Link>
+            .
+          </p>
+        )}
         <div className='flex flex-row gap-6'>
           <Select
             className='w-1/2'
-            label={t.profileSettings.select_your_country}
+            label={t.profileSettings.selectYourCountry}
             onValueChange={countryField.onChange}
             options={countries.map(country => ({ label: country.name, value: country.isoCode }))}
             placeholder={t.profileSettings.country}
-            value={countryField}
             {...countryField}
           />
           <Select
             className='w-1/2'
-            label={t.profileSettings.select_your_city}
+            label={t.profileSettings.selectYourCity}
             onValueChange={cityField.onChange}
-            options={cities?.map(city => ({
-              label: city.name + [' '] + city.stateCode,
-              value: city.name + [' '] + city.stateCode,
-            }))}
+            options={
+              cities
+                ? cities.map(city => ({
+                    label: city.name + [' '] + city.stateCode,
+                    value: city.name + [' '] + city.stateCode,
+                  }))
+                : []
+            }
             placeholder={t.profileSettings.city}
-            value={cityField.value}
             {...cityField}
           />
         </div>
         <TextArea
           errorText={errors.aboutMe?.message}
-          label={t.profileSettings.about_me}
+          label={t.profileSettings.aboutMe}
           {...register('aboutMe', {
             onChange: async () => await trigger('aboutMe'),
           })}
@@ -237,7 +256,7 @@ export const GeneralInformationForm = () => {
         <div className='my-6 border-b border-dark-300'></div>
         <div className='flex flex-row-reverse'>
           <Button disabled={isLoading} type='submit'>
-            {t.profileSettings.save_changes}
+            {t.profileSettings.saveChanges}
           </Button>
         </div>
       </div>

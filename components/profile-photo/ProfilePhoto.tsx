@@ -52,7 +52,7 @@ export const ProfilePhoto = ({ profileAvatars }: ProfilePhotoProps) => {
         title={t.profile.confirmationModal.title}
       />
       {profileAvatars.length !== 0 && (
-        <div className='absolute right-3 top-3 z-10 mx-auto flex size-6 items-center justify-center rounded-full bg-dark-700'>
+        <div className='absolute right-4 top-9 z-10 mx-auto flex size-6 items-center justify-center rounded-full bg-dark-700'>
           <Icon
             className='cursor-pointer rounded-full bg-danger-500'
             height={16}
