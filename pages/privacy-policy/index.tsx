@@ -7,7 +7,6 @@ import { Icon } from 'uikit-inctagram'
 const PrivacyPolicy = () => {
   const { t } = useTranslation()
   const router = useRouter()
-  // const onClick = router.back()
 
   return (
     <div className='mx-auto max-w-[1232px] px-4 py-6 text-center text-light-100 sm:px-6 lg:px-8'>
