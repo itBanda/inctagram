@@ -114,6 +114,7 @@ export const ru: LocaleType = {
       error: 'Ошибка! Сервер не доступен!',
       success: 'Ваши изменения сохранены!'
     },
+    backToProfileSettings: 'назад к настройкам профиля',
     city: 'Город',
     country: 'Страна',
     dateOfBirth: 'Дата рождения',

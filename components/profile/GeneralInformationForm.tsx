@@ -197,6 +197,24 @@ export const GeneralInformationForm = () => {
         />
         {data ? (
           <DatePicker
+            captionLayout='dropdown'
+            errorText={
+              errors.dateOfBirth && (
+                <p className='text-sm text-danger-500'>
+                  {errors.dateOfBirth?.message}{' '}
+                  <Link
+                    className='underline'
+                    href={{
+                      pathname: '/privacy-policy',
+                      query: { ...getValues() },
+                    }}
+                  >
+                    {t.profileSettings.errors.privacy}
+                  </Link>
+                  .
+                </p>
+              )
+            }
             label={t.profileSettings.dateOfBirth}
             mode='single'
             onSelect={handleDateChange}
@@ -205,21 +223,6 @@ export const GeneralInformationForm = () => {
           />
         ) : (
           <Input label='Date of birth' readOnly />
-        )}
-        {errors.dateOfBirth && (
-          <p className='text-sm text-danger-500'>
-            {errors.dateOfBirth?.message}{' '}
-            <Link
-              className='underline'
-              href={{
-                pathname: '/privacy-policy',
-                query: { ...getValues() },
-              }}
-            >
-              {t.profileSettings.errors.privacy}
-            </Link>
-            .
-          </p>
         )}
         <div className='flex flex-row gap-6'>
           <Select

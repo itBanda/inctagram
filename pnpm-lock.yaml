@@ -51,8 +51,8 @@ importers:
         specifier: 3.1.0
         version: 3.1.0(tailwindcss@3.4.10)
       uikit-inctagram:
-        specifier: 1.2.1
-        version: 1.2.1(@types/react-dom@18.3.0)(@types/react@18.3.4)(rollup@4.21.3)(tailwindcss@3.4.10)(typescript@5.5.4)(vite@5.4.4(@types/node@20.16.1))
+        specifier: 1.2.2
+        version: 1.2.2(@types/react-dom@18.3.0)(@types/react@18.3.4)(rollup@4.21.3)(tailwindcss@3.4.10)(typescript@5.5.4)(vite@5.4.4(@types/node@20.16.1))
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -3187,8 +3187,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  uikit-inctagram@1.2.1:
-    resolution: {integrity: sha512-eeQrWm7UnoOYaFdLDjy5qRaYUzWESClaKyMlCvoEFzv51t389AYNf0hA5z0YUeQnQ5oGJldZ4eKc9M5AVvGFDQ==}
+  uikit-inctagram@1.2.2:
+    resolution: {integrity: sha512-PV6RB+VPsHcmA2BipGLPnNVBf2/OcnFczYeXWuyCZ0j9ajKR/JtontSG5NgZRRMDrsppQc7BRi6kke4hl7JI8w==}
 
   unbox-primitive@1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
@@ -6542,7 +6542,7 @@ snapshots:
 
   typescript@5.5.4: {}
 
-  uikit-inctagram@1.2.1(@types/react-dom@18.3.0)(@types/react@18.3.4)(rollup@4.21.3)(tailwindcss@3.4.10)(typescript@5.5.4)(vite@5.4.4(@types/node@20.16.1)):
+  uikit-inctagram@1.2.2(@types/react-dom@18.3.0)(@types/react@18.3.4)(rollup@4.21.3)(tailwindcss@3.4.10)(typescript@5.5.4)(vite@5.4.4(@types/node@20.16.1)):
     dependencies:
       '@radix-ui/react-popover': 1.1.2(@types/react-dom@18.3.0)(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-select': 2.1.1(@types/react-dom@18.3.0)(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

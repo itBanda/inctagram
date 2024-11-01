@@ -16,7 +16,7 @@ export const en = {
     },
     form: {
       agree(term: string, privacy: string) {
-        return `I agree to the <1>${term}</1> and <2>${privacy}</2>`;
+        return `I agree to the <1>${privacy}</1> and <2>${term}</2>`;
       },
       email: {
         email: "Email",
@@ -111,6 +111,7 @@ export const en = {
       error: 'Error! Server is not available!',
       success: 'Your settings are saved!'
     },
+    backToProfileSettings: 'Back to prifile settings',
     city: 'City',
     country: 'Country',
     dateOfBirth: 'Date of birth',
