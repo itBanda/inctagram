@@ -22,7 +22,7 @@ export const SendPhotoMode = ({ onClose, profilePhoto }: Props) => {
   const [croppedArea, setCroppedArea] = useState<Area | null>(null)
 
   const [loadAvatar, { isLoading: isAvatarLoading }] = profileApi.useLoadAvatarMutation()
-  const { refetch: refetchProfile } = profileApi.useProfileQuery()
+  const { refetch: refetchProfile } = profileApi.useGetProfileQuery()
   const [abortController, setAbortController] = useState<AbortController | null>(null)
   const [imageSrc, setImageSrc] = useState<null | string>(null)
 

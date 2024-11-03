@@ -18,7 +18,7 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
         <MainHeaderMenu />
       </Header>
       <div className='flex h-header'>
-        <aside className='custom-scrollbar w-[220px] overflow-y-auto border-r border-dark-300 scrollbar-thin'>
+        <aside className='custom-scrollbar flex-shrink-0 flex-grow basis-[220px] overflow-y-auto border-r border-dark-300 scrollbar-thin'>
           <nav className='text-center text-light-100'>
             <ul>
               <li>

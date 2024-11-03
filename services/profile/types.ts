@@ -19,3 +19,13 @@ export type AvatarResponse = {
   url: string
   width: number
 }
+export interface UpdateProfileRequest {
+  aboutMe?: string
+  city?: string
+  country?: string
+  dateOfBirth?: string
+  firstName: string
+  lastName: string
+  region?: string
+  userName: string
+}

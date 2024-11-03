@@ -1,7 +1,4 @@
-import React from 'react'
-
-import { getAuthLayout } from '@/components'
-import { ForgotPasswordForm } from '@/components/forgot-password-form/ForgotPasswordForm'
+import { ForgotPasswordForm, getAuthLayout } from '@/components'
 import { useTranslation } from '@/hooks/useTranslation'
 import { Card, Typography } from 'uikit-inctagram'
 
