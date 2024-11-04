@@ -30,6 +30,10 @@ const Profile = () => {
           imageUrl={publicProfileData?.avatars[0]?.url}
           isLoading={isLoadingPublicProfile}
         />
+        <h2 className='text-light-100'>
+          {t.authPage.form.userName}: {publicProfileData?.userName}
+        </h2>
+
         {isCurrentUser && (
           <Button asChild variant='secondary'>
             <Link href='/profile/settings'>{t.profile.button.profileSettings}</Link>

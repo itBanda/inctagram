@@ -13,3 +13,14 @@ export type ProfileResponse = {
   region: string
   userName: string
 }
+
+export type UpdateProfileRequest = {
+  aboutMe?: string
+  city?: string
+  country?: string
+  dateOfBirth?: string
+  firstName: string
+  lastName: string
+  region?: string
+  userName: string
+}

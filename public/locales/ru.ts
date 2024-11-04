@@ -106,5 +106,42 @@ export const ru: LocaleType = {
       saveButton: 'Сохранить',
       title: 'Добавить фото'
     }
+  },
+  profileSettings: {
+    aboutMe: 'Обо мне',
+    addPhoto: 'Добавить фото профиля',
+    alert: {
+      error: 'Ошибка! Сервер не доступен!',
+      success: 'Ваши изменения сохранены!'
+    },
+    backToProfileSettings: 'назад к настройкам профиля',
+    city: 'Город',
+    country: 'Страна',
+    dateOfBirth: 'Дата рождения',
+    errors: {
+      dateOfBirth: 'Пользователи младше 13 лет не могут создать профайл',
+      firstLastNameRegex: "Имя пользователя может содержать только A-Z, a-z, А-Я, а-я",
+      mandatory: 'Обязательное поле',
+      maxCharacters(max: number) {
+        return `Максимальное количество символов ${max}`;
+      },
+      minCharacters(min: number) {
+        return `Минимальное количество символов ${min}`;
+      },
+      privacy: 'Политика конфиденциальности',
+      userNameRegex: "Имя пользователя может содержать только A-Z, a-z, 0-9, _ или -"
+    },
+    firstName: 'Имя',
+    lastName: 'Фамилия',
+    saveChanges: 'Сохранить изменения',
+    selectYourCity: 'Выбери город',
+    selectYourCountry: 'Выбери страну',
+    username: 'Имя пользователя'
+  },
+  tabs: {
+    accountManagement: 'Управление аккаунтом',
+    devices: 'Устройства',
+    generalInfo: 'Общая информация',
+    payments: 'Платежи'
   }
 };

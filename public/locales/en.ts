@@ -16,7 +16,7 @@ export const en = {
     },
     form: {
       agree(term: string, privacy: string) {
-        return `I agree to the <1>${term}</1> and <2>${privacy}</2>`;
+        return `I agree to the <1>${privacy}</1> and <2>${term}</2>`;
       },
       email: {
         email: "Email",
@@ -103,5 +103,42 @@ export const en = {
       saveButton: 'Save',
       title: 'Add a Profile Photo'
     }
+  },
+  profileSettings: {
+    aboutMe: 'About me',
+    addPhoto: 'Add a Profile Photo',
+    alert: {
+      error: 'Error! Server is not available!',
+      success: 'Your settings are saved!'
+    },
+    backToProfileSettings: 'Back to prifile settings',
+    city: 'City',
+    country: 'Country',
+    dateOfBirth: 'Date of birth',
+    errors: {
+      dateOfBirth: 'Users under 13 cannot create a profile',
+      firstLastNameRegex: "Username can contain only A-Z, a-z, А-Я, а-я",
+      mandatory: 'mandatory',
+      maxCharacters(max: number) {
+        return `Maximum number of characters ${max}`;
+      },
+      minCharacters(min: number) {
+        return `Minimum number of characters ${min}`;
+      },
+      privacy: 'Privacy policy',
+      userNameRegex: "Username can contain only A-Z, a-z, 0-9, _ or -"
+    },
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    saveChanges: 'Save changes',
+    selectYourCity: 'Select your city',
+    selectYourCountry: 'Select your country',
+    username: 'Username'
+  },
+  tabs: {
+    accountManagement: 'Account management',
+    devices: 'Devices',
+    generalInfo: 'General Information',
+    payments: 'Payments'
   }
 };
