@@ -42,7 +42,6 @@
     "@types/react-google-recaptcha": "2.1.9",
     "autoprefixer": "10.4.20",
     "clsx": "2.1.1",
-    "country-state-city": "3.2.1",
     "eslint": "8",
     "eslint-config-next": "14.2.6",
     "husky": "9.1.5",

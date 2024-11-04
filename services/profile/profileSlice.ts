@@ -1,4 +1,4 @@
-import { ProfileRequest } from '@/services/profile/types'
+import { UpdateProfileRequest } from '@/services/profile/types'
 import { AvatarResponse } from '@/services/types'
 import { createApi } from '@reduxjs/toolkit/query/react'
 
@@ -29,7 +29,7 @@ export const profileApi = createApi({
     profile: builder.query<ProfileResponse, void>({
       query: () => ({ url: 'users/profile' }),
     }),
-    updateProfileInfo: builder.mutation<{}, ProfileRequest>({
+    updateProfileInfo: builder.mutation<{}, UpdateProfileRequest>({
       query: body => ({ body, method: 'PUT', url: 'users/profile' }),
     }),
   }),

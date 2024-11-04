@@ -1,5 +1,6 @@
 import { ProfilePhoto, getMainLayout } from '@/components'
 import { GeneralInformationForm } from '@/components/profile'
+import withAuth from '@/hocs/withAuth'
 import { useTranslation } from '@/hooks/useTranslation'
 import { profileApi } from '@/services'
 import { Tabs } from 'uikit-inctagram'
@@ -33,5 +34,7 @@ const Settings = () => {
   )
 }
 
-export default Settings
-Settings.getLayout = getMainLayout
+const SettingsWithAuth = withAuth(Settings)
+
+export default SettingsWithAuth
+SettingsWithAuth.getLayout = getMainLayout

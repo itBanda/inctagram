@@ -2,6 +2,7 @@ import { getAuthLayout } from '@/components'
 import { useTranslation } from '@/hooks/useTranslation'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { Icon } from 'uikit-inctagram'
 
 const PrivacyPolicy = () => {
   const { t } = useTranslation()
@@ -11,7 +12,7 @@ const PrivacyPolicy = () => {
 
   return (
     <div className='mx-auto max-w-[1232px] px-4 py-6 text-center text-light-100 sm:px-6 lg:px-8'>
-      {hasQueryParams && (
+      {hasQueryParams ? (
         <Link
           className='flex items-center gap-3 text-white'
           href={{
@@ -19,7 +20,13 @@ const PrivacyPolicy = () => {
             query: router.query,
           }}
         >
+          <Icon className='cursor-pointer' icon='arrow-back-outline' />
           {t.profileSettings.backToProfileSettings}
+        </Link>
+      ) : (
+        <Link className='flex items-center gap-3 text-white' href='/sign-up'>
+          <Icon className='cursor-pointer' icon='arrow-back-outline' />
+          {t.authPage.button.backToSignUp}
         </Link>
       )}
       <h1 className='py-6 text-xl font-bold'>{t.authPage.form.privacy.noun}</h1>

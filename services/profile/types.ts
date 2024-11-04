@@ -14,7 +14,7 @@ export type ProfileResponse = {
   userName: string
 }
 
-export type ProfileRequest = {
+export type UpdateProfileRequest = {
   aboutMe?: string
   city?: string
   country?: string

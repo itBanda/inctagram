@@ -65,7 +65,8 @@ type FormFields = z.infer<ReturnType<typeof ProfileSchema>>
 export const GeneralInformationForm = () => {
   const { t } = useTranslation()
   const { data } = authApi.useAuthMeQuery()
-  const [setProfileInfo, { isLoading }] = profileApi.useUpdateProfileInfoMutation()
+  const [updateProfileInfo, { isLoading: isLoadingUpdateProfileInfo }] =
+    profileApi.useUpdateProfileInfoMutation()
   const router = useRouter()
   const [uiAlert, setUiAlert] = useState({
     isOpened: false,
@@ -124,7 +125,7 @@ export const GeneralInformationForm = () => {
 
   const onSubmit: SubmitHandler<FormFields> = async data => {
     try {
-      await setProfileInfo(data).unwrap()
+      await updateProfileInfo(data).unwrap()
 
       setUiAlert({
         isOpened: true,
@@ -165,9 +166,8 @@ export const GeneralInformationForm = () => {
   }, [cities, router, router.query, setValue])
 
   return (
-    <form className='flex flex-1 flex-col' onSubmit={handleSubmit(onSubmit)}>
+    <form className='flex flex-1 flex-col items-center' onSubmit={handleSubmit(onSubmit)}>
       <Alert
-        className='absolute'
         isOpened={uiAlert.isOpened}
         message={uiAlert.message}
         onClose={() => setUiAlert(prev => ({ ...prev, isOpened: false }))}
@@ -195,35 +195,30 @@ export const GeneralInformationForm = () => {
           type='text'
           {...register('lastName')}
         />
-        {data ? (
-          <DatePicker
-            captionLayout='dropdown'
-            errorText={
-              errors.dateOfBirth && (
-                <p className='text-sm text-danger-500'>
-                  {errors.dateOfBirth?.message}{' '}
-                  <Link
-                    className='underline'
-                    href={{
-                      pathname: '/privacy-policy',
-                      query: { ...getValues() },
-                    }}
-                  >
-                    {t.profileSettings.errors.privacy}
-                  </Link>
-                  .
-                </p>
-              )
-            }
-            label={t.profileSettings.dateOfBirth}
-            mode='single'
-            onSelect={handleDateChange}
-            selected={dateOfBirthField.value ? new Date(dateOfBirthField.value) : undefined}
-            {...dateOfBirthField}
-          />
-        ) : (
-          <Input label='Date of birth' readOnly />
-        )}
+        <DatePicker
+          captionLayout='dropdown'
+          errorText={
+            errors.dateOfBirth && (
+              <>
+                <span>{errors.dateOfBirth?.message} </span>
+                <Link
+                  className='underline'
+                  href={{
+                    pathname: '/privacy-policy',
+                    query: getValues(),
+                  }}
+                >
+                  {t.profileSettings.errors.privacy}
+                </Link>
+              </>
+            )
+          }
+          label={t.profileSettings.dateOfBirth}
+          mode='single'
+          onSelect={handleDateChange}
+          selected={dateOfBirthField.value ? new Date(dateOfBirthField.value) : undefined}
+          {...dateOfBirthField}
+        />
         <div className='flex flex-row gap-6'>
           <Select
             className='w-1/2'
@@ -240,8 +235,8 @@ export const GeneralInformationForm = () => {
             options={
               cities
                 ? cities.map(city => ({
-                    label: city.name + [' '] + city.stateCode,
-                    value: city.name + [' '] + city.stateCode,
+                    label: city.name + ' ' + city.stateCode,
+                    value: city.name + ' ' + city.stateCode,
                   }))
                 : []
             }
@@ -252,13 +247,11 @@ export const GeneralInformationForm = () => {
         <TextArea
           errorText={errors.aboutMe?.message}
           label={t.profileSettings.aboutMe}
-          {...register('aboutMe', {
-            onChange: async () => await trigger('aboutMe'),
-          })}
-        ></TextArea>
+          {...register('aboutMe')}
+        />
         <div className='my-6 border-b border-dark-300'></div>
         <div className='flex flex-row-reverse'>
-          <Button disabled={isLoading} type='submit'>
+          <Button disabled={isLoadingUpdateProfileInfo} type='submit'>
             {t.profileSettings.saveChanges}
           </Button>
         </div>
