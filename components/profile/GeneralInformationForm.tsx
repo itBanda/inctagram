@@ -65,6 +65,7 @@ type FormFields = z.infer<ReturnType<typeof ProfileSchema>>
 export const GeneralInformationForm = () => {
   const { t } = useTranslation()
   const { data } = authApi.useAuthMeQuery()
+  const { data: profileData } = profileApi.useProfileQuery()
   const [updateProfileInfo, { isLoading: isLoadingUpdateProfileInfo }] =
     profileApi.useUpdateProfileInfoMutation()
   const router = useRouter()
@@ -75,7 +76,7 @@ export const GeneralInformationForm = () => {
   })
   const {
     control,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
     getValues,
     handleSubmit,
     register,
@@ -86,13 +87,13 @@ export const GeneralInformationForm = () => {
     mode: 'onBlur',
     resolver: zodResolver(ProfileSchema(t)),
     values: {
-      aboutMe: '',
-      city: '',
-      country: '',
-      dateOfBirth: '',
-      firstName: '',
-      lastName: '',
-      region: '',
+      aboutMe: profileData?.aboutMe || '',
+      city: profileData?.city || '',
+      country: profileData?.country || '',
+      dateOfBirth: profileData?.dateOfBirth || '',
+      firstName: profileData?.firstName || '',
+      lastName: profileData?.lastName || '',
+      region: profileData?.region || '',
       userName: data?.userName || '',
     },
   })
@@ -251,7 +252,7 @@ export const GeneralInformationForm = () => {
         />
         <div className='my-6 border-b border-dark-300'></div>
         <div className='flex flex-row-reverse'>
-          <Button disabled={isLoadingUpdateProfileInfo} type='submit'>
+          <Button disabled={isLoadingUpdateProfileInfo || !isValid || !isDirty} type='submit'>
             {t.profileSettings.saveChanges}
           </Button>
         </div>
