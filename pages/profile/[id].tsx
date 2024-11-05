@@ -8,13 +8,15 @@ import { Button } from 'uikit-inctagram'
 
 const Profile = () => {
   const { t } = useTranslation()
-  const { data: authMeData } = authApi.useAuthMeQuery()
+  const { data: authMeData } = authApi.useAuthMeQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
 
   const router = useRouter()
   const profileId = Number(router.query.id)
 
   const { data: publicProfileData, isLoading: isLoadingPublicProfile } =
-    publicUserApi.useGetPublicProfileByIdQuery({ profileId })
+    publicUserApi.useGetPublicProfileByIdQuery({ profileId }, { refetchOnMountOrArgChange: true })
 
   const isCurrentUser = authMeData?.userId === publicProfileData?.id
 
