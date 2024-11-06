@@ -3,7 +3,7 @@ import { FieldPath, SubmitHandler, useController, useForm } from 'react-hook-for
 
 import { useTranslation } from '@/hooks/useTranslation'
 import { LocaleType } from '@/public'
-import { authApi, isApiError, isFetchBaseQueryError } from '@/services'
+import { isApiError, isFetchBaseQueryError } from '@/services'
 import { profileApi } from '@/services/profile/profileSlice'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { City, Country } from 'country-state-city'
@@ -64,7 +64,6 @@ type FormFields = z.infer<ReturnType<typeof ProfileSchema>>
 
 export const GeneralInformationForm = () => {
   const { t } = useTranslation()
-  const { data } = authApi.useAuthMeQuery()
   const { data: profileData } = profileApi.useProfileQuery()
   const [updateProfileInfo, { isLoading: isLoadingUpdateProfileInfo }] =
     profileApi.useUpdateProfileInfoMutation()
@@ -94,7 +93,7 @@ export const GeneralInformationForm = () => {
       firstName: profileData?.firstName || '',
       lastName: profileData?.lastName || '',
       region: profileData?.region || '',
-      userName: data?.userName || '',
+      userName: profileData?.userName || '',
     },
   })
   const { field: dateOfBirthField } = useController<FormFields, FieldPath<FormFields>>({
