@@ -1,6 +1,5 @@
-import { Spinner } from '@/components/ui'
+import { Icon, Spinner } from '@/components'
 import Image from 'next/image'
-import { Icon } from 'uikit-inctagram'
 
 type Props = {
   alt?: string

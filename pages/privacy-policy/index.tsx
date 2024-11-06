@@ -1,8 +1,7 @@
-import { getAuthLayout } from '@/components'
+import { Icon, getAuthLayout } from '@/components'
 import { useTranslation } from '@/hooks/useTranslation'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Icon } from 'uikit-inctagram'
 
 const PrivacyPolicy = () => {
   const { t } = useTranslation()
