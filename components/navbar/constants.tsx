@@ -10,7 +10,7 @@ export type MenuItem = {
   translationId: keyof LocaleType['navbar']
 }
 
-export const menu1: MenuItem[] = [
+export const menu1 = (profileId: number | undefined): MenuItem[] => [
   {
     href: '/',
     icon: <Icon icon='home-outline' />,
@@ -24,7 +24,7 @@ export const menu1: MenuItem[] = [
     translationId: 'create',
   },
   {
-    href: '/profile',
+    href: `/profile/${profileId || ''}`,
     icon: <Icon icon='person-outline' />,
     label: 'Profile',
     translationId: 'profile',

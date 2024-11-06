@@ -75,7 +75,7 @@ export const Navbar = () => {
       />
       <SideBar className='custom-scrollbar flex-shrink-0 flex-grow basis-[220px] flex-col items-center justify-start pb-9 pt-[72px] scrollbar-thin'>
         <nav className='flex flex-col gap-[60px]'>
-          <ul className='flex flex-col gap-6'>{renderMenuItems(menu1)}</ul>
+          <ul className='flex flex-col gap-6'>{renderMenuItems(menu1(data?.userId))}</ul>
           <ul className='flex flex-col gap-6'>{renderMenuItems(menu2)}</ul>
           <Button
             className='flex items-center gap-3 p-0 font-medium text-light-100 focus:ring-light-100'
