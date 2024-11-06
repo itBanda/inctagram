@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Icon, NotificationModal } from '@/components'
 import { exampleNotifications } from '@/components/notification/example-notifications'
@@ -9,6 +9,32 @@ export const NotificationBell = () => {
   const toggleNotifications = () => {
     setIsOpen(!isOpen)
   }
+
+  const handleEscape = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      setIsOpen(false)
+    }
+  }
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      isOpen &&
+      event.target instanceof HTMLElement &&
+      !event.target.closest('.notification-modal')
+    ) {
+      setIsOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleEscape)
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      window.removeEventListener('keydown', handleEscape)
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen])
 
   return (
     <div className='relative hover:text-accent-100'>
@@ -24,7 +50,11 @@ export const NotificationBell = () => {
           {exampleNotifications.length}
         </div>
       )}
-      {isOpen && <NotificationModal notifications={exampleNotifications} />}
+      {isOpen && (
+        <div className='notification-modal'>
+          <NotificationModal notifications={exampleNotifications} />
+        </div>
+      )}
     </div>
   )
 }
