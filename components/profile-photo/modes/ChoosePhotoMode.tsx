@@ -1,7 +1,8 @@
 import { ChangeEvent, useRef, useState } from 'react'
 
+import { Icon } from '@/components'
 import { useTranslation } from '@/hooks/useTranslation'
-import { Alert, Button, Card, Icon } from 'uikit-inctagram'
+import { Alert, Button } from 'uikit-inctagram'
 
 type Props = {
   setProfilePhoto: (photo: File | null) => void

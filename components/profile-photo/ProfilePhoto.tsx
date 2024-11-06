@@ -1,11 +1,12 @@
 import { useState } from 'react'
 
+import { Icon } from '@/components'
 import { Avatar } from '@/components/avatar/Avatar'
 import { ConfirmationModal } from '@/components/modals'
 import { ProfilePhotoModal } from '@/components/modals/ProfilePhotoModal'
 import { useTranslation } from '@/hooks/useTranslation'
 import { AvatarResponse, profileApi } from '@/services'
-import { Button, Icon, Typography } from 'uikit-inctagram'
+import { Button, Typography } from 'uikit-inctagram'
 
 type ProfilePhotoProps = {
   profileAvatars: AvatarResponse[]

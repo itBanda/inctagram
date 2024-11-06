@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
+import { Icon } from '@/components'
 import { LocaleType } from '@/public'
-import { Icon } from 'uikit-inctagram'
 
 export type MenuItem = {
   href: string
@@ -57,5 +57,3 @@ export const menu2: MenuItem[] = [
     translationId: 'favorites',
   },
 ]
-
-export const logoutIcon = <Icon icon='log-out-outline' />
