@@ -16,7 +16,7 @@ const Profile = () => {
   const profileId = Number(router.query.id)
 
   const { data: publicProfileData, isLoading: isLoadingPublicProfile } =
-    publicUserApi.useGetPublicProfileByIdQuery({ profileId }, { refetchOnMountOrArgChange: true })
+    publicUserApi.useGetPublicProfileByIdQuery({ profileId })
 
   const isCurrentUser = authMeData?.userId === publicProfileData?.id
 
