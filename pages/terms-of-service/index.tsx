@@ -1,7 +1,6 @@
-import { getAuthLayout } from '@/components'
+import { Icon, getAuthLayout } from '@/components'
 import { useTranslation } from '@/hooks/useTranslation'
 import Link from 'next/link'
-import { Icon } from 'uikit-inctagram'
 
 const TermsOfService = () => {
   const { t } = useTranslation()

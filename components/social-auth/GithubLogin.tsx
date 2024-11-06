@@ -1,6 +1,4 @@
-import React from 'react'
-
-import { Icon } from 'uikit-inctagram'
+import { Icon } from '@/components'
 
 export const GithubLogin = () => {
   const gitHubLogin = () => {
