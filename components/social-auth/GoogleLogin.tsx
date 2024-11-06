@@ -1,9 +1,9 @@
+import { Icon } from '@/components'
 import { authActions } from '@/features'
 import { authApi } from '@/services'
 import { useAppDispatch } from '@/store'
 import { useGoogleLogin } from '@react-oauth/google'
 import { useRouter } from 'next/router'
-import { Icon } from 'uikit-inctagram'
 
 export const GoogleLogin = () => {
   const [googleLogin] = authApi.useGoogleLoginMutation()

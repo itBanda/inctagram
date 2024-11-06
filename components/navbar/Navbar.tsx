@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
+import { Icon } from '@/components/icon'
 import { ConfirmationModal } from '@/components/modals'
-import { MenuItem, logoutIcon, menu1, menu2 } from '@/components/navbar/constants'
+import { MenuItem, menu1, menu2 } from '@/components/navbar/constants'
 import { authActions } from '@/features'
 import { useTranslation } from '@/hooks/useTranslation'
 import { LocaleType } from '@/public'
@@ -88,7 +89,7 @@ export const Navbar = () => {
             onClick={handleOpenModal}
             variant='text'
           >
-            {logoutIcon}
+            <Icon icon='log-out-outline' />
             <span>{t.navbar.logOut}</span>
           </Button>
         </nav>
