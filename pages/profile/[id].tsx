@@ -21,7 +21,7 @@ const Profile = () => {
   const isCurrentUser = authMeData?.userId === publicProfileData?.id
 
   if (!profileId) {
-    return <p className='text-light-100'>Profile id is invalid</p>
+    return <p className='text-light-100'>{t.myProfile.invalidId}</p>
   }
 
   return (
@@ -33,12 +33,12 @@ const Profile = () => {
           isLoading={isLoadingPublicProfile}
         />
         <h2 className='text-light-100'>
-          {t.authPage.form.userName}: {publicProfileData?.userName}
+          {t.profileSettings.userName}: {publicProfileData?.userName}
         </h2>
 
         {isCurrentUser && (
           <Button asChild variant='secondary'>
-            <Link href='/profile/settings'>{t.profile.button.profileSettings}</Link>
+            <Link href='/profile/settings'>{t.myProfile.button.profileSettings}</Link>
           </Button>
         )}
       </div>

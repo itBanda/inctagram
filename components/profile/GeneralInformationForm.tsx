@@ -22,7 +22,7 @@ const ProfileSchema = (t: LocaleType) =>
       aboutMe: z
         .string()
         .trim()
-        .max(200, t.profileSettings.errors.maxCharacters(200))
+        .max(200, t.formValidation.maxCharacters(200))
         .regex(/^[a-zA-Z0-9А-Яа-я\d!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~ ]*$/),
       city: z.string(),
       country: z.string(),
@@ -30,23 +30,23 @@ const ProfileSchema = (t: LocaleType) =>
       firstName: z
         .string()
         .trim()
-        .min(1, t.profileSettings.errors.mandatory)
+        .min(1, t.formValidation.mandatory)
         .max(50)
-        .regex(/^[a-zA-ZА-Яа-я]*$/, t.profileSettings.errors.firstLastNameRegex),
+        .regex(/^[a-zA-ZА-Яа-я]*$/, t.formValidation.firstLastNameRegex),
       lastName: z
         .string()
         .trim()
-        .min(1, t.profileSettings.errors.mandatory)
+        .min(1, t.formValidation.mandatory)
         .max(50)
-        .regex(/^[a-zA-ZА-Яа-я]*$/, t.profileSettings.errors.firstLastNameRegex),
+        .regex(/^[a-zA-ZА-Яа-я]*$/, t.formValidation.firstLastNameRegex),
       region: z.string(),
       userName: z
         .string()
         .trim()
-        .min(1, t.profileSettings.errors.mandatory)
-        .min(6, t.profileSettings.errors.minCharacters(6))
-        .max(30, t.profileSettings.errors.maxCharacters(30))
-        .regex(/^[A-Za-z0-9_-]+$/, t.profileSettings.errors.userNameRegex),
+        .min(1, t.formValidation.mandatory)
+        .min(6, t.formValidation.minCharacters(6))
+        .max(30, t.formValidation.maxCharacters(30))
+        .regex(/^[A-Za-z0-9_-]+$/, t.formValidation.userNameRegex),
     })
     .refine(
       data => {
@@ -55,7 +55,7 @@ const ProfileSchema = (t: LocaleType) =>
         return date < minimumDate
       },
       {
-        message: t.profileSettings.errors.dateOfBirth,
+        message: t.profileSettings.dateOfBirthError,
         path: ['dateOfBirth'],
       }
     )
@@ -129,14 +129,14 @@ export const GeneralInformationForm = () => {
 
       setUiAlert({
         isOpened: true,
-        message: t.profileSettings.alert.success,
+        message: t.common.alert.success,
         type: 'success',
       })
     } catch (err) {
       console.error('setting profile failed:', err)
       setUiAlert({
         isOpened: true,
-        message: t.profileSettings.alert.error,
+        message: t.common.alert.error,
         type: 'error',
       })
       if (isFetchBaseQueryError(err)) {
@@ -177,7 +177,7 @@ export const GeneralInformationForm = () => {
         <Input
           errorText={errors.userName?.message}
           isRequired
-          label={t.profileSettings.username}
+          label={t.profileSettings.userName}
           type='text'
           {...register('userName')}
         />
@@ -208,7 +208,7 @@ export const GeneralInformationForm = () => {
                     query: getValues(),
                   }}
                 >
-                  {t.profileSettings.errors.privacy}
+                  {t.authPage.form.privacy.noun}
                 </Link>
               </>
             )

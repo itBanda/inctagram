@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 
+import { ChoosePhotoMode, SendPhotoMode } from '@/components'
 import { useTranslation } from '@/hooks/useTranslation'
 import { Modal } from 'uikit-inctagram'
-
-import { ChoosePhotoMode, SendPhotoMode } from '../profile-photo'
 
 type Props = {
   isOpened: boolean
@@ -30,7 +29,7 @@ export const ProfilePhotoModal = ({ isOpened, onClose }: Props) => {
       className='min-h-[536px] max-w-[492px]'
       isOpened={isOpened}
       onClose={onClose}
-      title={t.profile.photoModal.title}
+      title={t.photo.add}
     >
       <div className='relative flex flex-col items-center justify-center'>
         {profilePhoto ? (

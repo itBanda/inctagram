@@ -26,13 +26,13 @@ export const ChoosePhotoMode = ({ setProfilePhoto }: Props) => {
       const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024
 
       if (photo.size > maxFileSizeBytes) {
-        setPhotoError(`Error! Photo size must be less than ${maxFileSizeMB} MB!`)
+        setPhotoError(t.photo.error.size(maxFileSizeMB))
 
         return
       }
 
       if (photo.type !== 'image/png' && photo.type !== 'image/jpeg') {
-        setPhotoError('Error! The format of the uploaded photo must be PNG or JPEG')
+        setPhotoError(t.photo.error.format)
 
         return
       }
@@ -59,7 +59,7 @@ export const ChoosePhotoMode = ({ setProfilePhoto }: Props) => {
         type='file'
       />
       <Button className='mt-9' onClick={selectFile}>
-        {t.profile.photoModal.choosePhoto}
+        {t.photo.choose}
       </Button>
     </>
   )

@@ -26,10 +26,10 @@ export const ConfirmationModal = ({ body, isLoading, onConfirm, ...props }: Prop
         {body}
         <div className='flex justify-end gap-6'>
           <Button className='px-8' disabled={isLoading} onClick={onConfirm}>
-            {t.common.modal.yes}
+            {t.modal.yes}
           </Button>
           <Button className='px-8' onClick={props.onClose} variant='outlined'>
-            {t.common.modal.no}
+            {t.modal.no}
           </Button>
         </div>
       </div>

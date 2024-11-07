@@ -80,28 +80,25 @@ export const ru: LocaleType = {
     userNameRegex: "Имя пользователя может содержать только A-Z, a-z, 0-9, _ или -"
   },
   modal: {
-    common: {
-      no: "Нет",
-      ok: "Хорошо",
-      yes: "Да"
+    deletePhoto: {
+      confirm: "Подтвердить удаление фото",
+      description: "Вы действительно хотите удалить фото своего профиля?"
     },
-    deletePhotoConfirmation: {
-      description: "Вы действительно хотите удалить фото своего профиля?",
-      title: "Подтвердить удаление фото"
+    logOut: {
+      confirm(email: string | undefined) {
+        return `Вы действительно хотите выйти из своей учетной записи ${email}?`;
+      },
+      logOut: "Подтвердить выход"
     },
-    logoutConfirmation(email: string | undefined) {
-      return `Вы действительно хотите выйти из своей учетной записи ${email}?`;
-    }
+    no: "Нет",
+    ok: "Хорошо",
+    yes: "Да"
   },
   myProfile: {
     button: {
-      profileSettings: "Настройки профиля",
-      save: "Сохранить"
+      profileSettings: "Настройки профиля"
     },
-    photo: {
-      add: "Добавить фото профиля",
-      choose: "Выбрать с компьютера"
-    }
+    invalidId: "Идентификатор профиля недействителен"
   },
   navbar: {
     create: "Создать",
@@ -112,6 +109,16 @@ export const ru: LocaleType = {
     profile: "Мой Профиль",
     search: "Поиск",
     statistic: "Статистика"
+  },
+  photo: {
+    add: "Добавить фото профиля",
+    choose: "Выбрать с компьютера",
+    error: {
+      format: "Ошибка! Формат загружаемой фотографии должен быть PNG или JPEG.",
+      size(max: number) {
+        return `Ошибка! Размер фотографии должен быть меньше ${max} МБ!`;
+      }
+    }
   },
   profileSettings: {
     aboutMe: "Обо мне",

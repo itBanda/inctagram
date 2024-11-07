@@ -15,7 +15,7 @@ import { z } from 'zod'
 const SignInFormSchema = (t: LocaleType) =>
   z.object({
     email: z.string().email(t.authPage.form.email.invalid),
-    password: z.string().min(1, t.authPage.form.required),
+    password: z.string().min(1, t.formValidation.required),
   })
 
 type FormFields = z.infer<ReturnType<typeof SignInFormSchema>>

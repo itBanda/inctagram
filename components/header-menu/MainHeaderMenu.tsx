@@ -33,18 +33,18 @@ export const MainHeaderMenu = () => {
       <ConfirmationModal
         body={
           <Typography.TextBase className='text-light-100'>
-            {t.header.logoutConfirmation(data?.email)}
+            {t.modal.logOut.confirm(data?.email)}
           </Typography.TextBase>
         }
         isLoading={isLogoutLoading}
         isOpened={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleLogout}
-        title='Confirm logout'
+        title={t.modal.logOut.logOut}
       />
       <LangSelect />
       <Button onClick={handleOpenModal} variant='text'>
-        {t.header.logout}
+        {t.navbar.logOut}
       </Button>
     </div>
   )

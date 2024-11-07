@@ -67,7 +67,7 @@ export const en = {
   },
   formValidation: {
     firstLastNameRegex: "Username can contain only A-Z, a-z, А-Я, а-я",
-    mandatory: "mandatory",
+    mandatory: "Mandatory",
     maxCharacters(max: number) {
       return `Maximum number of characters ${max}`;
     },
@@ -78,38 +78,45 @@ export const en = {
     userNameRegex: "Username can contain only A-Z, a-z, 0-9, _ or -"
   },
   modal: {
-    common: {
-      no: "No",
-      ok: "Ok",
-      yes: "Yes"
+    deletePhoto: {
+      confirm: "Confirm delete photo",
+      description: "Do you really want to delete your profile photo?"
     },
-    deletePhotoConfirmation: {
-      description: "Do you really want to delete your profile photo?",
-      title: "Confirm delete photo"
+    logOut: {
+      confirm(email: string | undefined) {
+        return `Are you really want to log out of your account ${email}?`;
+      },
+      logOut: "Confirm log Out"
     },
-    logoutConfirmation(email: string | undefined) {
-      return `Are you really want to log out of your account ${email}?`;
-    }
+    no: "No",
+    ok: "Ok",
+    yes: "Yes"
   },
   myProfile: {
     button: {
-      profileSettings: "Profile Settings",
-      save: "Save"
+      profileSettings: "Profile Settings"
     },
-    photo: {
-      add: "Add a Profile Photo",
-      choose: "Select from Computer"
-    }
+    invalidId: "Profile id is invalid"
   },
   navbar: {
     create: "Create",
     favorites: "Favorites",
     home: "Home",
-    logOut: "Log Out",
+    logOut: "Log\u00A0Out",
     messenger: "Messenger",
     profile: "My Profile",
     search: "Search",
     statistic: "Statistic"
+  },
+  photo: {
+    add: "Add a Profile Photo",
+    choose: "Select from Computer",
+    error: {
+      format: "Error! The format of the uploaded photo must be PNG or JPEG",
+      size(max: number) {
+        return `Error! Photo size must be less than ${max} MB!`;
+      }
+    }
   },
   profileSettings: {
     aboutMe: "About me",
