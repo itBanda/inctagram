@@ -80,65 +80,70 @@ export const en = {
     ru: "Russian"
   },
   navbar: {
-    create: 'Create',
-    favorites: 'Favorites',
-    home: 'Home',
-    logOut: 'Log Out',
-    messenger: 'Messenger',
-    profile: 'My Profile',
-    search: 'Search',
-    statistic: 'Statistic',
+    create: "Create",
+    favorites: "Favorites",
+    home: "Home",
+    logOut: "Log Out",
+    messenger: "Messenger",
+    profile: "My Profile",
+    search: "Search",
+    statistic: "Statistic"
   },
-  profile: {
-    addPhoto: 'Add a Profile Photo',
+  notification: {
+    new: 'New',
+    newNotification: 'New notification!',
+    noNotifications: "No new notifications",
+    notifications: "Notifications",
+  },  profile: {
+    addPhoto: "Add a Profile Photo",
     button: {
-      profileSettings: 'Profile Settings'
+      profileSettings: "Profile Settings"
     },
     confirmationModal: {
-      description: 'Do you really want to delete your profile photo?',
-      title: 'Confirm delete photo'
+      description: "Do you really want to delete your profile photo?",
+      title: "Confirm delete photo"
     },
     photoModal: {
-      choosePhoto: 'Select from Computer',
-      saveButton: 'Save',
-      title: 'Add a Profile Photo'
+      choosePhoto: "Select from Computer",
+      saveButton: "Save",
+      title: "Add a Profile Photo"
     }
   },
   profileSettings: {
-    aboutMe: 'About me',
-    addPhoto: 'Add a Profile Photo',
+    aboutMe: "About me",
+    addPhoto: "Add a Profile Photo",
     alert: {
-      error: 'Error! Server is not available!',
-      success: 'Your settings are saved!'
+      error: "Error! Server is not available!",
+      success: "Your settings are saved!"
     },
-    backToProfileSettings: 'Back to prifile settings',
-    city: 'City',
-    country: 'Country',
-    dateOfBirth: 'Date of birth',
+    backToProfileSettings: "Back to prifile settings",
+    city: "City",
+    country: "Country",
+    dateOfBirth: "Date of birth",
     errors: {
-      dateOfBirth: 'Users under 13 cannot create a profile',
+      dateOfBirth: "Users under 13 cannot create a profile",
       firstLastNameRegex: "Username can contain only A-Z, a-z, А-Я, а-я",
-      mandatory: 'mandatory',
+      mandatory: "mandatory",
       maxCharacters(max: number) {
         return `Maximum number of characters ${max}`;
       },
       minCharacters(min: number) {
         return `Minimum number of characters ${min}`;
       },
-      privacy: 'Privacy policy',
+      privacy: "Privacy policy",
       userNameRegex: "Username can contain only A-Z, a-z, 0-9, _ or -"
     },
-    firstName: 'First Name',
-    lastName: 'Last Name',
-    saveChanges: 'Save changes',
-    selectYourCity: 'Select your city',
-    selectYourCountry: 'Select your country',
-    username: 'Username'
+    firstName: "First Name",
+    lastName: "Last Name",
+    saveChanges: "Save changes",
+    selectYourCity: "Select your city",
+    selectYourCountry: "Select your country",
+    username: "Username"
   },
   tabs: {
-    accountManagement: 'Account management',
-    devices: 'Devices',
-    generalInfo: 'General Information',
-    payments: 'Payments'
+    accountManagement: "Account management",
+    devices: "Devices",
+    generalInfo: "General Information",
+    payments: "Payments"
   }
 };

@@ -80,68 +80,73 @@ export const ru: LocaleType = {
       return `Вы действительно хотите выйти из своей учетной записи ${email}?`;
     },
     ru: "Русский"
-
   },
   navbar: {
-    create: 'Создать',
-    favorites: 'Закладки',
-    home: 'Главная',
-    logOut: 'Выйти',
-    messenger: 'Сообщения',
-    profile: 'Мой Профиль',
-    search: 'Поиск',
-    statistic: 'Статистика',
+    create: "Создать",
+    favorites: "Закладки",
+    home: "Главная",
+    logOut: "Выйти",
+    messenger: "Сообщения",
+    profile: "Мой Профиль",
+    search: "Поиск",
+    statistic: "Статистика"
+  },
+  notification: {
+    new: 'Новое',
+    newNotification: 'Новое уведомление!',
+    noNotifications: "Нет новых уведомлений",
+    notifications: "Уведомления",
   },
   profile: {
-    addPhoto: 'Добавить фото',
+    addPhoto: "Добавить фото",
     button: {
-      profileSettings: 'Настройки профиля'
+      profileSettings: "Настройки профиля"
     },
     confirmationModal: {
-      description: 'Вы действительно хотите удалить фото своего профиля?',
-      title: 'Подтвердить удаление фото'
+      description: "Вы действительно хотите удалить фото своего профиля?",
+      title: "Подтвердить удаление фото"
     },
     photoModal: {
-      choosePhoto: 'Выбрать с компьютера',
-      saveButton: 'Сохранить',
-      title: 'Добавить фото'
+      choosePhoto: "Выбрать с компьютера",
+      saveButton: "Сохранить",
+      title: "Добавить фото"
     }
   },
   profileSettings: {
-    aboutMe: 'Обо мне',
-    addPhoto: 'Добавить фото профиля',
+    aboutMe: "Обо мне",
+    addPhoto: "Добавить фото профиля",
     alert: {
-      error: 'Ошибка! Сервер не доступен!',
-      success: 'Ваши изменения сохранены!'
+      error: "Ошибка! Сервер не доступен!",
+      success: "Ваши изменения сохранены!"
     },
-    backToProfileSettings: 'назад к настройкам профиля',
-    city: 'Город',
-    country: 'Страна',
-    dateOfBirth: 'Дата рождения',
+    backToProfileSettings: "назад к настройкам профиля",
+    city: "Город",
+    country: "Страна",
+    dateOfBirth: "Дата рождения",
     errors: {
-      dateOfBirth: 'Пользователи младше 13 лет не могут создать профайл',
+      dateOfBirth: "Пользователи младше 13 лет не могут создать профайл",
       firstLastNameRegex: "Имя пользователя может содержать только A-Z, a-z, А-Я, а-я",
-      mandatory: 'Обязательное поле',
+      mandatory: "Обязательное поле",
       maxCharacters(max: number) {
         return `Максимальное количество символов ${max}`;
       },
       minCharacters(min: number) {
         return `Минимальное количество символов ${min}`;
       },
-      privacy: 'Политика конфиденциальности',
+      privacy: "Политика конфиденциальности",
       userNameRegex: "Имя пользователя может содержать только A-Z, a-z, 0-9, _ или -"
     },
-    firstName: 'Имя',
-    lastName: 'Фамилия',
-    saveChanges: 'Сохранить изменения',
-    selectYourCity: 'Выбери город',
-    selectYourCountry: 'Выбери страну',
-    username: 'Имя пользователя'
+    firstName: "Имя",
+    lastName: "Фамилия",
+    saveChanges: "Сохранить изменения",
+    selectYourCity: "Выбери город",
+    selectYourCountry: "Выбери страну",
+    username: "Имя пользователя"
   },
   tabs: {
-    accountManagement: 'Управление аккаунтом',
-    devices: 'Устройства',
-    generalInfo: 'Общая информация',
-    payments: 'Платежи'
+    accountManagement: "Управление аккаунтом",
+    devices: "Устройства",
+    generalInfo: "Общая информация",
+    payments: "Платежи"
   }
 };
