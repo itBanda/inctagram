@@ -6,8 +6,8 @@ export const ru: LocaleType = {
       backToSignIn: "Вернуться ко входу",
       backToSignUp: "Вернуться к регистрации",
       resend: "Повторно отправить ссылку для подтверждения",
-      sendLinkAgainBtn: "Отправить ссылку снова",
-      sendLinkBtn: "Отправить ссылку",
+      sendLink: "Отправить ссылку",
+      sendLinkAgain: "Отправить ссылку снова",
       signIn: "Войти",
       signUp: "Зарегистрироваться"
     },
@@ -24,19 +24,13 @@ export const ru: LocaleType = {
         email: "Почта",
         help: "Электронная почта должна соответствовать формату example@example.com",
         invalid: "Неверный адрес электронной почты",
-        sent: "Отправит письмо",
+        sent: "Отправить письмо",
         sentLink(email?: string) {
           return `Мы отправили ссылку для подтверждения вашей почты на адрес ${email}`;
         }
       },
       error: "Адрес электронной почты или пароль неверны. Попробуйте еще раз, пожалуйста",
       haveAccount: "У вас есть учетная запись?",
-      maxCharacters(max: number) {
-        return `Максимальное количество символов ${max}`;
-      },
-      minCharacters(min: number) {
-        return `Минимальное количество символов ${min}`;
-      },
       password: {
         confirmation: "Подтверждение пароля",
         createNew: "Создать новый пароль",
@@ -50,13 +44,10 @@ export const ru: LocaleType = {
         noun: "Политика конфиденциальности",
         with: "Политикой конфиденциальности"
       },
-      required: "Необходимо заполнить поле",
       terms: {
         noun: "Условия использования",
         with: "Условиями использования"
-      },
-      userName: "Имя пользователя",
-      userNameRegex: "Имя пользователя может содержать только A-Z, a-z, 0-9, _ или -"
+      }
     },
     recovery: {
       congratulations: "Поздравляем",
@@ -66,82 +57,80 @@ export const ru: LocaleType = {
     }
   },
   common: {
-    loading: "Загрузка",
-    modal: {
+    alert: {
+      error: "Ошибка! Сервер не доступен!",
+      success: "Ваши изменения сохранены!"
+    },
+    language: {
+      en: "Английский",
+      ru: "Русский"
+    },
+    loading: "Загрузка"
+  },
+  formValidation: {
+    firstLastNameRegex: "Имя пользователя может содержать только A-Z, a-z, А-Я, а-я",
+    mandatory: "Обязательное поле",
+    maxCharacters(max: number) {
+      return `Максимальное количество символов ${max}`;
+    },
+    minCharacters(min: number) {
+      return `Минимальное количество символов ${min}`;
+    },
+    required: "Необходимо заполнить поле",
+    userNameRegex: "Имя пользователя может содержать только A-Z, a-z, 0-9, _ или -"
+  },
+  modal: {
+    common: {
       no: "Нет",
       ok: "Хорошо",
       yes: "Да"
-    }
-  },
-  header: {
-    en: "Английский",
-    logout: "Выйти",
+    },
+    deletePhotoConfirmation: {
+      description: "Вы действительно хотите удалить фото своего профиля?",
+      title: "Подтвердить удаление фото"
+    },
     logoutConfirmation(email: string | undefined) {
       return `Вы действительно хотите выйти из своей учетной записи ${email}?`;
-    },
-    ru: "Русский"
-
-  },
-  navbar: {
-    create: 'Создать',
-    favorites: 'Закладки',
-    home: 'Главная',
-    logOut: 'Выйти',
-    messenger: 'Сообщения',
-    profile: 'Мой Профиль',
-    search: 'Поиск',
-    statistic: 'Статистика',
-  },
-  profile: {
-    addPhoto: 'Добавить фото',
-    button: {
-      profileSettings: 'Настройки профиля'
-    },
-    confirmationModal: {
-      description: 'Вы действительно хотите удалить фото своего профиля?',
-      title: 'Подтвердить удаление фото'
-    },
-    photoModal: {
-      choosePhoto: 'Выбрать с компьютера',
-      saveButton: 'Сохранить',
-      title: 'Добавить фото'
     }
   },
+  myProfile: {
+    button: {
+      profileSettings: "Настройки профиля",
+      save: "Сохранить"
+    },
+    photo: {
+      add: "Добавить фото профиля",
+      choose: "Выбрать с компьютера"
+    }
+  },
+  navbar: {
+    create: "Создать",
+    favorites: "Закладки",
+    home: "Главная",
+    logOut: "Выйти",
+    messenger: "Сообщения",
+    profile: "Мой Профиль",
+    search: "Поиск",
+    statistic: "Статистика"
+  },
   profileSettings: {
-    aboutMe: 'Обо мне',
-    addPhoto: 'Добавить фото профиля',
-    alert: {
-      error: 'Ошибка! Сервер не доступен!',
-      success: 'Ваши изменения сохранены!'
-    },
-    backToProfileSettings: 'назад к настройкам профиля',
-    city: 'Город',
-    country: 'Страна',
-    dateOfBirth: 'Дата рождения',
-    errors: {
-      dateOfBirth: 'Пользователи младше 13 лет не могут создать профайл',
-      firstLastNameRegex: "Имя пользователя может содержать только A-Z, a-z, А-Я, а-я",
-      mandatory: 'Обязательное поле',
-      maxCharacters(max: number) {
-        return `Максимальное количество символов ${max}`;
-      },
-      minCharacters(min: number) {
-        return `Минимальное количество символов ${min}`;
-      },
-      privacy: 'Политика конфиденциальности',
-      userNameRegex: "Имя пользователя может содержать только A-Z, a-z, 0-9, _ или -"
-    },
-    firstName: 'Имя',
-    lastName: 'Фамилия',
-    saveChanges: 'Сохранить изменения',
-    selectYourCity: 'Выбери город',
-    selectYourCountry: 'Выбери страну',
-    username: 'Имя пользователя'
+    aboutMe: "Обо мне",
+    backToProfileSettings: "Назад к настройкам профиля",
+    city: "Город",
+    country: "Страна",
+    dateOfBirth: "Дата рождения",
+    dateOfBirthError: "Пользователи младше 13 лет не могут создать профиль",
+    firstName: "Имя",
+    lastName: "Фамилия",
+    saveChanges: "Сохранить изменения",
+    selectYourCity: "Выбери город",
+    selectYourCountry: "Выбери страну",
+    userName: "Имя пользователя"
   },
   tabs: {
-    accountManagement: 'Управление аккаунтом',
-    devices: 'Устройства',
-    generalInfo: 'Общая информация',
-    payments: 'Платежи'
+    accountManagement: "Управление аккаунтом",
+    devices: "Устройства",
+    generalInfo: "Общая информация",
+    payments: "Платежи"
   }
 };

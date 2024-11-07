@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { LangSelect } from '@/components'
 import { ConfirmationModal } from '@/components/modals'
 import { authActions } from '@/features'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -41,6 +42,7 @@ export const MainHeaderMenu = () => {
         onConfirm={handleLogout}
         title='Confirm logout'
       />
+      <LangSelect />
       <Button onClick={handleOpenModal} variant='text'>
         {t.header.logout}
       </Button>

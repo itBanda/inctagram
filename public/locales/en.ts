@@ -4,8 +4,8 @@ export const en = {
       backToSignIn: "Back to Sign in",
       backToSignUp: "Back to Sign Up",
       resend: "Resend verification link",
-      sendLinkAgainBtn: "Send Link Again",
-      sendLinkBtn: "Send Link",
+      sendLink: "Send Link",
+      sendLinkAgain: "Send Link Again",
       signIn: `Sign\u00A0In`,
       signUp: `Sign\u00A0Up`
     },
@@ -29,12 +29,6 @@ export const en = {
       },
       error: "The email or password are incorrect. Try again please",
       haveAccount: "Do you have an account?",
-      maxCharacters(max: number) {
-        return `Maximum number of characters ${max}`;
-      },
-      minCharacters(min: number) {
-        return `Minimum number of characters ${min}`;
-      },
       password: {
         confirmation: "Password confirmation",
         createNew: "Create new password",
@@ -48,13 +42,10 @@ export const en = {
         noun: "Terms of Service",
         with: "Terms of Service"
       },
-      required: "Required",
       terms: {
         noun: "Privacy Policy",
         with: "Privacy Policy"
-      },
-      userName: "Username",
-      userNameRegex: "Username can contain only A-Z, a-z, 0-9, _ or -"
+      }
     },
     recovery: {
       congratulations: "Congratulations",
@@ -64,81 +55,80 @@ export const en = {
     }
   },
   common: {
-    loading: "Loading",
-    modal: {
+    alert: {
+      error: "Error! Server is not available!",
+      success: "Your settings are saved!"
+    },
+    language: {
+      en: "English",
+      ru: "Russian"
+    },
+    loading: "Loading"
+  },
+  formValidation: {
+    firstLastNameRegex: "Username can contain only A-Z, a-z, А-Я, а-я",
+    mandatory: "mandatory",
+    maxCharacters(max: number) {
+      return `Maximum number of characters ${max}`;
+    },
+    minCharacters(min: number) {
+      return `Minimum number of characters ${min}`;
+    },
+    required: "Required",
+    userNameRegex: "Username can contain only A-Z, a-z, 0-9, _ or -"
+  },
+  modal: {
+    common: {
       no: "No",
       ok: "Ok",
       yes: "Yes"
-    }
-  },
-  header: {
-    en: "English",
-    logout: "Logout",
+    },
+    deletePhotoConfirmation: {
+      description: "Do you really want to delete your profile photo?",
+      title: "Confirm delete photo"
+    },
     logoutConfirmation(email: string | undefined) {
       return `Are you really want to log out of your account ${email}?`;
-    },
-    ru: "Russian"
-  },
-  navbar: {
-    create: 'Create',
-    favorites: 'Favorites',
-    home: 'Home',
-    logOut: 'Log Out',
-    messenger: 'Messenger',
-    profile: 'My Profile',
-    search: 'Search',
-    statistic: 'Statistic',
-  },
-  profile: {
-    addPhoto: 'Add a Profile Photo',
-    button: {
-      profileSettings: 'Profile Settings'
-    },
-    confirmationModal: {
-      description: 'Do you really want to delete your profile photo?',
-      title: 'Confirm delete photo'
-    },
-    photoModal: {
-      choosePhoto: 'Select from Computer',
-      saveButton: 'Save',
-      title: 'Add a Profile Photo'
     }
   },
+  myProfile: {
+    button: {
+      profileSettings: "Profile Settings",
+      save: "Save"
+    },
+    photo: {
+      add: "Add a Profile Photo",
+      choose: "Select from Computer"
+    }
+  },
+  navbar: {
+    create: "Create",
+    favorites: "Favorites",
+    home: "Home",
+    logOut: "Log Out",
+    messenger: "Messenger",
+    profile: "My Profile",
+    search: "Search",
+    statistic: "Statistic"
+  },
   profileSettings: {
-    aboutMe: 'About me',
-    addPhoto: 'Add a Profile Photo',
-    alert: {
-      error: 'Error! Server is not available!',
-      success: 'Your settings are saved!'
-    },
-    backToProfileSettings: 'Back to prifile settings',
-    city: 'City',
-    country: 'Country',
-    dateOfBirth: 'Date of birth',
-    errors: {
-      dateOfBirth: 'Users under 13 cannot create a profile',
-      firstLastNameRegex: "Username can contain only A-Z, a-z, А-Я, а-я",
-      mandatory: 'mandatory',
-      maxCharacters(max: number) {
-        return `Maximum number of characters ${max}`;
-      },
-      minCharacters(min: number) {
-        return `Minimum number of characters ${min}`;
-      },
-      privacy: 'Privacy policy',
-      userNameRegex: "Username can contain only A-Z, a-z, 0-9, _ or -"
-    },
-    firstName: 'First Name',
-    lastName: 'Last Name',
-    saveChanges: 'Save changes',
-    selectYourCity: 'Select your city',
-    selectYourCountry: 'Select your country',
-    username: 'Username'
+    aboutMe: "About me",
+    backToProfileSettings: "Back to profile settings",
+    city: "City",
+    country: "Country",
+    dateOfBirth: "Date of birth",
+    dateOfBirthError: "Users under 13 cannot create a profile",
+    firstName: "First Name",
+    lastName: "Last Name",
+    saveChanges: "Save changes",
+    selectYourCity: "Select your city",
+    selectYourCountry: "Select your country",
+    userName: "Username"
   },
   tabs: {
-    accountManagement: 'Account management',
-    devices: 'Devices',
-    generalInfo: 'General Information',
-    payments: 'Payments'
+    accountManagement: "Account management",
+    devices: "Devices",
+    generalInfo: "General Information",
+    payments: "Payments"
   }
 };
