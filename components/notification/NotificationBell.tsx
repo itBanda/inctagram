@@ -23,17 +23,12 @@ export const NotificationBell = () => {
 
     window.addEventListener('keydown', handleEscape)
     document.addEventListener('mousedown', handleClickOutside)
-
-    return () => {
-      window.removeEventListener('keydown', handleEscape)
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
   }, [isOpen])
 
   return (
     <div className='relative'>
       <Icon
-        className={isOpen ? 'text-accent-500' : 'transition hover:text-accent-500'}
+        className={cn(isOpen ? 'text-accent-500' : 'transition hover:text-accent-500')}
         cursor='pointer'
         icon={isOpen ? 'fill-bell' : 'outline-bell'}
         onClick={toggleNotifications}
@@ -41,7 +36,7 @@ export const NotificationBell = () => {
       {!!countNote && (
         <div
           className={cn(
-            'absolute -right-1 -top-1 h-4 min-w-4 rounded-full bg-danger-500 px-1 text-center text-xs text-light-100',
+            'pointer-events-none absolute -right-1 -top-1 h-4 min-w-4 rounded-full bg-danger-500 px-1 text-center text-xs text-light-100',
             { '-right-2.5': countNote > 19 },
             { '-right-4': countNote > 99 }
           )}
@@ -50,9 +45,7 @@ export const NotificationBell = () => {
         </div>
       )}
       {isOpen && (
-        <div className='notification-modal'>
-          <NotificationModal notifications={exampleNotifications} />
-        </div>
+        <NotificationModal className='notification-modal' notifications={exampleNotifications} />
       )}
     </div>
   )
