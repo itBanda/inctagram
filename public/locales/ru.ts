@@ -92,10 +92,10 @@ export const ru: LocaleType = {
     statistic: "Статистика"
   },
   notification: {
-    new: 'Новое',
-    newNotification: 'Новое уведомление!',
+    new: "Новое",
+    newNotification: "Новое уведомление!",
     noNotifications: "Нет новых уведомлений",
-    notifications: "Уведомления",
+    notifications: "Уведомления"
   },
   profile: {
     addPhoto: "Добавить фото",

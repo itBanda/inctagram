@@ -90,11 +90,11 @@ export const en = {
     statistic: "Statistic"
   },
   notification: {
-    new: 'New',
-    newNotification: 'New notification!',
+    new: "New",
+    newNotification: "New notification!",
     noNotifications: "No new notifications",
-    notifications: "Notifications",
-  },  profile: {
+    notifications: "Notifications"
+  }, profile: {
     addPhoto: "Add a Profile Photo",
     button: {
       profileSettings: "Profile Settings"
