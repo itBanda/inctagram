@@ -34,10 +34,6 @@ const SignUpSchema = (t: LocaleType) =>
         .max(30, t.authPage.form.maxCharacters(30)),
     })
     .refine(data => data.terms, '')
-    .refine(data => data.password === data.passwordConfirmation, {
-      message: t.authPage.form.password.mismatch,
-      path: ['passwordConfirmation'],
-    })
 
 type FormFields = z.infer<ReturnType<typeof SignUpSchema>>
 
