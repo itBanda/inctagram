@@ -21,8 +21,17 @@ export const NotificationBell = () => {
       }
     }
 
+    if (!isOpen) {
+      return
+    }
+
     window.addEventListener('keydown', handleEscape)
-    document.addEventListener('mousedown', handleClickOutside)
+    window.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      window.removeEventListener('keydown', handleEscape)
+      window.removeEventListener('mousedown', handleClickOutside)
+    }
   }, [isOpen])
 
   return (
