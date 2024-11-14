@@ -18,11 +18,9 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
       >
         <MainHeaderMenu />
       </Header>
-      <div className='mx-auto max-w-[1280px]'>
-        <div className='flex'>
-          <Navbar />
-          <main className='custom-scrollbar w-full overflow-auto scrollbar-thin'>{children}</main>
-        </div>
+      <div className='flex h-header'>
+        <Navbar />
+        <main className='custom-scrollbar w-full overflow-auto scrollbar-thin'>{children}</main>
       </div>
     </div>
   )
