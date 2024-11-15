@@ -22,7 +22,7 @@ const Profile = () => {
   const isCurrentUser = authMeData?.userId === publicProfileData?.id
 
   if (!profileId) {
-    return <p className='text-light-100'>{t.myProfile.invalidId}</p>
+    return <p className='text-light-100'>{t.profile.invalidId}</p>
   }
 
   return (
@@ -39,7 +39,7 @@ const Profile = () => {
 
         {isCurrentUser && (
           <Button asChild variant='secondary'>
-            <Link href='/profile/settings'>{t.myProfile.button.profileSettings}</Link>
+            <Link href='/profile/settings'>{t.profile.button.profileSettings}</Link>
           </Button>
         )}
       </Container>
