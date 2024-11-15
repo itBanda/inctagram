@@ -116,7 +116,7 @@ export const en = {
       error: "Error! Server is not available!",
       success: "Your settings are saved!"
     },
-    backToProfileSettings: "Back to prifile settings",
+    backToProfileSettings: "Back to profile settings",
     city: "City",
     country: "Country",
     dateOfBirth: "Date of birth",

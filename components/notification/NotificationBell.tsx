@@ -10,6 +10,9 @@ export const NotificationBell = () => {
   const toggleNotifications = () => setIsOpen(!isOpen)
 
   useEffect(() => {
+    if (!isOpen) {
+      return
+    }
     const handleEscape = (e: KeyboardEvent) => e.key === 'Escape' && setIsOpen(false)
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -19,10 +22,6 @@ export const NotificationBell = () => {
       ) {
         setIsOpen(false)
       }
-    }
-
-    if (!isOpen) {
-      return
     }
 
     window.addEventListener('keydown', handleEscape)
