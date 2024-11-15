@@ -110,6 +110,12 @@ export const ru: LocaleType = {
     search: "Поиск",
     statistic: "Статистика"
   },
+  notification: {
+    new: "Новое",
+    newNotification: "Новое уведомление!",
+    noNotifications: "Нет новых уведомлений",
+    notifications: "Уведомления"
+  },
   photo: {
     add: "Добавить фото профиля",
     choose: "Выбрать с компьютера",

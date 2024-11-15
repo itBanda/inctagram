@@ -108,6 +108,12 @@ export const en = {
     search: "Search",
     statistic: "Statistic"
   },
+  notification: {
+    new: "New",
+    newNotification: "New notification!",
+    noNotifications: "No new notifications",
+    notifications: "Notifications"
+  },
   photo: {
     add: "Add a Profile Photo",
     choose: "Select from Computer",
