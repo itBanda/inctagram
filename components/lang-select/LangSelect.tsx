@@ -18,10 +18,18 @@ export const LangSelect = () => {
       id='language-select'
       onValueChange={changeLangHandler}
       options={[
-        { icon: <Image alt='Russian Language' src={Ru} />, label: t.header.ru, value: 'ru' },
-        { icon: <Image alt='English Language' src={En} />, label: t.header.en, value: 'en' },
+        {
+          icon: <Image alt='Russian Language' src={Ru} />,
+          label: t.common.language.ru,
+          value: 'ru',
+        },
+        {
+          icon: <Image alt='English Language' src={En} />,
+          label: t.common.language.en,
+          value: 'en',
+        },
       ]}
-      placeholder={locale === 'en' ? t.header.en : t.header.ru}
+      placeholder={locale === 'en' ? t.common.language.en : t.common.language.ru}
       value={locale}
     />
   )

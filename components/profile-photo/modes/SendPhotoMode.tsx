@@ -132,7 +132,7 @@ export const SendPhotoMode = ({ onClose, profilePhoto }: Props) => {
       </div>
       <div className='flex w-full justify-end'>
         <Button className='mt-9' disabled={isAvatarLoading} onClick={setPhoto}>
-          {t.profile.photoModal.saveButton}
+          {t.profileSettings.saveChanges}
         </Button>
       </div>
     </div>

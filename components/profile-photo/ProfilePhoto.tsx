@@ -43,14 +43,14 @@ export const ProfilePhoto = ({ profileAvatars }: ProfilePhotoProps) => {
       <ConfirmationModal
         body={
           <Typography.TextBase className='text-light-100'>
-            {t.profile.confirmationModal.description}
+            {t.modal.deletePhoto.description}
           </Typography.TextBase>
         }
         isLoading={isLoadingDeleteAvatar}
         isOpened={isConfirmationModalOpen}
         onClose={handleCloseConfirmationModal}
         onConfirm={deleteAvatarHandler}
-        title={t.profile.confirmationModal.title}
+        title={t.modal.deletePhoto.confirm}
       />
       {profileAvatars.length !== 0 && (
         <div className='absolute right-4 top-9 z-10 mx-auto flex size-6 items-center justify-center rounded-full bg-dark-700'>
@@ -73,7 +73,7 @@ export const ProfilePhoto = ({ profileAvatars }: ProfilePhotoProps) => {
         onClick={handleOpenPhotoModal}
         variant='outlined'
       >
-        {t.profile.addPhoto}
+        {t.photo.add}
       </Button>
 
       <ProfilePhotoModal isOpened={isPhotoModalOpen} onClose={handleClosePhotoModal} />

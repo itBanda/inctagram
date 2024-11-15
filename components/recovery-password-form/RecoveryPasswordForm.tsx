@@ -14,8 +14,8 @@ const RecoveryPasswordFormSchema = (t: LocaleType) =>
       password: z
         .string()
         .trim()
-        .min(6, t.authPage.form.minCharacters(6))
-        .max(20, t.authPage.form.maxCharacters(20))
+        .min(6, t.formValidation.minCharacters(6))
+        .max(20, t.formValidation.maxCharacters(20))
         .regex(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])/,
           t.authPage.form.password.regex

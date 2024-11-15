@@ -54,7 +54,7 @@ export const ForgotPasswordForm = () => {
       setError('email', { message: t.authPage.forgotPassword.errorNotUser })
     }
   }
-  const buttonText = isSuccess ? t.authPage.button.sendLinkAgainBtn : t.authPage.button.sendLinkBtn
+  const buttonText = isSuccess ? t.authPage.button.sendLinkAgain : t.authPage.button.sendLink
 
   return (
     <>

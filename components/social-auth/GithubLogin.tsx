@@ -16,5 +16,3 @@ export const GithubLogin = () => {
     />
   )
 }
-
-export default GithubLogin

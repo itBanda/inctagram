@@ -18,8 +18,8 @@ const SignUpSchema = (t: LocaleType) =>
       password: z
         .string()
         .trim()
-        .min(6, t.authPage.form.minCharacters(6))
-        .max(20, t.authPage.form.maxCharacters(20))
+        .min(6, t.formValidation.minCharacters(6))
+        .max(20, t.formValidation.maxCharacters(20))
         .regex(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])/,
           t.authPage.form.password.regex
@@ -29,9 +29,9 @@ const SignUpSchema = (t: LocaleType) =>
       userName: z
         .string()
         .trim()
-        .regex(/^[A-Za-z0-9_-]+$/, t.authPage.form.userNameRegex)
-        .min(6, t.authPage.form.minCharacters(6))
-        .max(30, t.authPage.form.maxCharacters(30)),
+        .regex(/^[A-Za-z0-9_-]+$/, t.formValidation.userNameRegex)
+        .min(6, t.formValidation.minCharacters(6))
+        .max(30, t.formValidation.maxCharacters(30)),
     })
     .refine(data => data.terms, '')
     .refine(data => data.password === data.passwordConfirmation, {
@@ -104,7 +104,7 @@ export const SignUpForm = () => {
           <input className='hidden' name='username' type='text' />
           <Input
             errorText={errors.userName?.message}
-            label={t.authPage.form.userName}
+            label={t.profileSettings.userName}
             placeholder='Exapmle-123'
             type='text'
             {...register('userName')}

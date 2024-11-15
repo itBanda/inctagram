@@ -64,14 +64,14 @@ export const Navbar = () => {
       <ConfirmationModal
         body={
           <Typography.TextBase className='text-light-100'>
-            {t.header.logoutConfirmation(data?.email)}
+            {t.modal.logOut.confirm(data?.email)}
           </Typography.TextBase>
         }
         isLoading={isLogoutLoading}
         isOpened={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleLogout}
-        title='Confirm logout'
+        title={t.modal.logOut.logOut}
       />
       <SideBar className='custom-scrollbar flex-shrink-0 flex-grow basis-[220px] flex-col items-center justify-start pb-9 pt-[72px] scrollbar-thin'>
         <nav className='flex flex-col gap-[60px]'>
