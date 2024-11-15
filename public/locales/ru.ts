@@ -94,12 +94,6 @@ export const ru: LocaleType = {
     ok: "Хорошо",
     yes: "Да"
   },
-  myProfile: {
-    button: {
-      profileSettings: "Настройки профиля"
-    },
-    invalidId: "Идентификатор профиля недействителен"
-  },
   navbar: {
     create: "Создать",
     favorites: "Закладки",
@@ -125,6 +119,12 @@ export const ru: LocaleType = {
         return `Ошибка! Размер фотографии должен быть меньше ${max} МБ!`;
       }
     }
+  },
+  profile: {
+    button: {
+      profileSettings: "Настройки профиля"
+    },
+    invalidId: "Идентификатор профиля недействителен"
   },
   profileSettings: {
     aboutMe: "Обо мне",

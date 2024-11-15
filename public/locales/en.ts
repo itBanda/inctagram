@@ -92,12 +92,6 @@ export const en = {
     ok: "Ok",
     yes: "Yes"
   },
-  myProfile: {
-    button: {
-      profileSettings: "Profile Settings"
-    },
-    invalidId: "Profile id is invalid"
-  },
   navbar: {
     create: "Create",
     favorites: "Favorites",
@@ -123,6 +117,12 @@ export const en = {
         return `Error! Photo size must be less than ${max} MB!`;
       }
     }
+  },
+  profile: {
+    button: {
+      profileSettings: "Profile Settings"
+    },
+    invalidId: "Profile id is invalid"
   },
   profileSettings: {
     aboutMe: "About me",
