@@ -1,4 +1,5 @@
 import { ProfilePhoto, getMainLayout } from '@/components'
+import { Container } from '@/components/container'
 import { GeneralInformationForm } from '@/components/profile'
 import withAuth from '@/hocs/withAuth'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -10,8 +11,8 @@ const Settings = () => {
   const { data: profileData } = profileApi.useProfileQuery()
 
   return (
-    <section className='flex gap-9 pb-6'>
-      <div className='m-6 w-full max-w-[972px]'>
+    <section className='pb-6'>
+      <Container className='max-w-[972px] p-6'>
         <Tabs
           tabsData={[
             {
@@ -29,7 +30,7 @@ const Settings = () => {
             { content: ' ', title: t.tabs.payments, value: 'tab4' },
           ]}
         ></Tabs>
-      </div>
+      </Container>
     </section>
   )
 }
