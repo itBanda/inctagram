@@ -27,7 +27,7 @@ const Profile = () => {
 
   return (
     <section>
-      <Container className='items-start justify-between py-9 pl-6 pr-16'>
+      <Container className='flex items-start justify-between py-9 pl-6 pr-16'>
         <Avatar
           alt={publicProfileData?.userName}
           imageUrl={publicProfileData?.avatars[0]?.url}
