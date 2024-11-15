@@ -1,4 +1,5 @@
 import { Avatar, getMainLayout } from '@/components'
+import { Container } from '@/components/container'
 import withAuth from '@/hocs/withAuth'
 import { useTranslation } from '@/hooks/useTranslation'
 import { authApi, publicUserApi } from '@/services'
@@ -25,8 +26,8 @@ const Profile = () => {
   }
 
   return (
-    <section className='py-9 pl-6 pr-16'>
-      <div className='flex items-start justify-between'>
+    <section>
+      <Container className='flex items-start justify-between py-9 pl-6 pr-16'>
         <Avatar
           alt={publicProfileData?.userName}
           imageUrl={publicProfileData?.avatars[0]?.url}
@@ -41,7 +42,7 @@ const Profile = () => {
             <Link href='/profile/settings'>{t.myProfile.button.profileSettings}</Link>
           </Button>
         )}
-      </div>
+      </Container>
     </section>
   )
 }
