@@ -22,7 +22,7 @@ export const LangSelect = () => {
         { icon: <Image alt='English Language' src={En} />, label: t.header.en, value: 'en' },
       ]}
       placeholder={locale === 'en' ? t.header.en : t.header.ru}
-      value={locale}
+      value={locale || ''}
     />
   )
 }

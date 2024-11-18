@@ -9,7 +9,7 @@ type Props = {
 
 export const Avatar = (props: Props) => {
   return (
-    <div className='flex size-48 items-center justify-center overflow-hidden rounded-full bg-dark-500'>
+    <div className='relative flex size-48 items-center justify-center overflow-hidden rounded-full bg-dark-500'>
       <AvatarContent {...props} />
     </div>
   )
@@ -17,7 +17,7 @@ export const Avatar = (props: Props) => {
 
 const AvatarContent = ({ alt, imageUrl, isLoading }: Props) => {
   if (isLoading) {
-    return <Spinner className='inset-auto' />
+    return <Spinner className='absolute inset-auto' />
   }
 
   if (!imageUrl) {
