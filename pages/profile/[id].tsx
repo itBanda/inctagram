@@ -1,15 +1,49 @@
-import { getMainLayout } from '@/components'
+import { Avatar, getMainLayout } from '@/components'
+import { Container } from '@/components/container'
 import withAuth from '@/hocs/withAuth'
-import { authApi } from '@/services'
+import { useTranslation } from '@/hooks/useTranslation'
+import { authApi, publicUserApi } from '@/services'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { Button } from 'uikit-inctagram'
 
 const Profile = () => {
-  const { data } = authApi.useAuthMeQuery()
+  const { t } = useTranslation()
+  const { data: authMeData } = authApi.useAuthMeQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  })
+
+  const router = useRouter()
+  const profileId = Number(router.query.id)
+
+  const { data: publicProfileData, isLoading: isLoadingPublicProfile } =
+    publicUserApi.useGetPublicProfileByIdQuery({ profileId })
+
+  const isCurrentUser = authMeData?.userId === publicProfileData?.id
+
+  if (!profileId) {
+    return <p className='text-light-100'>Profile id is invalid</p>
+  }
 
   return (
-    <div className='text-center text-white'>
-      <h2>Username: {data?.userName}</h2>
-      <h2>Email: {data?.email}</h2>
-    </div>
+    <section>
+      <Container className='flex items-start justify-between py-9 pl-6 pr-16'>
+        <Avatar
+          alt={publicProfileData?.userName}
+          imageUrl={publicProfileData?.avatars[0]?.url}
+          isLoading={isLoadingPublicProfile}
+        />
+        <h2 className='text-light-100'>
+          {t.authPage.form.userName}: {publicProfileData?.userName}
+        </h2>
+
+        {isCurrentUser && (
+          <Button asChild variant='secondary'>
+            <Link href='/profile/settings'>{t.profile.button.profileSettings}</Link>
+          </Button>
+        )}
+      </Container>
+    </section>
   )
 }
 

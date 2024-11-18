@@ -1,0 +1,1 @@
+export { publicUserApi } from './publicUserSlice'

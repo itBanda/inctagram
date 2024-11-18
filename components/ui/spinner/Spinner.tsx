@@ -1,6 +1,15 @@
-export const Spinner = () => {
+import { useTranslation } from '@/hooks/useTranslation'
+import { cn } from '@/utils'
+
+type Props = {
+  className?: string
+}
+
+export const Spinner = ({ className }: Props) => {
+  const { t } = useTranslation()
+
   return (
-    <div className='fixed inset-0 bg-dark-700 backdrop-blur-sm'>
+    <div className={cn('fixed inset-0 bg-dark-700 backdrop-blur-sm', className)}>
       <div className='absolute left-1/2 top-2/4 -translate-x-1/2 -translate-y-1/2' role='status'>
         <svg
           aria-hidden='true'
@@ -18,7 +27,7 @@ export const Spinner = () => {
             fill='currentFill'
           />
         </svg>
-        <span className='sr-only'>Loading...</span>
+        <span className='sr-only'>{t.common.loading}...</span>
       </div>
     </div>
   )
