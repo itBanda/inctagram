@@ -163,7 +163,10 @@ export const GeneralInformationForm = () => {
       }
       router.replace(router.pathname, undefined, { shallow: true })
     }
-  }, [cities, router, router.query, setValue])
+    if (profileData?.city) {
+      setValue('city', profileData.city)
+    }
+  }, [cities, profileData?.city, router, router.query, setValue])
 
   return (
     <form className='flex flex-1 flex-col items-center' onSubmit={handleSubmit(onSubmit)}>
