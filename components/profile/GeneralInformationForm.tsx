@@ -163,7 +163,7 @@ export const GeneralInformationForm = () => {
       }
       router.replace(router.pathname, undefined, { shallow: true })
     }
-    if (profileData?.city && cities && cities.length > 0) {
+    if (profileData?.city) {
       setValue('city', profileData.city)
     }
   }, [cities, profileData?.city, router, router.query, setValue])
